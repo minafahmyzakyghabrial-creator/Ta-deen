@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Test area 27.444861,41.891006</name>
+    <Placemark>
+      <name>Test area 27.444861,41.891006</name>
+      <description>Hail — 1 x 1 km (approx. 1 km2)</description>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>41.885945,27.44034,0 41.896067,27.44034,0 41.896067,27.449383,0 41.885945,27.449383,0 41.885945,27.44034,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

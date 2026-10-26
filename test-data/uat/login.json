@@ -1,0 +1,3 @@
+{
+  "_comment": "UAT-specific overrides for test-data/common/login.json (merged on top). Never put real credentials here."
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Test area 26.532807,43.056945</name>
+    <Placemark>
+      <name>Test area 26.532807,43.056945</name>
+      <description>Al-Qassim — 1 x 1 km (approx. 1 km2)</description>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>43.051925,26.528285,0 43.061965,26.528285,0 43.061965,26.537328,0 43.051925,26.537328,0 43.051925,26.528285,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

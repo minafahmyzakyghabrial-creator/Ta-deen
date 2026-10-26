@@ -1,0 +1,7 @@
+{
+  "invalidUser": {
+    "usernamePrefix": "autotest.invalid",
+    "emailDomain": "example.invalid",
+    "password": "Invalid#Password123"
+  }
+}

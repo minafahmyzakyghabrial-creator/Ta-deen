@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Test area 24.224048,39.68298</name>
+    <Placemark>
+      <name>Test area 24.224048,39.68298</name>
+      <description>Madinah (inland) — 2 x 2 km (approx. 4 km2)</description>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>39.673129,24.215004,0 39.69283,24.215004,0 39.69283,24.233092,0 39.673129,24.233092,0 39.673129,24.215004,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

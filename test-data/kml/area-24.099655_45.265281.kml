@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Test area 24.099655,45.265281</name>
+    <Placemark>
+      <name>Test area 24.099655,45.265281</name>
+      <description>Riyadh (west) — 1 x 1 km (approx. 1 km2)</description>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>45.260361,24.095133,0 45.260361,24.104177,0 45.270201,24.104177,0 45.270201,24.095133,0 45.260361,24.095133,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>
