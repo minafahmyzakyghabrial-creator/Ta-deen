@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { fieldByLabel } from '@utils/field-helper';
+import { trackServerActivity } from '@utils/os-waits';
 import { inlineErrors } from '@utils/validation';
 import { FeedbackMessage } from './FeedbackMessage';
 
@@ -52,6 +53,25 @@ export class AddRowDialog {
   }
 
   /**
+   * Uploads `file` into every attachment slot of the popup. Each upload replaces its <input type=file>
+   * with the file name, so the first remaining input is always the next slot. The popup re-renders after
+   * an upload and can briefly show NO inputs (seen on TEST with two browsers running), so the inputs are
+   * counted once and each upload must remove exactly one.
+   */
+  async uploadAll(file: string): Promise<number> {
+    const inputs = this.root.locator('input[type=file]');
+    await inputs.first().waitFor({ state: 'attached' });
+    const total = await inputs.count();
+    for (let done = 1; done <= total; done++) {
+      const activity = trackServerActivity(this.page);
+      await inputs.first().setInputFiles(file);
+      await activity.idle();
+      await expect(inputs, `Popup attachment ${done}/${total} uploaded`).toHaveCount(total - done, { timeout: 30_000 });
+    }
+    return total;
+  }
+
+  /**
    * Saves the popup (clicking the inner "add line" first for line-based popups).
    * Returns the validation messages if the popup refused to close.
    */
@@ -70,7 +90,8 @@ export class AddRowDialog {
       .then(() => true)
       .catch(() => false);
     if (closed) return [];
-    return [...(await inlineErrors(this.root)), ...(await this.feedback.textsSince(baseline))];
+    const errors = [...(await inlineErrors(this.root)), ...(await this.feedback.textsSince(baseline))];
+    return errors.length ? errors : ['the popup stayed open after saving (no error message recognised)'];
   }
 
   async close(): Promise<void> {

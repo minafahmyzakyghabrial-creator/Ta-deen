@@ -54,7 +54,7 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
   }
 
   /** Waits until the map either reports an error (returned) or keeps "تأكيد" enabled for SETTLE_MS (undefined). */
-  private async validate(map: Frame): Promise<string | undefined> {
+  private async validate(map: Frame, timeout: number): Promise<string | undefined> {
     let verdict: string | undefined | null = null;
     let enabledSince = 0;
     await expect
@@ -68,7 +68,7 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
           else if (Date.now() - enabledSince >= LocationStep.SETTLE_MS) return (verdict = undefined);
           return null;
         },
-        { timeout: 90_000, intervals: [500], message: 'The GIS map neither confirmed nor reported an error' },
+        { timeout, intervals: [500], message: 'The GIS map neither confirmed nor reported an error' },
       )
       .not.toBeNull();
     return verdict ?? undefined;
@@ -92,15 +92,16 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
       // Close a previous error dialog on the map before uploading again.
       const previous = this.mapFrame();
       const close = previous?.getByRole('button', { name: 'إغلاق' });
-      if (close && (await close.isVisible().catch(() => false))) await close.click();
+      // The map often sits below the page viewport, where a real click fails ("outside of the viewport").
+      if (close && (await close.isVisible().catch(() => false))) await close.dispatchEvent('click');
 
       await this.uploadKml(file);
       await this.page.getByText('انظر على الخريطة', { exact: true }).first().click();
       let map: Frame | undefined;
-      await expect.poll(() => (map = this.mapFrame(previous?.url())) !== undefined, { timeout: 30_000 }).toBe(true);
-      await expect(map!.locator('#btnSubmit')).toBeAttached({ timeout: 60_000 });
+      await expect.poll(() => (map = this.mapFrame(previous?.url())) !== undefined, { timeout: d.mapTimeoutMs }).toBe(true);
+      await expect(map!.locator('#btnSubmit')).toBeAttached({ timeout: d.mapTimeoutMs });
 
-      const error = await this.validate(map!);
+      const error = await this.validate(map!, d.mapTimeoutMs);
       if (error) {
         gisLog.warn(`Map rejected attempt ${attempt}: ${error}`);
         this.attempts.push({ attempt, region: kml.region, file, result: error });
@@ -109,22 +110,26 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
 
       const toastsBefore = await this.feedback.count();
       await map!.locator('#btnSubmit').click();
-      // The confirmation message was not observed during exploration: wait briefly and log whatever appears
-      // (page toast or a heading inside the map).
+      // "تأكيد" saves the location through several slow applyEdits calls (the first started ~11 s after the
+      // click on TEST, 2026-10-26) and only then shows a message ("نجاح" on success, a heading inside the map).
+      // Moving on before it appears leaves the location unsaved ("رجاءاً تحديد الموقع" on Next).
       const readMessage = async () =>
         [...(await this.feedback.textsSince(toastsBefore)), ...(await map!.getByRole('heading').allInnerTexts().catch(() => []))].join(' | ');
       let message = '';
       await expect
-        .poll(async () => (message = await readMessage()), { timeout: 15_000, intervals: [500] })
-        .not.toBe('')
-        .catch(() => undefined);
+        .poll(async () => (message = await readMessage()), {
+          timeout: d.mapTimeoutMs,
+          intervals: [500],
+          message: 'The GIS map showed no result after "تأكيد" — the location was not saved',
+        })
+        .not.toBe('');
       if (/تقاطع|عكس اتجاه|غير مسموح|خطأ/.test(message)) {
         gisLog.warn(`Map rejected attempt ${attempt} after "تأكيد": ${message}`);
         this.attempts.push({ attempt, region: kml.region, file, result: message });
         continue;
       }
-      gisLog.info(`"تأكيد" accepted on attempt ${attempt}${message ? ` — ${message}` : ' (no message shown)'}`);
-      this.attempts.push({ attempt, region: kml.region, file, result: message || 'confirmed' });
+      gisLog.info(`"تأكيد" accepted on attempt ${attempt} — ${message}`);
+      this.attempts.push({ attempt, region: kml.region, file, result: message });
       this.record(`موقع الطلب = ${path.basename(file)} (attempt ${attempt})`, 'filled');
       return;
     }

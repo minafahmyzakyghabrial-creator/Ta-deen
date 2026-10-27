@@ -1,11 +1,44 @@
+import { TestInfo } from '@playwright/test';
 import { expect, test } from '@fixtures/test';
-import { getEnvName, readVar } from '@config/index';
+import { EnvName, getEnvName, readVar, UserKey } from '@config/index';
+import { EmployeePortal } from '@pages/employee/EmployeePortal';
+import { InvestorPortal } from '@pages/investor/InvestorPortal';
 import { ApprovalWorkflow } from '@flows/approval-workflow.flow';
 import { ExplorationLicenseFlow } from '@flows/exploration-license.flow';
-import { RequestsPage } from '@pages/investor/RequestsPage';
 import { StepReport } from '@pages/investor/exploration-license/WizardStep';
 import { newExplorationRequestData } from '@data/new-exploration-request.data';
 import { splitRules, WizardValidationError } from '@utils/validation';
+
+/**
+ * Run settings for this file.
+ *
+ *   env       → environment this file runs on; overrides TEST_ENV from .env / npm scripts.
+ *               Only AUTHORISED_ENVS may run it (it creates and completes real requests); 'prod' is refused.
+ *   licenses  → how many new licenses to create, all in parallel (one test each, own browser contexts).
+ *   investor  → investor who creates, submits and pays the requests ('investor1', 'investor2', …)
+ *   employee  → employee who completes the tasks and approvals ('employee1', 'employee2', …)
+ *               Credentials come from .env: <ENV>_<USER>_USERNAME / <ENV>_<USER>_PASSWORD,
+ *               e.g. UAT_INVESTOR2_USERNAME / UAT_INVESTOR2_PASSWORD.
+ *
+ * How many run AT THE SAME TIME is capped by Playwright's worker count, which can only be set in
+ * playwright.config / on the command line — not per file. Default here: half the CPU cores (2 on a
+ * 4-core machine). To run all licenses at once, set WORKERS in .env (e.g. WORKERS=3) or pass --workers:
+ *
+ *   npx playwright test tests/exploration-license/new-exploration-license.spec.ts --project=chromium --workers=3
+ */
+const RUN: { env: EnvName; licenses: number; investor: UserKey; employee: UserKey } = {
+  env: 'test',
+  licenses: 1,
+  investor: 'investor3',
+  employee: 'employee1',
+};
+
+/** Environments where creating and completing new requests is allowed. */
+const AUTHORISED_ENVS: readonly EnvName[] = ['test', 'uat'];
+
+if (RUN.env === 'prod') throw new Error('new-exploration-license.spec.ts must never run on PROD.');
+process.env.TEST_ENV = RUN.env;
+test.use({ investorUser: RUN.investor, employeeUser: RUN.employee });
 
 /**
  * Step 1 — "مدة الرخصة والمعادن المطلوبة". Set your values here; they override the defaults.
@@ -22,6 +55,9 @@ const LICENSE_DETAILS = {
   miningComplex: 'خارج المجمعات التعدينية',
 };
 
+/** Step 2 — how long to wait for the GIS map (iframe load, "تأكيد" button, validation result) per KML attempt. */
+const GIS_MAP_TIMEOUT_MS = 5 * 60_000;
+
 /**
  * New Exploration License — creates a request from scratch and completes it end to end:
  *
@@ -35,11 +71,20 @@ const LICENSE_DETAILS = {
  *
  *   npx playwright test tests/exploration-license/new-exploration-license.spec.ts --project=chromium --headed
  *
- * Each run creates a NEW request on TEST. Other step-1 data: src/data/new-exploration-request.data.ts.
+ * Each run creates RUN.licenses NEW requests on RUN.env. Other step-1 data: src/data/new-exploration-request.data.ts.
  */
-test('Exploration License: new request — create, submit and complete @e2e', async ({ investor, employee }, testInfo) => {
+test.describe.configure({ mode: 'parallel' });
+
+for (let license = 1; license <= RUN.licenses; license++) {
+  const title = RUN.licenses > 1 ? ` #${license}` : '';
+  test(`Exploration License: new request${title} — create, submit and complete @e2e`, async ({ investor, employee }, testInfo) => {
+    await createAndCompleteLicense(investor, employee, testInfo);
+  });
+}
+
+async function createAndCompleteLicense(investor: InvestorPortal, employee: EmployeePortal, testInfo: TestInfo): Promise<void> {
   test.setTimeout(60 * 60_000);
-  test.skip(getEnvName() !== 'test', 'Creates and completes new requests — authorised on TEST only.');
+  test.skip(!AUTHORISED_ENVS.includes(getEnvName()), `Creates and completes new requests — authorised on ${AUTHORISED_ENVS.join(', ')} only.`);
   const data = newExplorationRequestData();
   const license = investor.explorationLicense;
   const wizard = license.wizard;
@@ -54,10 +99,8 @@ test('Exploration License: new request — create, submit and complete @e2e', as
   };
 
   try {
-    let latestBefore = 0;
     await test.step(`Investor: Requests → طلب جديد → ${data.serviceType}`, async () => {
       await investor.requests.open();
-      latestBefore = Number((await investor.requests.latestRequest()).number);
       await investor.requests.startNewRequest(data.serviceType);
       await license.expectNewLoaded();
       await wizard.expectActive(0);
@@ -70,42 +113,28 @@ test('Exploration License: new request — create, submit and complete @e2e', as
       });
       const report = await license.requestInfo.fill({ ...data.requestInfo, ...LICENSE_DETAILS, attachment: 'test-data/attachments/sample.pdf' });
       await testInfo.attach('step1-report.json', { body: JSON.stringify(report, null, 2), contentType: 'application/json' });
+      // Saving step 1 creates the request and returns its number. Reading it here (not as the newest row of
+      // the Requests list) keeps parallel runs from picking up each other's request.
+      const saved = investor.page.waitForResponse((r) => r.url().includes('/ActionSave_licenseInfo'), { timeout: 120_000 });
       await next();
+      const { data: savedData } = await (await saved).json();
+      requestNumber = String(savedData?.LicenseReqId ?? '');
+      expect(requestNumber, 'Request number returned when step 1 was saved').toMatch(/^\d+$/);
+      testInfo.annotations.push({ type: 'request', description: requestNumber });
+      workflow = new ApprovalWorkflow(investor, employee, requestNumber);
       await wizard.expectActive(1);
     });
 
     await test.step('Step 2 — موقع الطلب: KML upload, map check, retry until confirmed', async () => {
       const location = license.location;
       try {
-        await location.fill(data.location);
+        await location.fill({ ...data.location, mapTimeoutMs: GIS_MAP_TIMEOUT_MS });
       } finally {
         await testInfo.attach('location-attempts.json', { body: JSON.stringify(location.attempts, null, 2), contentType: 'application/json' });
       }
       testInfo.annotations.push({ type: 'location attempts', description: String(location.attempts.length) });
       const change = await next();
       expect(change.to).toBe('خطة العمل و الانفاق');
-    });
-
-    await test.step('Capture the new request number (Requests list, second tab)', async () => {
-      // The new wizard's URL carries no In_RequestId, so read it from the list without leaving the wizard.
-      requestNumber = license.requestNumber() ?? '';
-      if (!requestNumber) {
-        const tab = await investor.page.context().newPage();
-        try {
-          await tab.goto(new URL('Redirect', investor.requests.urls.appBaseUrl).toString());
-          const list = new RequestsPage(tab);
-          await list.open();
-          const latest = await list.latestRequest();
-          expect(Number(latest.number), 'A new request was created').toBeGreaterThan(latestBefore);
-          expect(latest.type).toBe(data.serviceType);
-          expect(latest.status).toMatch(/مسودة/);
-          requestNumber = latest.number;
-        } finally {
-          await tab.close();
-        }
-      }
-      testInfo.annotations.push({ type: 'request', description: requestNumber });
-      workflow = new ApprovalWorkflow(investor, employee, requestNumber);
     });
 
     await test.step('Steps 3–8 — same as the draft test, then submit', async () => {
@@ -140,4 +169,4 @@ test('Exploration License: new request — create, submit and complete @e2e', as
       await testInfo.attach('workflow-context.json', { body: JSON.stringify(workflow.context, null, 2), contentType: 'application/json' });
     }
   }
-});
+}

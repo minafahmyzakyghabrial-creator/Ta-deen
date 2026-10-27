@@ -17,7 +17,7 @@ export const OPEN_TASK_STATUSES = ['جديد', 'قيد التنفيذ'];
  * Employee "إدارة المهام" (Task Management) — /SharedServices_TaskManagement/TaskManagement.
  *
  * VERIFIED on TEST (2026-10-26, request 76103):
- *   - reached from the side menu entry "إدارة المهام";
+ *   - reached from the side menu entry "إدارة المهام" (not visible on UAT → opened by URL);
  *   - one tab per area (الرخص, المخالفات, …), each with its own table — the Licenses tab's
  *     table is the first one, and all tables are in the DOM at once;
  *   - search: the "البحث(n)" toggle reveals a panel with placeholder "رقم الطلب" + button
@@ -42,7 +42,11 @@ export class TaskManagementPage extends BasePage {
 
   async open(): Promise<void> {
     if (!/\/TaskManagement(\?|$)/.test(this.page.url())) {
-      await this.page.getByText('إدارة المهام', { exact: true }).first().click();
+      // TEST shows "إدارة المهام" in the side menu; on UAT (2026-10-27) it is hidden inside a collapsed
+      // group, so open the page by its URL when the entry is not visible.
+      const menuEntry = this.page.getByText('إدارة المهام', { exact: true }).filter({ visible: true }).first();
+      if (await menuEntry.isVisible()) await menuEntry.click();
+      else await this.page.goto(new URL('/SharedServices_TaskManagement/TaskManagement', this.page.url()).toString());
       await this.page.waitForURL(/\/TaskManagement(\?|$)/, { timeout: 60_000 });
     }
     await expect(this.table).toBeAttached({ timeout: 60_000 });

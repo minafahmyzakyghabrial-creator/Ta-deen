@@ -65,6 +65,33 @@ export class AuthStateStore {
     write(this.metaPath(user), { ...meta, savedAt: new Date().toISOString() });
   }
 
+  /**
+   * Runs `fn` while holding a cross-process lock for this user, so parallel workers never log the same
+   * user in at the same time. VERIFIED on TEST (2026-10-27): two simultaneous logins of investor1 left the
+   * first worker on an empty, logged-out page. A lock older than LOCK_STALE_MS is treated as abandoned.
+   */
+  async withLoginLock<T>(user: UserKey, fn: () => Promise<T>): Promise<T> {
+    fs.mkdirSync(this.dir, { recursive: true });
+    const lock = path.join(this.dir, `${user}.lock`);
+    for (;;) {
+      try {
+        fs.closeSync(fs.openSync(lock, 'wx'));
+        break;
+      } catch {
+        const age = Date.now() - (fs.statSync(lock, { throwIfNoEntry: false })?.mtimeMs ?? Date.now());
+        if (age > AuthStateStore.LOCK_STALE_MS) fs.rmSync(lock, { force: true });
+        else await new Promise((r) => setTimeout(r, 500));
+      }
+    }
+    try {
+      return await fn();
+    } finally {
+      fs.rmSync(lock, { force: true });
+    }
+  }
+
+  private static readonly LOCK_STALE_MS = 3 * 60_000;
+
   invalidate(user: UserKey): void {
     for (const f of [this.statePath(user), this.metaPath(user)]) fs.rmSync(f, { force: true });
   }

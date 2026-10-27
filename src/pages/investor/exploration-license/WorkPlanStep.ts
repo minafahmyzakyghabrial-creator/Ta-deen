@@ -3,7 +3,6 @@ import { MultiSelect } from '@components/MultiSelect';
 import { ExplorationLicenseData } from '@data/exploration-license.data';
 import { AddRowDialog } from '@components/AddRowDialog';
 import { checkAll, checkRadioByLabel, escapeRegExp, fillIfEmpty, selectIfEmpty, uploadIfEmpty } from '@utils/field-helper';
-import { trackServerActivity } from '@utils/os-waits';
 import { WizardStep } from './WizardStep';
 
 /**
@@ -46,12 +45,7 @@ export class WorkPlanStep extends WizardStep<ExplorationLicenseData['workPlan'] 
       const dialog = new AddRowDialog(this.page);
       await dialog.waitOpen();
       await dialog.fill({ 'المبررات الفنية': d.technicalJustification });
-      const files = dialog.root.locator('input[type=file]');
-      for (let guard = 0; guard < 8 && (await files.count()) > 0; guard++) {
-        const activity = trackServerActivity(this.page);
-        await files.first().setInputFiles(d.attachment);
-        await activity.idle();
-      }
+      await dialog.uploadAll(d.attachment);
       const errors = await dialog.save();
       if (errors.length) throw new Error(`Technical justification popup refused: ${errors.join(' | ')}`);
       this.record(`المبررات الفنية = ${d.technicalJustification}`, 'filled');

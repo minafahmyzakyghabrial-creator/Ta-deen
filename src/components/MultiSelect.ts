@@ -84,7 +84,8 @@ export class MultiSelect extends BaseComponent {
       }
       if (!((await option.first().getAttribute('class')) ?? '').includes('selected')) await option.first().click();
       picked.push(label);
-      if (await search.isVisible()) await search.fill('');
+      // A single-select closes itself on click, so the search box can vanish between the check and the fill.
+      if (await search.isVisible()) await search.fill('', { timeout: 2_000 }).catch(() => undefined);
     }
     await this.setOpen(false);
     return picked;

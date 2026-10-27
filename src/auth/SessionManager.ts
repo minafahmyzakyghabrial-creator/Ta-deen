@@ -58,7 +58,10 @@ export class SessionManager {
     assertProdRunAllowed();
     const user = getUser(userKey);
 
-    const session = (await this.tryReuse(user)) ?? (await this.freshLogin(user));
+    // Only one worker logs a user in at a time; the others wait and then reuse the session it saved.
+    const session =
+      (await this.tryReuse(user)) ??
+      (await this.store.withLoginLock(user.key, async () => (await this.tryReuse(user)) ?? this.freshLogin(user)));
     this.sessions.set(userKey, session);
     return session;
   }

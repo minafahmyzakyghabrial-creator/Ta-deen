@@ -10,11 +10,12 @@ import { PortalKey } from './portals';
  * key, never to a username. Credentials are resolved per environment from:
  *     <ENV>_<KEY>_USERNAME / <ENV>_<KEY>_PASSWORD
  *
- * To add a user (e.g. a second investor):
- *   1. add `investor2: { portal: 'investor', role: 'investor', description: '...' }` below,
- *   2. add UAT_INVESTOR2_USERNAME / UAT_INVESTOR2_PASSWORD to .env,
- *   3. use it in a test:  const { page } = await sessions.as('investor2');
- * Nothing else changes.
+ * Keys are `investor<N>` or `employee<N>`; the prefix decides the portal and role. To add a user
+ * (e.g. a second investor):
+ *   1. add UAT_INVESTOR2_USERNAME / UAT_INVESTOR2_PASSWORD to .env,
+ *   2. use it in a spec:  test.use({ investorUser: 'investor2' })
+ *      or for a second session:  const { page } = await sessions.as('investor2');
+ * Optionally list it in USERS below to give it a description and include it in `npm run env:check`.
  */
 export type Role = 'investor' | 'employee' | 'admin';
 
@@ -26,12 +27,14 @@ export interface UserDefinition {
   readonly description: string;
 }
 
-const USERS = {
+export type UserKey = `investor${number}` | `employee${number}`;
+
+/** Registered users: descriptions, and the users `npm run env:check` reports on. */
+const USERS: Partial<Record<UserKey, UserDefinition>> = {
   investor1: { portal: 'investor', role: 'investor', description: 'Investor User 1 — default investor' },
   employee1: { portal: 'employee', role: 'employee', description: 'Employee User 1 — default employee/reviewer' },
-} as const satisfies Record<string, UserDefinition>;
+};
 
-export type UserKey = keyof typeof USERS;
 export const USER_KEYS = Object.keys(USERS) as UserKey[];
 
 /** Default user per portal — used by the `investorPage` / `employeePage` fixtures. */
@@ -41,9 +44,14 @@ export const DEFAULT_USERS: Record<PortalKey, UserKey> = {
 };
 
 export function getUser(key: UserKey): UserDefinition & { key: UserKey } {
-  const u = USERS[key];
-  if (!u) throw new ConfigError(`Unknown user "${key}". Registered users: ${USER_KEYS.join(', ')}.`);
-  return { key, ...u };
+  const registered = USERS[key];
+  if (registered) return { key, ...registered };
+  const match = /^(investor|employee)(\d+)$/.exec(key);
+  if (!match) {
+    throw new ConfigError(`Invalid user "${key}". Use investor<N> or employee<N> (registered: ${USER_KEYS.join(', ')}).`);
+  }
+  const portal = match[1] as 'investor' | 'employee';
+  return { key, portal, role: portal, description: `${portal === 'investor' ? 'Investor' : 'Employee'} User ${match[2]}` };
 }
 
 export interface Credentials {

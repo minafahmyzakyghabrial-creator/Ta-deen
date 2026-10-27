@@ -52,13 +52,7 @@ export class RequestInfoStep extends WizardStep<NewExplorationRequestData['reque
     const dialog = new AddRowDialog(this.page);
     await dialog.waitOpen();
     await dialog.fill(d.geologist);
-    // Each upload replaces its <input type=file> with the file name, so always take the first remaining one.
-    const inputs = dialog.root.locator('input[type=file]');
-    for (let guard = 0; guard < 5 && (await inputs.count()) > 0; guard++) {
-      const activity = trackServerActivity(this.page);
-      await inputs.first().setInputFiles(d.attachment);
-      await activity.idle();
-    }
+    await dialog.uploadAll(d.attachment);
     const errors = await dialog.save();
     if (errors.length) throw new Error(`Geologist popup refused: ${errors.join(' | ')}`);
     await expect(technical.locator('tbody tr').first()).toBeVisible();

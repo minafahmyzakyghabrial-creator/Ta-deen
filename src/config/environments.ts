@@ -92,6 +92,23 @@ export function getEnvironment(name: EnvName = getEnvName()): EnvironmentSetting
   return ENVIRONMENTS[name];
 }
 
+/**
+ * A comma-separated list of environments from a variable, e.g. PAYMENT_UTILITY_ENVS=test,uat.
+ * Unknown names fail clearly. Production is never accepted: these lists gate test-only utilities.
+ */
+export function readEnvList(name: string, fallback: readonly EnvName[]): EnvName[] {
+  const raw = readVar(name);
+  if (raw === undefined) return [...fallback];
+  const list = raw.split(',').map((e) => e.trim().toLowerCase()).filter(Boolean);
+  const unknown = list.filter((e) => !(e in ENVIRONMENTS));
+  if (unknown.length) {
+    throw new ConfigError(`${name}: unknown environment(s) "${unknown.join(', ')}". Valid values: ${ENV_NAMES.join(', ')}.`);
+  }
+  const envs = list as EnvName[];
+  if (envs.some((e) => ENVIRONMENTS[e].isProduction)) throw new ConfigError(`${name} must not include a production environment.`);
+  return envs;
+}
+
 /** Prefix used for every env var of an environment, e.g. "UAT". */
 export function envPrefix(name: EnvName = getEnvName()): string {
   return name.toUpperCase();
