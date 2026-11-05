@@ -6,7 +6,9 @@ import { InvestorPortal } from '@pages/investor/InvestorPortal';
 import { ApprovalWorkflow } from '@flows/approval-workflow.flow';
 import { ExplorationLicenseFlow } from '@flows/exploration-license.flow';
 import { StepReport } from '@pages/investor/exploration-license/WizardStep';
+import { NoLocationAcceptedError } from '@pages/investor/exploration-license/LocationStep';
 import { newExplorationRequestData } from '@data/new-exploration-request.data';
+import { ANYWHERE_IN_SAUDI, LocationArea } from '@utils/kml-generator';
 import { splitRules, WizardValidationError } from '@utils/validation';
 
 /**
@@ -29,7 +31,7 @@ import { splitRules, WizardValidationError } from '@utils/validation';
 const RUN: { env: EnvName; licenses: number; investor: UserKey; employee: UserKey } = {
   env: 'test',
   licenses: 1,
-  investor: 'investor3',
+  investor: 'investor2',
   employee: 'employee1',
 };
 
@@ -45,18 +47,33 @@ test.use({ investorUser: RUN.investor, employeeUser: RUN.employee });
  * Use the labels exactly as the screen shows them.
  */
 const LICENSE_DETAILS = {
-  /** فئة الرخصة: 'أ' | 'ب' | 'ج' */
+  /** فئة الرخصة: 'أ' | 'ب' | 'ج'  ('ج' has no geology expert — the wizard does not show "القدرة الفنية") */
   category: 'أ',
   /** مدة الرخصة (سنوياً): '1' … '5' */
-  durationYears: '1',
+  durationYears: '3',
   /** المعادن: one or more, e.g. ['ذهب'] or ['ذهب', 'نحاس'] — the list depends on the category */
   minerals: ['كسر رخام'],
   /** المجمع التعديني: 'داخل المجمعات التعدينية' | 'خارج المجمعات التعدينية' */
   miningComplex: 'خارج المجمعات التعدينية',
 };
 
+/**
+ * Step 2 — "موقع الطلب": area of the land in km². The generated KML is a square of this area
+ * (side = √area, e.g. 4 → 2 × 2 km), placed at a random point of the region being tried.
+ * A larger area overlaps existing licences ("تقاطع المواقع") more often, so expect more map attempts.
+ */
+const LAND_AREA_KM2 = 1;
+
 /** Step 2 — how long to wait for the GIS map (iframe load, "تأكيد" button, validation result) per KML attempt. */
 const GIS_MAP_TIMEOUT_MS = 5 * 60_000;
+
+/**
+ * Submit can reject a location the map accepted ("حدث خطأ يتعلق بالموقع، يرجى تحديث إحداثيات الخريطة للمتابعة",
+ * TEST 2026-11-01). Then the test goes back to step 2, places a new KML at a random point anywhere inside
+ * Saudi Arabia and submits again — with no limit, until the request is submitted (bounded only by the test
+ * timeout). Likewise the map step itself keeps generating new locations until one is accepted.
+ */
+const LOCATION_ERROR = /الموقع|إحداثيات/;
 
 /**
  * New Exploration License — creates a request from scratch and completes it end to end:
@@ -83,9 +100,12 @@ for (let license = 1; license <= RUN.licenses; license++) {
 }
 
 async function createAndCompleteLicense(investor: InvestorPortal, employee: EmployeePortal, testInfo: TestInfo): Promise<void> {
-  test.setTimeout(60 * 60_000);
+  test.setTimeout(60 * 100_000);
   test.skip(!AUTHORISED_ENVS.includes(getEnvName()), `Creates and completes new requests — authorised on ${AUTHORISED_ENVS.join(', ')} only.`);
   const data = newExplorationRequestData();
+  if (!(LAND_AREA_KM2 > 0)) throw new Error(`LAND_AREA_KM2 must be a positive number of km² (got ${LAND_AREA_KM2}).`);
+  const side = Math.sqrt(LAND_AREA_KM2);
+  const location = { ...data.location, widthKm: side, heightKm: side, mapTimeoutMs: GIS_MAP_TIMEOUT_MS };
   const license = investor.explorationLicense;
   const wizard = license.wizard;
   const flow = new ExplorationLicenseFlow(investor);
@@ -96,6 +116,18 @@ async function createAndCompleteLicense(investor: InvestorPortal, employee: Empl
     const change = await wizard.next();
     if (!change.moved) throw new WizardValidationError(change.from, splitRules(change.errors));
     return change;
+  };
+
+  /** Fills "موقع الطلب", starting a new batch of map attempts whenever a whole batch was rejected. */
+  const fillLocationUntilAccepted = async (loc: typeof location) => {
+    for (let batch = 1; ; batch++) {
+      try {
+        return await license.location.fill(loc);
+      } catch (e) {
+        if (!(e instanceof NoLocationAcceptedError)) throw e;
+        testInfo.annotations.push({ type: `map rejected batch ${batch}`, description: `${loc.maxAttempts} locations rejected — trying new ones` });
+      }
+    }
   };
 
   try {
@@ -125,14 +157,14 @@ async function createAndCompleteLicense(investor: InvestorPortal, employee: Empl
       await wizard.expectActive(1);
     });
 
-    await test.step('Step 2 — موقع الطلب: KML upload, map check, retry until confirmed', async () => {
-      const location = license.location;
+    await test.step(`Step 2 — موقع الطلب: ${LAND_AREA_KM2} km² KML upload, map check, retry until confirmed`, async () => {
+      testInfo.annotations.push({ type: 'land area', description: `${LAND_AREA_KM2} km² (${side.toFixed(3)} × ${side.toFixed(3)} km)` });
       try {
-        await location.fill({ ...data.location, mapTimeoutMs: GIS_MAP_TIMEOUT_MS });
+        await fillLocationUntilAccepted(location);
       } finally {
-        await testInfo.attach('location-attempts.json', { body: JSON.stringify(location.attempts, null, 2), contentType: 'application/json' });
+        await testInfo.attach('location-attempts.json', { body: JSON.stringify(license.location.attempts, null, 2), contentType: 'application/json' });
       }
-      testInfo.annotations.push({ type: 'location attempts', description: String(location.attempts.length) });
+      testInfo.annotations.push({ type: 'location attempts', description: String(license.location.attempts.length) });
       const change = await next();
       expect(change.to).toBe('خطة العمل و الانفاق');
     });
@@ -145,7 +177,21 @@ async function createAndCompleteLicense(investor: InvestorPortal, employee: Empl
         await flow.next();
       }
       await testInfo.attach('wizard-step-report.json', { body: JSON.stringify(reports, null, 2), contentType: 'application/json' });
-      await flow.submit();
+      for (let retry = 1; ; retry++) {
+        try {
+          await flow.submit();
+          break;
+        } catch (e) {
+          if (!(e instanceof WizardValidationError) || !e.rules.some((r) => LOCATION_ERROR.test(r))) throw e;
+          testInfo.annotations.push({ type: `submit rejected location (${retry})`, description: e.rules.join(' | ') });
+          await flow.backToLocation();
+          // Every map attempt of a retry: a new random point anywhere inside Saudi Arabia.
+          const regions: LocationArea[] = Array(location.maxAttempts).fill(ANYWHERE_IN_SAUDI);
+          await fillLocationUntilAccepted({ ...location, regions });
+          await testInfo.attach(`location-attempts-retry-${retry}.json`, { body: JSON.stringify(license.location.attempts, null, 2), contentType: 'application/json' });
+          await flow.forwardToLastStep();
+        }
+      }
       const status = await workflow!.requestStatus();
       expect(status, 'Status after submission').not.toMatch(/مسودة/);
       testInfo.annotations.push({ type: 'status after submission', description: status });

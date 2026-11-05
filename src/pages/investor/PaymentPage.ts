@@ -1,4 +1,5 @@
 import { expect, Page } from '@playwright/test';
+import { readNumber } from '@config/index';
 import { trackServerActivity } from '@utils/os-waits';
 import { BasePage } from '../BasePage';
 
@@ -23,9 +24,30 @@ export class PaymentPage extends BasePage {
     super(page, 'investor');
   }
 
+  /**
+   * The payment module can answer with OutSystems' error page ("_error.html" — "There was an error processing your
+   * request", button "RELOAD"), seen on TEST on 2026-10-31 (request 76367). The page is then reloaded (up to twice)
+   * by going back to the payment URL; a third failure is reported as it is. Each attempt waits
+   * PAYMENT_PAGE_TIMEOUT_MS (default 2 minutes) — TEST was slow to render the page.
+   */
   async expectLoaded(): Promise<void> {
-    await this.page.waitForURL(/DoPayment\?/, { timeout: 60_000 });
-    await expect(this.page.getByText(/الرقم المرجعي لنظام سداد/).first()).toBeVisible({ timeout: 60_000 });
+    const timeout = readNumber('PAYMENT_PAGE_TIMEOUT_MS', 120_000);
+    // The payment URL is reached first; the error page replaces it afterwards (VERIFIED on 76367).
+    await this.page.waitForURL(/DoPayment\?/, { timeout });
+    const paymentUrl = this.page.url();
+    const reference = this.page.getByText(/الرقم المرجعي لنظام سداد/).first();
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const shown = await reference
+        .or(this.page.getByRole('button', { name: 'RELOAD' }))
+        .first()
+        .waitFor({ timeout })
+        .then(async () => reference.isVisible(), () => false);
+      if (shown) return;
+      if (attempt === 3) break;
+      console.warn(`[Payment] Payment page did not load (${this.page.url()}) — reloading, attempt ${attempt + 1}/3`);
+      await this.page.goto(paymentUrl);
+    }
+    await expect(reference, `Payment page (${paymentUrl})`).toBeVisible({ timeout: 5_000 });
   }
 
   private parse(text: string): Bill | undefined {

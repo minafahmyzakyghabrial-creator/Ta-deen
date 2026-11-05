@@ -1,0 +1,7 @@
+When: 2026-10-30T22:58:33.745Z
+Page: https://platform-test.taadeen.dev/Licenses_Exploration_Transfer/ExplorationTransferReview?LicenseRequest_Id=76362&Is_View=false&TaskId=127574&ProcessTypeId=444
+Request: POST https://platform-test.taadeen.dev/Licenses_Exploration_Transfer/screenservices/Licenses_Exploration_Transfer_CW/EmployeeTasks_Flow/Inspection_TechCompliance_Tasks_WB/ActionCreateInspectionTask_BL
+HTTP status: 200
+Response body: {"versionInfo":{"hasModuleVersionChanged":false,"hasApiVersionChanged":false},"data":{"Out_Response":{"Is_Success":false,"Message":"تعذر إرسال التقييم"}}}
+Page after 10 s: https://platform-test.taadeen.dev/Licenses_Exploration_Transfer/ExplorationTransferReview?LicenseRequest_Id=76362&Is_View=false&TaskId=127574&ProcessTypeId=444 (still on the task; no toast)
+Visible error toasts: []

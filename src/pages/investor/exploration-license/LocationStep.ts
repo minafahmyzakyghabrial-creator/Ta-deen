@@ -16,6 +16,9 @@ export interface LocationAttempt {
   readonly result: string;
 }
 
+/** The map rejected every generated location of one fill() — callers can simply fill again. */
+export class NoLocationAcceptedError extends Error {}
+
 /**
  * Step 2 — "موقع الطلب": upload a generated KML, check it on the GIS map, confirm.
  *
@@ -87,7 +90,7 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
       const kml = generateKml({ region, widthKm: d.widthKm, heightKm: d.heightKm, name: `Automation ${Date.now()}` });
       const file = path.join(outDir, `attempt-${attempt}-${kml.center.lat}_${kml.center.lon}.kml`);
       fs.writeFileSync(file, kml.kml);
-      gisLog.info(`Attempt ${attempt}: ${kml.region} — centre ${kml.center.lat}, ${kml.center.lon}`);
+      gisLog.info(`Attempt ${attempt}: ${kml.region} — centre ${kml.center.lat}, ${kml.center.lon} — ${+(d.widthKm * d.heightKm).toFixed(3)} km²`);
 
       // Close a previous error dialog on the map before uploading again.
       const previous = this.mapFrame();
@@ -133,7 +136,7 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
       this.record(`موقع الطلب = ${path.basename(file)} (attempt ${attempt})`, 'filled');
       return;
     }
-    throw new Error(
+    throw new NoLocationAcceptedError(
       `No generated location was accepted in ${d.maxAttempts} attempts:\n` + this.attempts.map((a) => `  ${a.attempt}. ${a.region}: ${a.result}`).join('\n'),
     );
   }

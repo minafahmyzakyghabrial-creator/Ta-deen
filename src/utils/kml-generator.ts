@@ -31,9 +31,24 @@ export const SAUDI_REGIONS = {
 
 export type RegionKey = keyof typeof SAUDI_REGIONS;
 
+/**
+ * Inland outline of Saudi Arabia as [lat, lon] — kept roughly 50 km or more inside the land borders
+ * and the Red Sea / Gulf coastlines, so a random point never lands in the sea or a neighbouring country.
+ */
+export const SAUDI_INLAND_OUTLINE: readonly (readonly [number, number])[] = [
+  [28.8, 36.3], [29.0, 37.4], [29.4, 38.4], [30.0, 39.6], [30.2, 40.8], [29.6, 42.5], [28.6, 44.6],
+  [28.3, 46.5], [27.8, 47.6], [26.9, 48.6], [25.5, 49.3], [24.0, 50.3], [22.9, 52.0], [21.8, 53.8],
+  [19.7, 51.6], [18.8, 49.0], [18.2, 46.5], [18.0, 44.4], [18.0, 43.4], [19.5, 42.4], [21.3, 40.3],
+  [23.0, 39.6], [24.3, 38.9], [25.5, 37.9], [26.8, 37.0], [28.0, 36.6],
+];
+
+/** 'saudi' = a random point anywhere inside SAUDI_INLAND_OUTLINE instead of one of the region boxes. */
+export const ANYWHERE_IN_SAUDI = 'saudi';
+export type LocationArea = RegionKey | typeof ANYWHERE_IN_SAUDI;
+
 export interface KmlOptions {
-  /** Region to place the polygon in; random region when omitted. */
-  region?: RegionKey;
+  /** Region to place the polygon in ('saudi' = anywhere inland); random region box when omitted. */
+  region?: LocationArea;
   /** Explicit centre (overrides region); must lie inside one of SAUDI_REGIONS. */
   center?: { lat: number; lon: number };
   /** Rectangle size in kilometres (default 1 × 1). */
@@ -85,6 +100,30 @@ function insideRegion(p: Corner, r: Region): boolean {
   return p.lat >= r.lat[0] && p.lat <= r.lat[1] && p.lon >= r.lon[0] && p.lon <= r.lon[1];
 }
 
+/** Ray casting point-in-polygon on SAUDI_INLAND_OUTLINE. */
+function insideSaudi(p: Corner): boolean {
+  const poly = SAUDI_INLAND_OUTLINE;
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [latI, lonI] = poly[i];
+    const [latJ, lonJ] = poly[j];
+    if (latI > p.lat !== latJ > p.lat && p.lon < ((lonJ - lonI) * (p.lat - latI)) / (latJ - latI) + lonI) inside = !inside;
+  }
+  return inside;
+}
+
+/** SW → NW → NE → SE is clockwise when looking at a north-up map. */
+function rectangle(center: Corner, widthKm: number, heightKm: number): Corner[] {
+  const dLat = heightKm / 2 / KM_PER_DEG_LAT;
+  const dLon = widthKm / 2 / kmPerDegLon(center.lat);
+  return [
+    { lat: center.lat - dLat, lon: center.lon - dLon },
+    { lat: center.lat + dLat, lon: center.lon - dLon },
+    { lat: center.lat + dLat, lon: center.lon + dLon },
+    { lat: center.lat - dLat, lon: center.lon + dLon },
+  ];
+}
+
 function escapeXml(s: string): string {
   return s.replace(/[<>&'"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' })[c]!);
 }
@@ -108,13 +147,28 @@ export function generateKml(options: KmlOptions = {}): GeneratedKml {
 
   let region: Region;
   let center: Corner;
-  if (options.center) {
+  let inside: (p: Corner) => boolean = (p) => insideRegion(p, region);
+  if (options.region === ANYWHERE_IN_SAUDI && !options.center) {
+    const lats = SAUDI_INLAND_OUTLINE.map(([lat]) => lat);
+    const lons = SAUDI_INLAND_OUTLINE.map(([, lon]) => lon);
+    region = { name: 'Saudi Arabia (random)', lat: [Math.min(...lats), Math.max(...lats)], lon: [Math.min(...lons), Math.max(...lons)] };
+    inside = insideSaudi;
+    // Draw from the outline's bounding box until the whole rectangle lies inside the outline.
+    let found: Corner | undefined;
+    for (let i = 0; i < 10_000 && !found; i++) {
+      const c = { lat: region.lat[0] + rnd() * (region.lat[1] - region.lat[0]), lon: region.lon[0] + rnd() * (region.lon[1] - region.lon[0]) };
+      if (rectangle(c, widthKm, heightKm).every(insideSaudi)) found = c;
+    }
+    if (!found) throw new Error(`A ${widthKm}×${heightKm} km rectangle does not fit inside Saudi Arabia.`);
+    center = found;
+  } else if (options.center) {
     const owner = keys.map((k) => SAUDI_REGIONS[k]).find((r) => insideRegion(options.center!, r));
     if (!owner) throw new Error(`Centre ${options.center.lat},${options.center.lon} is outside the known inland Saudi regions.`);
     region = owner;
     center = options.center;
   } else {
-    region = SAUDI_REGIONS[options.region ?? keys[Math.floor(rnd() * keys.length)]];
+    const key = options.region && options.region !== ANYWHERE_IN_SAUDI ? options.region : keys[Math.floor(rnd() * keys.length)];
+    region = SAUDI_REGIONS[key];
     // Keep the whole rectangle inside the region box.
     const halfLat = heightKm / 2 / KM_PER_DEG_LAT;
     const latMin = region.lat[0] + halfLat;
@@ -127,19 +181,11 @@ export function generateKml(options: KmlOptions = {}): GeneratedKml {
     center = { lat, lon: lonMin + rnd() * (lonMax - lonMin) };
   }
 
-  const dLat = heightKm / 2 / KM_PER_DEG_LAT;
-  const dLon = widthKm / 2 / kmPerDegLon(center.lat);
-  // SW → NW → NE → SE is clockwise when looking at a north-up map.
-  const clockwise: Corner[] = [
-    { lat: center.lat - dLat, lon: center.lon - dLon },
-    { lat: center.lat + dLat, lon: center.lon - dLon },
-    { lat: center.lat + dLat, lon: center.lon + dLon },
-    { lat: center.lat - dLat, lon: center.lon + dLon },
-  ];
+  const clockwise = rectangle(center, widthKm, heightKm);
   const ordered = (options.orientation ?? 'clockwise') === 'clockwise' ? clockwise : [clockwise[0], ...clockwise.slice(1).reverse()];
   const corners: Corner[] = ordered.map((c) => ({ lat: round(c.lat), lon: round(c.lon) }));
   for (const c of corners) {
-    if (!insideRegion(c, region)) throw new Error(`Corner ${c.lat},${c.lon} falls outside ${region.name}.`);
+    if (!inside(c)) throw new Error(`Corner ${c.lat},${c.lon} falls outside ${region.name}.`);
   }
 
   const ring = [...corners, corners[0]].map((c) => `${c.lon},${c.lat},0`).join(' ');

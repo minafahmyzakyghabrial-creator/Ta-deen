@@ -1,4 +1,4 @@
-import { RegionKey } from '@utils/kml-generator';
+import { LocationArea } from '@utils/kml-generator';
 import { saudiNationalId } from '@utils/data-generator';
 import { deepMerge, loadOptionalTestData } from './test-data';
 
@@ -11,7 +11,7 @@ export interface NewExplorationRequestData {
   /** "نوع الخدمة" in the "إنشاء طلب جديد" dialog. */
   readonly serviceType: string;
   readonly requestInfo: {
-    /** فئة الرخصة: أ | ب | ج — choosing it reveals القدرة الفنية. */
+    /** فئة الرخصة: أ | ب | ج — أ/ب reveal القدرة الفنية (geology experts); ج does not. */
     readonly category: string;
     /** مدة الرخصة (سنوياً): 1–5. */
     readonly durationYears: string;
@@ -19,12 +19,12 @@ export interface NewExplorationRequestData {
     readonly minerals: string[];
     /** المجمع التعديني: "داخل المجمعات التعدينية" | "خارج المجمعات التعدينية" ("خارج" → map Outside.html). */
     readonly miningComplex: string;
-    /** At least one geologist is mandatory. Field labels as shown in the "إضافة خبير جيولوجي جديد" popup. */
+    /** At least one geologist is mandatory for classes أ and ب (class ج has no geology expert section). Field labels as shown in the "إضافة خبير جيولوجي جديد" popup. */
     readonly geologist: Record<string, string>;
   };
   readonly location: {
-    /** Regions tried in order for the generated KML; on overlap the next region is used (then random). */
-    readonly regions: RegionKey[];
+    /** Regions tried in order for the generated KML ('saudi' = anywhere inland); on overlap the next one is used (then a random region box). */
+    readonly regions: LocationArea[];
     readonly widthKm: number;
     readonly heightKm: number;
     /** Maximum KML attempts before giving up. */

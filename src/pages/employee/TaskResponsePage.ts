@@ -94,13 +94,25 @@ export class TaskResponsePage extends BasePage {
     await activity.idle();
   }
 
-  /** Enabled, visible decision options (read-only groups showing an earlier decision are skipped). */
-  async decisions(): Promise<string[]> {
-    const labels = await this.page
-      .getByRole('radio', { disabled: false })
-      .filter({ visible: true })
-      .evaluateAll((radios) => radios.map((r) => (r as HTMLInputElement).labels?.[0]?.innerText.trim() ?? ''));
-    return [...new Set(labels.filter(Boolean))];
+  /**
+   * Enabled, visible decision options (read-only groups showing an earlier decision are skipped).
+   * The radios can render after "إرسال الرد" (تقييم الامتثال الفني showed none on the first read,
+   * TEST 76659), so this waits up to `timeout` for at least one before returning an empty list.
+   */
+  async decisions(timeout = 20_000): Promise<string[]> {
+    const read = async () => {
+      const labels = await this.page
+        .getByRole('radio', { disabled: false })
+        .filter({ visible: true })
+        .evaluateAll((radios) => radios.map((r) => (r as HTMLInputElement).labels?.[0]?.innerText.trim() ?? ''));
+      return [...new Set(labels.filter(Boolean))];
+    };
+    let options: string[] = [];
+    await expect
+      .poll(async () => (options = await read()).length, { timeout, intervals: [500] })
+      .toBeGreaterThan(0)
+      .catch(() => undefined);
+    return options;
   }
 
   async choose(decision: string): Promise<void> {
@@ -151,15 +163,87 @@ export class TaskResponsePage extends BasePage {
   }
 
   /** "إرسال الرد": resolves [] when the page returns to Task Management, else the inline errors. */
+  /**
+   * "تقييم الامتثال الفني" (type 282) — VERIFIED on TEST 2026-11-03 (request 76659): the old ممتثل / غير ممتثل
+   * radios were replaced by two required tables, each filled through an "إضافة" popup with one block per
+   * requirement ([id$=-NoOutstandingFinancialObligations]):
+   *   المتطلبات الإلزامية لتقييم الامتثال … → select التقييم [id$=-Assessment]: "0" | the weight (e.g. 11);
+   *                                          optional ملاحظات textarea (since 2026-11-05, left empty)
+   *   متطلبات تقييم الامتثال …            → radios برنامج العمل نعم/لا + text التقييم [id$=-Input_AssessmentWeight]
+   * "التوصية" below is read-only (calculated). Closing a popup asks "هل تريد إغلاق النافذة دون حفظ؟".
+   */
+  private static readonly COMPLIANCE_SECTIONS = [/^\s*المتطلبات الإلزامية لتقييم الامتثال/, /^\s*متطلبات تقييم الامتثال/];
+
+  private complianceSection(title: RegExp): Locator {
+    return this.page.locator('form').filter({ has: this.page.locator('span', { hasText: title }) }).filter({ visible: true }).first();
+  }
+
+  async isComplianceAssessment(): Promise<boolean> {
+    return this.complianceSection(TaskResponsePage.COMPLIANCE_SECTIONS[0]).isVisible();
+  }
+
+  /** Adds both compliance tables with full marks on every requirement. Returns the requirements rated per table. */
+  async completeComplianceAssessment(): Promise<number[]> {
+    const rated: number[] = [];
+    for (const title of TaskResponsePage.COMPLIANCE_SECTIONS) {
+      const section = this.complianceSection(title);
+      if ((await section.locator('tbody tr').count()) > 0) {
+        rated.push(0);
+        continue;
+      }
+      await section.getByRole('button', { name: 'إضافة', exact: true }).click();
+      const dialog = this.page.getByRole('dialog').filter({ visible: true }).last();
+      const items = dialog.locator('[id$="-NoOutstandingFinancialObligations"]');
+      await expect(items.first()).toBeVisible({ timeout: 30_000 });
+      const count = await items.count();
+      for (let i = 0; i < count; i++) {
+        const item = items.nth(i);
+        const select = item.locator('select[id$="-Assessment"]');
+        if (await select.count()) {
+          // Options are "الرجاء الاختيار", "0" and the full weight — take the highest number.
+          const values = await select.locator('option').allInnerTexts();
+          const best = values.map((v) => v.trim()).filter((v) => /^\d+(\.\d+)?$/.test(v)).sort((a, b) => Number(b) - Number(a))[0];
+          await select.selectOption({ label: best });
+        }
+        const yes = item.getByRole('radio', { name: 'نعم', exact: true });
+        if (await yes.count()) {
+          await item.locator('label').filter({ hasText: /^\s*نعم\s*$/ }).first().click();
+          await expect(yes).toBeChecked();
+        }
+        const rating = item.locator('input[id$="-Input_AssessmentWeight"]');
+        if (await rating.count()) await rating.fill(await item.locator('input[id$="-OriginalWeight"]').inputValue());
+      }
+      const activity = trackServerActivity(this.page);
+      // The popup's save button was "إضافة" until TEST 2026-11-05, then "حفظ".
+      await dialog.getByRole('button', { name: /^\s*(حفظ|إضافة)\s*$/ }).click();
+      await expect(dialog, `"${title.source}" popup did not save — ${(await inlineErrors(dialog)).join(' | ')}`).toBeHidden({ timeout: 30_000 });
+      await activity.idle();
+      rated.push(count);
+    }
+    return rated;
+  }
+
   async submit(): Promise<string[]> {
     const errorToasts = this.feedback.of('error').filter({ visible: true });
     const before = await errorToasts.count();
     await this.page.getByRole('button', { name: 'إرسال الرد', exact: true }).click();
-    const left = await this.page
-      .waitForURL((u) => u.pathname.endsWith('/TaskManagement'), { timeout: 30_000 })
-      .then(() => true)
-      .catch(() => false);
-    if (left) return [];
+    // Most tasks return to the task list. تقييم الامتثال الفني (TEST 2026-11-03) may first ask "تأكيد البيانات قبل
+    // الإرسال" (nothing is sent until "تأكيد الإرسال"), then stays on the page with "تم حفظ التقييم بنجاح".
+    const confirm = this.page.getByRole('button', { name: 'تأكيد الإرسال', exact: true });
+    const saved = this.page.getByText('تم حفظ التقييم بنجاح', { exact: true });
+    let outcome = 'pending' as 'pending' | 'done';
+    await expect
+      .poll(
+        async () => {
+          if (new URL(this.page.url()).pathname.endsWith('/TaskManagement') || (await saved.isVisible())) return (outcome = 'done');
+          if (await confirm.isVisible()) await confirm.click();
+          return outcome;
+        },
+        { timeout: 30_000, intervals: [500] },
+      )
+      .toBe('done')
+      .catch(() => undefined);
+    if (outcome === 'done') return [];
     const toasts = (await errorToasts.allInnerTexts()).slice(before).map((t) => t.trim());
     const errors = [...(await inlineErrors(this.respondPanel)), ...toasts];
     return errors.length ? errors : ['"إرسال الرد" did not complete and no message was shown.'];

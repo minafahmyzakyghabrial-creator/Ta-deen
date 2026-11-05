@@ -62,6 +62,9 @@ export abstract class WizardStep<TData> {
     const dialog = new AddRowDialog(this.page);
     await dialog.waitOpen();
     await dialog.fill(values);
+    if (values['النسبة على السنوات %'] === 'مخصص') {
+      fieldLog.info(`${label}: yearly shares ${(await dialog.fillYearShares()).join(' / ')} %`);
+    }
     const errors = await dialog.save();
     if (errors.length) {
       errors.forEach((e) => validationLog.warn(`${label}: ${e}`));

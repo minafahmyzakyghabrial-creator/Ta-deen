@@ -111,20 +111,22 @@ export function defaultExplorationLicenseData(): ExplorationLicenseData {
       socialImpacts: [],
       localPrograms: [],
       localCommunity: { 'المجتمعات المحلية': 'قرية الاختبار', 'المسافة': '10' },
-      // Local jobs must not exceed total jobs. "بالتساوي" spreads 100% over the licence years.
+      // Local jobs must not exceed total jobs, and each year's share must be a WHOLE number of local jobs.
+      // "بالتساوي" gives 33.33 % on a 3-year licence (refused), so "مخصص" fills whole shares that add up to
+      // 100 (33/33/34); with 100 local jobs every whole percentage is a whole number of jobs, for 1–5 years.
       employmentPlan: {
         'المسمي الوظيفي': 'فني استكشاف',
         'فئة الوظيفة': 'العمل',
-        'عدد الوظائف': '2',
-        'عدد الوظائف من المجتمع المحلي': '1',
+        'عدد الوظائف': '100',
+        'عدد الوظائف من المجتمع المحلي': '100',
         'الراتب': '5000',
-        'النسبة على السنوات %': 'بالتساوي',
+        'النسبة على السنوات %': 'مخصص',
       },
       purchasePlan: {
         'السلع والخدمات': 'ديزل (لتر)',
         'الكمية': '100',
         'إجمالي المشتريات السنوية': '10000',
-        'النسبة على السنوات %': 'بالتساوي',
+        'النسبة على السنوات %': 'مخصص',
       },
     },
     environmentalImpact: { domain: 'الهواء', monitoring: 'سنوي' },

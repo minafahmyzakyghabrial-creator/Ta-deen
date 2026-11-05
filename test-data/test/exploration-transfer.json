@@ -1,0 +1,37 @@
+{
+  "scenarios": {
+    "availableLand": { "licenseNumber": "20260311313", "transfereeCR": "1010798976" },
+    "conditionedLand": { "licenseNumber": "20260311312", "transfereeCR": "1010798976" },
+    "rework": {
+      "licenseNumber": "20260311310",
+      "transfereeCR": "1010798976",
+      "rework": {
+        "section": "الأثر الاجتماعي",
+        "description": "يرجى تحديث بيانات المكلف بالأداء المجتمعي - اختبار آلي",
+        "returns": [
+          { "الوظيفة": "مسؤول المجتمع المحلي" },
+          { "الوظيفة": "مدير علاقات المجتمع" },
+          { "الوظيفة": "منسق المجتمع المحلي" }
+        ],
+        "employeeReturn": {
+          "branches": ["تقييم القدرة المالية", "تقييم القدرة الفنية"],
+          "description": "يرجى إعادة تقييم القدرة المالية - اختبار آلي",
+          "corrections": { "الرصيد المتاح": "200000" }
+        }
+      }
+    },
+    "returnChain": {
+      "licenseNumber": "20260311313",
+      "transfereeCR": "1010250838",
+      "transferor": "investor2",
+      "transferee": "investor3",
+      "returnChain": {
+        "tasks": { "التقييم النهائي": 2, "المراجعة المبدئية": 2 },
+        "additionalInfo": {
+          "description": "يرجى تزويدنا بالمستندات الإضافية المطلوبة - اختبار آلي",
+          "attachmentNames": ["خطاب تأكيد التمويل", "شهادة خبرة إضافية"]
+        }
+      }
+    }
+  }
+}

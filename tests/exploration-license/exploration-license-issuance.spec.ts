@@ -3,14 +3,14 @@ import { getEnvName, getRequestNumber, readVar, UserKey } from '@config/index';
 import { ApprovalWorkflow } from '@flows/approval-workflow.flow';
 
 /** Request to run. Change it here, or override per run with the REQUEST_NUMBER env variable. */
-const REQUEST_NUMBER = '76108';
+const REQUEST_NUMBER = '76451';
 
 /**
  * Users for this file ('investor1', 'investor2', … / 'employee1', 'employee2', …). The investor must own
  * REQUEST_NUMBER. Credentials come from .env: <ENV>_<USER>_USERNAME / <ENV>_<USER>_PASSWORD.
  */
 const USERS: { investor: UserKey; employee: UserKey } = {
-  investor: 'investor1',
+  investor: 'investor2',
   employee: 'employee1',
 };
 test.use({ investorUser: USERS.investor, employeeUser: USERS.employee });

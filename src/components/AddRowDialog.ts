@@ -72,6 +72,21 @@ export class AddRowDialog {
   }
 
   /**
+   * Fills the per-year share table of a "النسبة على السنوات %" = "مخصص" popup with whole percentages
+   * that add up to 100 (e.g. 3 years → 33 / 33 / 34). "بالتساوي" would give 33.33 % for 3 years, and the
+   * employment plan refuses shares that are not a whole number of jobs (VERIFIED on TEST, 2026-10-29).
+   */
+  async fillYearShares(): Promise<number[]> {
+    const shares = this.root.locator('tbody input').filter({ visible: true });
+    await expect(shares.first()).toBeVisible();
+    const years = await shares.count();
+    const each = Math.floor(100 / years);
+    const values = Array.from({ length: years }, (_, i) => (i === years - 1 ? 100 - each * (years - 1) : each));
+    for (let i = 0; i < years; i++) await shares.nth(i).fill(String(values[i]));
+    return values;
+  }
+
+  /**
    * Saves the popup (clicking the inner "add line" first for line-based popups).
    * Returns the validation messages if the popup refused to close.
    */

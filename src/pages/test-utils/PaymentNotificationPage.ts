@@ -68,7 +68,11 @@ export class PaymentNotificationPage {
     return JSON.parse(text.slice(start, end + 1)) as Record<string, unknown>;
   }
 
-  async notify(billId: string, amount: number): Promise<NotificationResult> {
+  /**
+   * Replaces pmtInfo.billAcct with the bill. With `setAmount`, pmtInfo.pmtAmt is set to the bill amount too
+   * (needed for Exploration Transfer bills of 10000; issuance keeps the template amount as verified).
+   */
+  async notify(billId: string, amount: number, options: { setAmount?: boolean } = {}): Promise<NotificationResult> {
     const body = await this.template();
     const pmtInfo = body.pmtInfo as Record<string, unknown> | undefined;
     if (!pmtInfo || !('billAcct' in pmtInfo)) throw new Error('Template has no pmtInfo.billAcct — the utility page changed.');
@@ -77,7 +81,11 @@ export class PaymentNotificationPage {
     const provider = PaymentNotificationPage.serviceProviderId();
     if (provider) body.serviceProviderID = provider;
     const templateAmount = Number(pmtInfo.pmtAmt);
-    if (templateAmount !== amount) {
+    if (templateAmount !== amount && options.setAmount) {
+      // Transfer bills (10000) differ from the template (5000); TEST refused them with 400 until pmtAmt matched
+      // (user decision 2026-10-30). The template's value type is kept.
+      pmtInfo.pmtAmt = typeof pmtInfo.pmtAmt === 'string' ? String(amount) : amount;
+    } else if (templateAmount !== amount) {
       console.warn(`[Payment] Template pmtAmt ${templateAmount} differs from the bill amount ${amount} — sent unchanged as instructed.`);
     }
     const requestBody = JSON.stringify(body);

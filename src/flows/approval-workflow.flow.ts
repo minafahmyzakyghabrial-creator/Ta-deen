@@ -205,7 +205,7 @@ export class ApprovalWorkflow {
    *   أرض متاحة (نظم المعلومات الجغرافية) → and uncheck "الأرض بحاجة إلى الموافقات الحكومية"
    *   قبول التوصية (GIS review, financial review, initial review) → accept the recommendation
    *   التوصية بالقبول (المراجعة العامة) → recommend acceptance
-   *   ممتثل (تقييم الامتثال الفني) → compliant
+   *   تقييم الامتثال الفني → both compliance tables with full marks (was ممتثل before 2026-11-03)
    *   قبول الطلب (موافقه المستوي الخامس — fifth approval) → accept the request
    *   approval levels 1–4 (موافقه المستوي …) and التقييم النهائي → قبول التوصية
    *   تحققت المتطلبات checklist (تقييم القدرة المالية) → every item met
@@ -227,6 +227,11 @@ export class ApprovalWorkflow {
       const perPart = await response.completePartWizard();
       log.employee.info(`Requirements Are Met selected on all parts: ${perPart.join(' + ')} items`);
       return `تحققت المتطلبات (${perPart.join('+')} items)`;
+    }
+    if (await response.isComplianceAssessment()) {
+      const rated = await response.completeComplianceAssessment();
+      log.employee.info(`Compliance assessment added with full marks: ${rated.join(' + ')} requirements`);
+      return `تقييم الامتثال — full marks (${rated.join('+')} requirements)`;
     }
     const options = await response.decisions();
     log.employee.info(`Task "${task.taskType}" (type ${response.taskTypeId()}) offers: ${options.join(' | ') || 'no decision options'}`);

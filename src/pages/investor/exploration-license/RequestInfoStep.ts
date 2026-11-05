@@ -10,8 +10,12 @@ import { WizardStep } from './WizardStep';
  *
  * VERIFIED on TEST (2026-10-26, draft 76111). Required (toast on an empty Next):
  * "يرجى تحديد جميع الإقرارات - اخنر مدة الرخصة - يجب ادخال خبير جيولوجي واحد على الأقل".
- * Sections are accordions identified by their title button; القدرة الفنية appears only after a category is chosen.
+ * Sections are accordions identified by their title button; القدرة الفنية appears only after a category is chosen,
+ * and never for class "ج" (no geology expert needed — the step then skips it and asserts it is hidden).
  */
+/** Licence class whose wizard has no technical-capability (geology expert) section. */
+const CLASS_WITHOUT_GEOLOGIST = 'ج';
+
 export class RequestInfoStep extends WizardStep<NewExplorationRequestData['requestInfo'] & { attachment: string }> {
   readonly name = 'معلومات الطلب';
 
@@ -37,8 +41,15 @@ export class RequestInfoStep extends WizardStep<NewExplorationRequestData['reque
     this.record(`فئة الرخصة = ${(await category.select([d.category])).join()}`, 'filled');
     await loading.idle();
     const selects = licence.locator('select');
-    await selects.nth(0).selectOption({ label: d.durationYears });
-    this.record(`مدة الرخصة = ${d.durationYears}`, 'filled');
+    // Class "ج": the duration dropdown is DISABLED — the app sets it (VERIFIED on TEST, 2026-10-31). Keep its value.
+    if (await selects.nth(0).isDisabled()) {
+      const fixed = await selects.nth(0).evaluate((el: HTMLSelectElement) => el.selectedOptions[0]?.text.trim() ?? '');
+      this.record(`مدة الرخصة = ${fixed || '(none)'} (fixed by the app for class "${d.category}")`, 'kept');
+      if (fixed !== d.durationYears) this.note(`Configured duration "${d.durationYears}" ignored: the app fixes it to "${fixed}" for class "${d.category}"`);
+    } else {
+      await selects.nth(0).selectOption({ label: d.durationYears });
+      this.record(`مدة الرخصة = ${d.durationYears}`, 'filled');
+    }
     const minerals = new MultiSelect(licence.getByRole('combobox', { name: 'Select one or more options' }));
     this.record(`المعادن = ${(await minerals.select(d.minerals)).join(', ')}`, 'filled');
     await selects.nth(1).selectOption({ label: d.miningComplex });
@@ -46,6 +57,11 @@ export class RequestInfoStep extends WizardStep<NewExplorationRequestData['reque
 
     // Technical capability: one geologist (popup with 3 mandatory attachments)
     const technical = this.section('القدرة الفنية');
+    // Class "ج" needs no geology expert: "القدرة الفنية" is not displayed in the wizard (business rule, QA 2026-10-31).
+    if (d.category === CLASS_WITHOUT_GEOLOGIST) {
+      await expect(technical, `Class "${d.category}": "القدرة الفنية" (geology experts) is not displayed`).toBeHidden();
+      return this.note(`Class "${d.category}": no geology expert needed — "القدرة الفنية" is not displayed`);
+    }
     await expect(technical).toBeVisible();
     if ((await technical.locator('tbody tr').count()) > 0) return this.record('الخبراء الجيولوجيين', 'kept');
     await technical.getByRole('button', { name: /إضافة جديدة/ }).click();

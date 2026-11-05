@@ -41,6 +41,10 @@ export class Wizard {
     return this.page.locator('button[id$="-Next"]');
   }
 
+  get previousButton(): Locator {
+    return this.page.locator('button[id$="-Previous"]');
+  }
+
   get submitButton(): Locator {
     return this.page.locator('button[id$="-Submit"]');
   }
@@ -97,5 +101,25 @@ export class Wizard {
     const moved = outcome === 'moved';
     const to = await this.activeIndex();
     return { moved, from: names[from] ?? `#${from + 1}`, to: names[to] ?? `#${to + 1}`, errors: moved ? [] : errors };
+  }
+
+  /** Clicks Previous and resolves once the earlier step is active and its data has loaded. */
+  async previous(timeout = 90_000): Promise<StepChange> {
+    const from = await this.activeIndex();
+    const names = await this.stepNames();
+    const activity = trackServerActivity(this.page);
+    await this.previousButton.click();
+    await expect
+      .poll(
+        async () => {
+          const now = await this.activeIndex();
+          return now >= 0 && now < from;
+        },
+        { timeout, message: `Previous on "${names[from]}" did not go back` },
+      )
+      .toBe(true);
+    await activity.idle();
+    const to = await this.activeIndex();
+    return { moved: true, from: names[from] ?? `#${from + 1}`, to: names[to] ?? `#${to + 1}`, errors: [] };
   }
 }

@@ -83,7 +83,7 @@ export class TaskManagementPage extends BasePage {
     });
   }
 
-  private menu(task: EmployeeTask): RowActionMenu {
+  protected menu(task: EmployeeTask): RowActionMenu {
     return new RowActionMenu(this.row(task).first().locator('td[data-header="الإجراء"]'));
   }
 

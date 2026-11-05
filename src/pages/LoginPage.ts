@@ -1,5 +1,5 @@
 import { expect, Locator } from '@playwright/test';
-import { Credentials } from '@config/index';
+import { Credentials, readNumber } from '@config/index';
 import { BasePage } from './BasePage';
 
 /**
@@ -42,8 +42,23 @@ export abstract class LoginPage extends BasePage {
     return this.page.locator(this.selectors.submit);
   }
 
+  /**
+   * Opens the login screen. The form is rendered client-side and can be slow: on TEST (2026-10-30, during a
+   * republish) it took ~30 s, and some loads ended on OutSystems' "_error.html" ("No cached manifest found").
+   * So the form gets LOGIN_LOAD_TIMEOUT_MS (default 60 s), and a load that shows the error page or no form is
+   * reloaded once. A fast load behaves exactly as before.
+   */
   async open(): Promise<void> {
-    await this.page.goto(this.urls.loginUrl);
+    const timeout = readNumber('LOGIN_LOAD_TIMEOUT_MS', 60_000);
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      await this.page.goto(this.urls.loginUrl);
+      const rendered = await this.usernameInput
+        .or(this.page.getByRole('button', { name: 'RELOAD' }))
+        .first()
+        .waitFor({ timeout })
+        .then(async () => (await this.usernameInput.count()) > 0, () => false);
+      if (rendered || attempt === 2) break;
+    }
     await this.expectLoaded();
   }
 

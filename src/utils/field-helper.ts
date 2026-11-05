@@ -44,8 +44,12 @@ export async function selectIfEmpty(select: Locator, label: string): Promise<Fil
 export async function checkRadioByLabel(scope: Locator, labelText: string | RegExp): Promise<FillResult> {
   const radio = scope.getByRole('radio', { name: labelText });
   if (await radio.isChecked()) return 'kept';
+  // A radio can redraw the controls under it (e.g. the field-report slot of "نتائج أعمال المسح الميداني");
+  // wait for that so the next helper does not read the half-rendered section.
+  const activity = trackServerActivity(scope.page());
   await scope.locator('label').filter({ hasText: labelText }).first().click();
   await expect(radio).toBeChecked();
+  await activity.idle();
   return 'filled';
 }
 
@@ -66,13 +70,18 @@ export async function checkAll(scope: Locator): Promise<number> {
  * VERIFIED on TEST: an empty slot renders a hidden <input type=file>; a filled slot renders
  * `.dga-uploaded-file` with the file name instead. The upload is validated and stored by the
  * server immediately (…/ActionAttachment_Validate_And_Save).
+ * Since 2026-11-03 the empty slot's "إضافة" button is ALSO a `label.dga-uploaded-file` (wrapping the input),
+ * so only a `.dga-uploaded-file` without a file input counts as an uploaded file.
  */
 export async function uploadIfEmpty(slot: Locator, relativeFile: string): Promise<FillResult> {
-  if ((await slot.locator('.dga-uploaded-file').count()) > 0) return 'kept';
+  const uploaded = slot.locator('.dga-uploaded-file:not(:has(input[type=file]))');
   const input = slot.locator('input[type=file]').first();
+  // Wait until the slot shows one or the other — right after a radio redraws the section it can be empty.
+  await expect(uploaded.or(input).first()).toBeAttached({ timeout: 30_000 });
+  if ((await uploaded.count()) > 0) return 'kept';
   const activity = trackServerActivity(slot.page());
   await input.setInputFiles(path.resolve(process.cwd(), relativeFile));
-  await expect(slot.locator('.dga-uploaded-file').first()).toBeVisible({ timeout: 30_000 });
+  await expect(uploaded.first()).toBeVisible({ timeout: 30_000 });
   await activity.idle();
   return 'filled';
 }

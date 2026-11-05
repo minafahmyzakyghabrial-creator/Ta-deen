@@ -11,7 +11,10 @@ import { getEnvironment, getEnvName, PROD_SAFE_TAG, readBool, readVar } from './
 const envName = getEnvName();
 const env = getEnvironment(envName);
 const isCI = !!process.env.CI;
-const recordArtifacts = readVar('RECORD') !== 'off';
+/** RECORD: off = no trace/video · on = keep trace + video of EVERY test · unset = keep them only on failure. */
+const recordMode = readVar('RECORD');
+const recordArtifacts = recordMode !== 'off';
+const keepArtifacts = recordMode === 'on' ? 'on' : 'retain-on-failure';
 
 const workersVar = readVar('WORKERS');
 const workers = workersVar ? (workersVar.endsWith('%') ? workersVar : Number(workersVar)) : isCI ? 2 : undefined;
@@ -59,10 +62,12 @@ export default defineConfig({
     actionTimeout: env.actionTimeout,
     navigationTimeout: env.navigationTimeout,
     ignoreHTTPSErrors: !env.isProduction,
-    /** RECORD=off skips trace + video recording (faster runs; failures keep only a screenshot). */
-    trace: recordArtifacts ? 'retain-on-failure' : 'off',
+    /** RECORD=off skips trace + video (failures keep a screenshot); RECORD=on keeps them for passing tests too. */
+    // Traces keep DOM snapshots, network and console but no per-action screenshots (the videos show the screens):
+    // a ~40-minute two-user run with screenshots produced a trace too large to write ("file is truncated", 2026-10-31).
+    trace: recordArtifacts ? { mode: keepArtifacts, screenshots: false, snapshots: true, sources: true } : 'off',
     screenshot: 'only-on-failure',
-    video: recordArtifacts ? 'retain-on-failure' : 'off',
+    video: recordArtifacts ? keepArtifacts : 'off',
     /** NOTE: no baseURL — there are several portals; page objects use URLs from src/config/portals.ts. */
   },
 

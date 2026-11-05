@@ -4,7 +4,7 @@ import { ExplorationLicenseData, explorationLicenseData } from '@data/exploratio
 import { InvestorPortal } from '@pages/investor/InvestorPortal';
 import { StepReport } from '@pages/investor/exploration-license/WizardStep';
 import { createLogger } from '@utils/logger';
-import { trackServerActivity } from '@utils/os-waits';
+import { OutSystemsResponse, trackServerActivity, waitForScreenService } from '@utils/os-waits';
 import { splitRules, WizardValidationError } from '@utils/validation';
 
 const log = createLogger('Exploration License');
@@ -109,6 +109,31 @@ export class ExplorationLicenseFlow {
     return fill();
   }
 
+  /** Previous until "موقع الطلب" is active — used when submit rejects the saved location. */
+  async backToLocation(): Promise<void> {
+    const target = (await this.wizard.stepNames()).indexOf(this.license.location.name);
+    if (target < 0) throw new Error(`Wizard has no "${this.license.location.name}" step.`);
+    while ((await this.wizard.activeIndex()) > target) {
+      const change = await this.wizard.previous();
+      navLog.info(`"${change.from}" ← back to "${change.to}"`);
+    }
+  }
+
+  /**
+   * From "موقع الطلب": Next through steps 3–8 again, refilling each one first. A new location clears
+   * part of the saved data (e.g. "الجدول الزمني لتنفيذ أعمال الاستكشاف", TEST 2026-11-03); the step
+   * fillers only fill what is empty, so already-saved values are kept.
+   */
+  async forwardToLastStep(): Promise<StepReport[]> {
+    await this.next();
+    const reports: StepReport[] = [];
+    for (;;) {
+      reports.push(await this.fillCurrentStep());
+      if (await this.isOnLastStep()) return reports;
+      await this.next();
+    }
+  }
+
   /** Draft → steps 1–2 unchanged → steps 3–8 filled → stops on the last step. */
   async completeDraft(requestNumber: string): Promise<StepReport[]> {
     await this.openRequest(requestNumber);
@@ -128,8 +153,14 @@ export class ExplorationLicenseFlow {
     const baseline = await feedback.count();
     const errorsBefore = await feedback.of('error').count();
     const activity = trackServerActivity(this.license.page);
+    // The submit call starts ~0.5 s after the click and can slip past the quiet-period tracker;
+    // navigating away before it answers aborts it and leaves the request a draft (TEST, request 76422).
+    const submitted = waitForScreenService(this.license.page, { action: 'ActionSubmitExplorationRequest' }, 120_000);
     await this.wizard.submitButton.click();
+    const response = await submitted;
     await activity.idle();
+    const body = (await response.json().catch(() => undefined)) as OutSystemsResponse<unknown> | undefined;
+    if (body?.exception) throw new WizardValidationError('إرسال (Submit)', [body.exception.message ?? body.exception.name ?? 'Server exception']);
     const messages = await feedback.textsSince(baseline);
     messages.forEach((m) => log.info(`Submit response: ${m}`));
     // A rejected submit stays on the page with an error toast, e.g. (TEST, request 76092):

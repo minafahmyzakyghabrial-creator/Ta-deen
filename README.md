@@ -337,3 +337,152 @@ Attachments accept `.jpg .jpeg .png .pdf .xlsx .xls`. The fixture is `test-data/
 - [ ] **Licences longer than 1 year**: the per-year popups, rehabilitation inputs and timeline years were only seen for 1 year.
 - [ ] **Not automated:** financial proof "القوائم المالية" (financial statements); full/partial land ownership; technical justifications (optional); additional attachments (step 7).
 - [ ] **Possible app defect:** after saving step 6 and reloading, the impact row shows only the monitoring frequency. The impacts, activities and mitigation columns are empty, though they were selected in the popup. Verify manually.
+
+---
+
+## 13. Exploration License Transfer (تحويل رخصة الكشف)
+
+`tests/exploration-transfer/exploration-transfer.spec.ts` holds the three positive end-to-end scenarios of the transfer service. Each one runs in three isolated sessions: transferor, transferee and employee.
+
+| Scenario | Tag | Variation |
+|---|---|---|
+| E2E-001 Available Land | `@available-land` | GIS + evaluation choose "أرض متاحة" — **passed on TEST (request 76352)** |
+| E2E-002 Conditioned Land | `@conditioned-land` | GIS + evaluation choose "أرض مشروطة" with clauses; the transferee approves the GIS terms — **whole workflow completed on TEST (request 76356); fails only on the open discrepancy below** |
+| E2E-003 Rework | `@rework` | Technical assessment rates one section Not Met; Consolidated Feedback returns it to the transferee (repeated per `rework.returns`), then optionally returns branches to their employees with a financial Not Met (`rework.employeeReturn`) — **passed on TEST (request 76362)** |
+| E2E-004 Return chain | `@return-chain` | `exploration-transfer-returns.spec.ts`: every documented return route that still completes, on one request (below) — **completed on TEST (request 76386, 12 returns + additional information); open: licence-status finding below** |
+
+### Run it
+
+```powershell
+npm run test:transfer               # E2E-001..003, one after another (TEST)
+npm run test:transfer:available     # E2E-001 only
+npm run test:transfer:conditioned   # E2E-002 only
+npm run test:transfer:rework        # E2E-003 only
+npm run test:transfer:returns       # E2E-004 return chain only (long: up to 6 h)
+# resume a specific request of a scenario:
+$env:TRANSFER_REQUEST_NUMBER="76352"; npm run test:transfer:available
+```
+
+Each scenario uses its own licence, so the scenarios never share a licence or a request. The npm scripts force `--workers=1`.
+
+### Configuration you must provide
+
+The licence and the transferee CR are **never** defaulted in code. Set them per scenario and environment in `test-data/<env>/exploration-transfer.json`. `test-data/common/exploration-transfer.json` applies to all environments.
+
+```json
+{
+  "scenarios": {
+    "availableLand":   { "licenseNumber": "20260311313", "transfereeCR": "1010798976" },
+    "conditionedLand": { "licenseNumber": "20260311312", "transfereeCR": "1010798976" },
+    "rework":          { "licenseNumber": "20260311310", "transfereeCR": "1010798976" }
+  }
+}
+```
+
+You can override either value for one run without editing any file. Environment variables win over the JSON:
+
+| Variable | Example |
+|---|---|
+| `TRANSFER_AVAILABLE_LAND_LICENSE_NUMBER` / `TRANSFER_AVAILABLE_LAND_TRANSFEREE_CR` | `20260311313` / `1010798976` |
+| `TRANSFER_CONDITIONED_LAND_LICENSE_NUMBER` / `TRANSFER_CONDITIONED_LAND_TRANSFEREE_CR` | |
+| `TRANSFER_REWORK_LICENSE_NUMBER` / `TRANSFER_REWORK_TRANSFEREE_CR` | |
+| `TRANSFER_REQUEST_NUMBER` | Resume this request instead of submitting a new one |
+| `STOP_BEFORE_TASK` | Stop the run when this employee task appears, before it is assigned or answered, e.g. `موافقة المستوى الخامس`. Use it to check the request manually (for example the "سجل الطلب" tab); re-run without it to continue. |
+| `RECORD=on` | Keep the trace and one video per user (transferor, transferee, employee) even when the test passes |
+
+Validation: the licence must be digits only, and the CR must be exactly 10 digits. A missing or invalid value fails the test with a `ConfigError` that names the file key and the variable. A licence that the transferor doesn't own fails with `LicenseNotOwnedError`, which lists the licences offered. No other licence or CR is ever chosen.
+
+Other per-scenario keys (optional, defaults in `src/data/exploration-transfer.data.ts`):
+
+| Key | Default | Meaning |
+|---|---|---|
+| `transferor` / `transferee` / `employee` | `investor3` / `investor2` / `employee1` | Users; credentials come from `.env` (`TEST_INVESTOR3_USERNAME`, …). The transferee user must own `transfereeCR`. |
+| `equipmentOnSite`, `subsidiary` | `false` | The two transferor checkboxes. Equipment adds the machinery sales agreement upload. |
+| `gisRecommendation` | `أرض متاحة` (`أرض مشروطة` for conditionedLand) | GIS and evaluation decision |
+| `gisClauses` | one clause for conditionedLand | Condition clauses |
+| `rework.section`, `rework.description`, `rework.returns` | Social impact, its description, two corrections of the position | Rework scenario: one `returns` entry per return to the transferee (the request goes back to the investor that many times) |
+
+Top-level keys `attachment`, `employeeNote` and `transfereeWizard` (consultant, transfer justifications, financial proof, social-impact employee) can be overridden the same way.
+
+### E2E-004 Return chain (`scenarios.returnChain`)
+
+One request goes through every return the service documentation allows on a path that still ends in a completed transfer. Defaults are in `src/data/exploration-transfer.data.ts`. Override them in the JSON, or set `TRANSFER_RETURN_CHAIN_LICENSE_NUMBER` / `TRANSFER_RETURN_CHAIN_TRANSFEREE_CR`.
+
+| Return | Route asserted (documentation) | Config |
+|---|---|---|
+| Consolidated → transferee, social impact | correction To-Do; new values shown on reassessment | `rework.returns` (2) |
+| Consolidated → financial + technical, then → transferee, financial | financial Not Met → correction → reassessed | `rework.employeeReturn` |
+| GIS Review → GIS | §7.1 | `returnChain.tasks` |
+| Financial Review → Financial | §9.1 | `returnChain.tasks` |
+| Consolidated → financial + technical + compliance | §9.2 (all selected branches open) | `returnChain.tasks`, `consolidatedBranches` |
+| Initial Review → Consolidated; Final Assessment → Initial Review; Level 1 → Final Assessment; Levels 2–5 → Level 1 | §10 | `returnChain.tasks` |
+
+`returnChain.tasks` maps each task to how many times it returns the request before approving (0 turns a return off). Each return gets a unique description (`… — إعادة n من "<task>"`). After each return the flow:
+
+- checks that the documented previous task opens;
+- checks that this task's handler sees the description in "سجل الطلب".
+
+Both checks are soft: the run continues to completion and the report lists each result. A configured return the task does not offer is reported as a discrepancy and the task is approved instead. The return labels confirmed on TEST (request 76386) are "إعادة للموظف السابق" (GIS Review, Financial Review, Consolidated, Initial Review, Final Assessment, Levels 1–2) and "إعادة لموظف موافقة مستوى الأول" (Levels 3–5). All 12 returns opened the documented previous task, and each one was listed in "سجل الطلب".
+
+**Additional information (`returnChain.additionalInfo`).** Once its other returns are done, "المراجعة العامة" sends "إعادة للمحال إليه" with "طلب بيانات إضافية". When every section is Met, TEST ticks that box itself and locks it. The request carries a description (≤ 2,000) and one or more attachment names (≤ 100 each, added with "اضافة +"). The transferee gets a To-Do "معلومات إضافية" (StepType 310). The flow checks the To-Do shows the request, uploads one file per requested name, writes "الوصف" and submits. "المراجعة العامة" then sees the request again.
+
+**Things learned on TEST while building this:**
+
+- A task the request was returned to has a mandatory "رد الموظف" field (`TextArea_EmployeeResponse`). Left empty, the submit is refused in the browser and nothing reaches the server. The flow fills it on every task, including the BUG-001 no-comment tasks.
+- "سجل الطلب" holds two collapsed sections, "سجل الأحداث" and "سجل الردود", which the test expands before reading.
+- A completed request no longer appears in Task Management, so "سجل الردود" is saved on the Level 5 task, before its final answer.
+- In "سجل الردود", "إعادة للمحال إليه" is listed as "معاد للمستثمر" and "توصية بالقبول" as "التوصية بالقبول".
+
+Not covered, because each needs a screen that hasn't been explored yet: returning the Work Plan or Attachments sections to the transferee. Rejections and cancellations are negative paths and stay out of scope.
+
+**Open findings from 76386, to confirm:**
+
+1. After the transfer back to its earlier owner (investor3 → investor2 → investor3), licence 20260311313 shows "محولة" in BOTH companies' licence lists. investor3, the new owner, should show "فعال". On the first transfer (76352), the transferee did show "فعال".
+2. When "المراجعة العامة" reopened after "معلومات إضافية", its page showed both requested attachment names but not the transferee's "الوصف" reply.
+
+### Reporting
+
+Each test is annotated with the scenario, the licence, the masked transferee CR (`******8976`), the request number, both bill numbers, the final status and the licence status shown to each company. It also attaches `transfer-context.json`, which contains every handled task with its decision and timestamp, the Task Management rows seen in each round, and the transferee wizard step report. Screenshots, traces and videos come from the existing configuration.
+
+### Code map
+
+| Part | Code |
+|---|---|
+| Transferor form (licence, CR inquiry, documents, obligations, submit) | `src/pages/investor/exploration-transfer/TransferRequestPage.ts` |
+| Transferee invitation review + 8-step wizard | `TransfereeTaskPages.ts`, `TransfereeLicenseInfoStep.ts`, `TransfereeSteps.ts` (same folder) |
+| Employee transfer task page / Task Management | `src/pages/employee/TransferTaskResponsePage.ts` (extends `TaskResponsePage` / `TaskManagementPage`) |
+| Transfer payment page (issues the SADAD bill) | `src/pages/investor/exploration-transfer/TransferPaymentPage.ts` |
+| Licence list ("الرخص") — last check | `src/pages/investor/LicensesPage.ts` |
+| Workflow (state-driven, payments, ownership) | `src/flows/exploration-transfer.flow.ts` |
+| Configuration + validation | `src/data/exploration-transfer.data.ts`, `test-data/<env>/exploration-transfer.json` |
+
+Reused without changes: login and sessions, `ToDoListPage`, `PaymentPage`, `Wizard`, `field-helper` and the logger. Two small changes to shared code:
+
+- `TaskManagementPage.menu` became `protected` so the transfer subclass can open its own task page.
+- `PaymentNotificationPage.notify()` gained an opt-in `{ setAmount: true }`, which also sets `pmtAmt` to the bill amount. Transfer bills (10000) were refused with 400 Bad Request while the template said 5000. Issuance still sends only `billAcct`.
+
+### Verified on TEST (2026-10-30, request 76352 = licence 20260311313 → CR 1010798976)
+
+- Each transfer creates **two** request numbers (transferor *N* and transferee *N+1*). The request number used everywhere (To-Do, Task Management, payments) is the transferor's, as shown in the submission success dialog.
+- **Transferor:** a single page at `/Licenses_Exploration_Transfer/ExplorationTransferRequest`. "إرسال الطلب" opens a confirmation ("إرسال طلب التحويل"), then a success dialog with "رقم الطلب #N".
+- **Transferee:** the To-Do task "مراجعة طلب تحويل رخصة كشف" (approve + 2 obligations), then the To-Do task "تقديم نماذج تحويل رخصة الكشف" (8 steps). Most of the wizard is read-only, matching the service documentation. Editable parts: declarations, an expert (chosen from the company's registered experts), the technical consultant and 2 files; transfer justifications and the updated rehabilitation plan; one financial proof; the community-performance employee and a letter; 10 environmental obligations; 3 terms. "إرسال" submits without a confirmation.
+- **Payments:** both fees use the task "الدفع", which opens `/Licenses_Exploration_Transfer/InvestorToDo?…&In_StepType=349`. The page shows biller code #116 and 10000. The SADAD bill exists only after you acknowledge the fee and press "إرسال الرد" (application fee bill 202610305020, transfer fee bill 202610305021). The bill is notified through `/TadeenTest/CallPaymentNotification` with `billAcct` and `pmtAmt` set (S000). The payment task closed within a minute, although the page warns it can take up to 15 minutes (`PAYMENT_CONFIRM_MS`, default 20 min).
+- **Employee chain (E2E-001):** GIS + مهمة الرقابة → مراجعة نظم المعلومات الجغرافية → مراجعة نتيجة مهمة الرقابة ونظم المعلومات الجغرافية (أرض متاحة) → application fee → الامتثال الفني, تقييم القدرة المالية → مراجعة تقييم القدرة المالية, تقييم القدرة الفنية (a 3-step wizard inside the respond tab) → المراجعة العامة (توصية بالقبول) → المراجعة المبدئية → التقييم النهائي → موافقة المستوى الاول … الرابع (قبول التوصية) → الخامس (قبول الطلب) → transfer fee → request "مكتمل".
+- **Last check:** each company's licence list ("الرخص", `/MiningPortal/Licenses`). The transferor shows the licence as **"محولة"** (transferred) and the transferee as **"فعال"** (active).
+- **Employee:** tasks open at `/Licenses_Exploration_Transfer/ExplorationTransferReview`. The respond tab is spelled "الرد علي الطلب". GIS ("نظم المعلومات الجغرافية": أرض متاحة / أرض مشروطة) and "مهمة الرقابة" (inspection: ممتثل / غير ممتثل for the transferor **and** the transferee) are created in parallel.
+
+### Known application bug: Field Inspection cannot be submitted (TEST, since 2026-10-31)
+
+On requests 76358 and 76360, "إرسال الرد" on the employee task "مهمة الرقابة" (Field Inspection) never completes. No message appears, the page stays on the task, and the task remains "قيد التنفيذ". This happened with one comment, with both party comments, and with plain text. The same task submitted normally on 76352, 76354 and 76356, and the TEST owner confirmed it manually as a bug. Every scenario passes through Field Inspection, so all three scenarios fail there with *"إرسال الرد" did not complete within 120 s* until it's fixed. The cause: `ActionCreateInspectionTask_BL` answers `Is_Success: false, "تعذر إرسال التقييم"`, and the screen doesn't show it. Bug report with screenshots and server log: [docs/bugs/BUG-001-field-inspection-submit](docs/bugs/BUG-001-field-inspection-submit/README.md). E2E-003 is waiting at that task on request 76362 and can be resumed once the fix is deployed.
+
+### Open discrepancy (conditioned land)
+
+The transferee's "مراجعة شروط نظم المعلومات الجغرافية" screen (TP-17354) showed **no terms** on requests 76354 and 76356, although the GIS task and the GIS & Inspection Evaluation each saved the configured clause. Its data action `DataActionGetConditionsAndIssuance` returned `Terms: []` together with the licence's original issuance request id (76350). E2E-002 records the terms it received (`gisTermsShown` in `transfer-context.json`) and raises a soft assertion, so the test reports this until the application is fixed or the behaviour is confirmed as intended. The rest of the workflow still runs and is verified.
+
+### Traps
+
+- "تطبيق على الكل" **toggles**. On a reopened draft it unticked the saved declarations, so it is pressed only when something is still unticked.
+- The expert picker ("اختر الخبير") is a centred Virtual-Select popup whose `aria-controls` doesn't match its list. The list stays drawn over "حفظ", so the popup is saved by focusing "حفظ" and pressing Enter.
+- On the transferee review screen, choosing a radio before the page's data load finishes gets reset. The page object waits for the server to go quiet first.
+- A transfer To-Do task can take up to a minute to appear after the previous step.
+- Some employee tasks take over 30 s to save and return to Task Management, so the transfer task page waits 120 s.
