@@ -56,7 +56,12 @@ export class TaskResponsePage extends BasePage {
    * arrows a[id$="-Next2"] / a[id$="-Previous2"]; "إرسال الرد" appears only on the last part.
    */
   async isPartWizard(): Promise<boolean> {
-    return this.page.locator('a[id$="-Next2"]').isVisible();
+    return this.partNext.isVisible();
+  }
+
+  /** Part arrow: -Next2 (exploration) or -Next (public projects "تقييم القدرة الفنية", VERIFIED on TEST 76900). */
+  private get partNext(): Locator {
+    return this.page.locator('a[id$="-Next2"], a[id$="-Next"]').filter({ visible: true }).first();
   }
 
   get submitButton(): Locator {
@@ -70,14 +75,15 @@ export class TaskResponsePage extends BasePage {
       perPart.push(await this.markAllRequirementsMet());
       if (await this.submitButton.isVisible()) return perPart;
       const activity = trackServerActivity(this.page);
-      await this.page.locator('a[id$="-Next2"]').click();
+      await this.partNext.click();
       await activity.idle();
     }
     throw new Error(`The assessment wizard did not reach its submit button within ${maxParts} parts.`);
   }
 
+  /** Exploration: /Request_Response; public projects: /Request_PublicProjects_Response (VERIFIED on TEST 76900). */
   async expectLoaded(requestNumber: string): Promise<void> {
-    await this.page.waitForURL(new RegExp(`Request_Response\\?.*In_RequestId=${requestNumber}(&|$)`), { timeout: 60_000 });
+    await this.page.waitForURL(new RegExp(`Request(_PublicProjects)?_Response\\?.*In_RequestId=${requestNumber}(&|$)`), { timeout: 60_000 });
     await expect(this.page.getByRole('tab', { name: 'الرد على الطلب' })).toBeVisible({ timeout: 60_000 });
   }
 
@@ -90,7 +96,7 @@ export class TaskResponsePage extends BasePage {
     const activity = trackServerActivity(this.page);
     await this.page.getByRole('tab', { name: 'الرد على الطلب' }).click();
     // Either the submit button (single-page task) or the part-wizard arrows show once it rendered.
-    await expect(this.submitButton.or(this.page.locator('a[id$="-Next2"]')).first()).toBeVisible({ timeout: 60_000 });
+    await expect(this.submitButton.or(this.page.locator('a[id$="-Next2"], a[id$="-Next"]')).filter({ visible: true }).first()).toBeVisible({ timeout: 60_000 });
     await activity.idle();
   }
 

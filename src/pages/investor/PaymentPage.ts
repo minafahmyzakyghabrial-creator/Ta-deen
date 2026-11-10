@@ -33,7 +33,8 @@ export class PaymentPage extends BasePage {
   async expectLoaded(): Promise<void> {
     const timeout = readNumber('PAYMENT_PAGE_TIMEOUT_MS', 120_000);
     // The payment URL is reached first; the error page replaces it afterwards (VERIFIED on 76367).
-    await this.page.waitForURL(/DoPayment\?/, { timeout });
+    await this.page.waitForURL(/DoPayment\?|\/InvestorResponse\?/, { timeout });
+    if (this.isInvestorResponse) return this.issueReference(timeout);
     const paymentUrl = this.page.url();
     const reference = this.page.getByText(/الرقم المرجعي لنظام سداد/).first();
     for (let attempt = 1; attempt <= 3; attempt++) {
@@ -48,6 +49,42 @@ export class PaymentPage extends BasePage {
       await this.page.goto(paymentUrl);
     }
     await expect(reference, `Payment page (${paymentUrl})`).toBeVisible({ timeout: 5_000 });
+  }
+
+  /** Public-projects fee task ("رسوم الطلب" → /Licenses_PublicProjects/InvestorResponse). */
+  private get isInvestorResponse(): boolean {
+    return /\/InvestorResponse\?/.test(this.page.url());
+  }
+
+  /**
+   * Public-projects fee page (VERIFIED on TEST 2026-11-08, request 76900): it shows "رمز السداد للمدفوعات الحكومية #n" and
+   * the fee, but the SADAD reference only after the acknowledgement is ticked and "إرسال الرد" pressed. The button
+   * then spins for a long time, so the page is reopened until the reference shows. The task stays in the To-Do list
+   * until the payment notification arrives; on a reopened task the reference is already there and nothing is resent.
+   * Later payments ("دفع المقابل المالي" 300000, "دفع الايجار السطحي") have no "رمز السداد" line and a button named
+   * "إرسال" — the page counts as loaded once its acknowledgement ("أقر بمعرفتي …") or the reference shows.
+   */
+  private async issueReference(timeout: number): Promise<void> {
+    const url = this.page.url();
+    const reference = this.page.getByText(/الرقم المرجعي لنظام سداد\s*\d/).first();
+    const loaded = this.page.getByText(/أقر بمعرفتي/).or(reference).first();
+    await expect(loaded).toBeVisible({ timeout });
+    await trackServerActivity(this.page).idle();
+    if (await reference.isVisible()) return;
+    const submit = this.page.getByRole('button', { name: /^\s*إرسال( الرد)?\s*$/ }).filter({ visible: true }).first();
+    for (const box of await this.page.getByRole('checkbox').filter({ visible: true }).all()) {
+      if (!(await box.isChecked())) await box.check();
+    }
+    const applyAll = this.page.getByRole('button', { name: 'تطبيق على الكل', exact: true });
+    if (await applyAll.isVisible()) await applyAll.click();
+    await expect(submit).toBeEnabled({ timeout: 30_000 });
+    await submit.click();
+    for (let attempt = 1; attempt <= 6; attempt++) {
+      if (await reference.waitFor({ timeout: 30_000 }).then(() => true, () => false)) return;
+      await this.page.goto(url);
+      await expect(loaded).toBeVisible({ timeout });
+    }
+    await expect(reference, `SADAD reference after "إرسال" (${url})`).toBeVisible({ timeout: 5_000 });
   }
 
   private parse(text: string): Bill | undefined {
@@ -75,6 +112,8 @@ export class PaymentPage extends BasePage {
   /** Ticks the non-refundable-fee acknowledgement and presses "تأكيد". Returns new toasts. */
   /** Returns undefined when the page has no acknowledgement (possible on later payments). */
   async acknowledge(): Promise<string[] | undefined> {
+    // Public projects: acknowledged together with "إرسال الرد" while the reference was issued.
+    if (this.isInvestorResponse) return undefined;
     const box = this.page.getByRole('checkbox').filter({ visible: true }).first();
     if ((await box.count()) === 0) return undefined;
     if (!(await box.isChecked())) await box.check();

@@ -54,7 +54,9 @@ export class Wizard {
   }
 
   async activeIndex(): Promise<number> {
-    return this.steps.evaluateAll((els) => els.findIndex((e) => e.classList.contains('active')));
+    // A finished step can carry BOTH "past" and "active" (public-projects wizard, TEST 2026-11-05), so the
+    // current step is the active one that is not past.
+    return this.steps.evaluateAll((els) => els.findIndex((e) => e.classList.contains('active') && !e.classList.contains('past')));
   }
 
   async activeName(): Promise<string> {

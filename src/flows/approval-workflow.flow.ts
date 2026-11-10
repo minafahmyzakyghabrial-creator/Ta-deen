@@ -9,6 +9,8 @@ import { TaskResponsePage } from '@pages/employee/TaskResponsePage';
 import { InvestorPortal } from '@pages/investor/InvestorPortal';
 import { StepReport } from '@pages/investor/exploration-license/WizardStep';
 import { PaymentPage } from '@pages/investor/PaymentPage';
+import { EnvironmentalPermitPage } from '@pages/investor/public-projects/EnvironmentalPermitPage';
+import { FinancialGuaranteePage } from '@pages/investor/public-projects/FinancialGuaranteePage';
 import { ToDoListPage } from '@pages/investor/ToDoListPage';
 import { NotificationResult, PaymentNotificationPage } from '@pages/test-utils/PaymentNotificationPage';
 import { createLogger } from '@utils/logger';
@@ -28,6 +30,8 @@ const DEAD_STATUSES = [/ملغي/, /مرفوض/];
 /** End state after the fifth approval + second payment (VERIFIED on 76107). EXPECTED_FINAL_STATUS overrides. */
 const COMPLETED_STATUS = 'مكتمل';
 const EMPLOYEE_NOTE = 'تمت المراجعة - اختبار آلي';
+/** Employee tasks that offer no decision at all — only a description and "إرسال الرد". */
+const NO_DECISION_TASKS = /^\s*التقييم المالي\s*$/;
 /** Government entities for "الموافقات الحكومية" — chosen by the TEST owner (2026-10-26); GOV_ENTITIES overrides. */
 const DEFAULT_GOV_ENTITIES = ['وزارة الشوون البلدية والقروية والسكان', 'وزارة الطاقة', 'وزارة البيئة والمياه والزراعة', 'وزارة الداخلية'];
 
@@ -43,14 +47,30 @@ export interface PaidBill extends NotificationResult {
 /**
  * Investor To-Do tasks handled by the payment helper: "الدفع" (VERIFIED, first payment) and fee
  * tasks named "رسوم …" (seen in To-Do lists, e.g. "رسوم إيجار سطحي" — expected for the second payment).
+ * Public projects (TEST 76900): "رسوم الطلب", then — after the third approval — "دفع المقابل المالي" and "دفع الايجار السطحي".
  */
-const PAYMENT_TASK = /الدفع|رسوم/;
+const PAYMENT_TASK = /دفع|رسوم/;
+/** Public-projects investor task "الضمان المالي" (VERIFIED on TEST 76900): guarantee number, bank, attachment, declaration. */
+const GUARANTEE_TASK = /الضمان المالي/;
+/** Public-projects investor task "التصريح البيئي" (TEST 76900, after "مهمة المراجعة العامة"): permit number + attachment. */
+const PERMIT_TASK = /التصريح البيئي/;
+/** Bank used for "الضمان المالي"; GUARANTEE_BANK overrides it. */
+const DEFAULT_GUARANTEE_BANK = 'مصرف الراجحي';
+/** File uploaded by the public-projects form tasks. */
+const FORM_ATTACHMENT = 'test-data/attachments/sample.pdf';
 
 export interface WorkflowContext {
   requestNumber: string;
   bills: PaidBill[];
   handledTasks: { side: 'employee' | 'investor'; task: string; decision: string; at: string }[];
   finalStatus?: string;
+  /** Employee task the run stopped at (run({ stopAt })) — left open, untouched. */
+  stoppedAt?: string;
+}
+
+export interface RunOptions {
+  /** Stop — without assigning or answering it — as soon as an open employee task matches this. */
+  stopAt?: RegExp;
 }
 
 export class UnsupportedTaskError extends Error {
@@ -160,6 +180,20 @@ export class ApprovalWorkflow {
     log.billing.info(`Bill ID captured (${ordinal} payment): ${bill.billId} (${bill.description} ${bill.amount})`);
     // Never re-notify a bill, and never mistake an earlier bill for this payment's bill.
     if (this.context.bills.some((b) => b.billId === bill.billId)) {
+      // TEST (76900, final "الدفع" 20000): the task left the To-Do list after the notification, then came back with the
+      // same bill showing "حالة الدفع: مكتملة" while the request stayed "بإنتظار الدفع" — the server catching up. Wait for
+      // it instead of failing; the bill is still never notified twice.
+      if (/حالة الدفع:\s*مكتملة/.test(await this.investor.page.locator('body').innerText())) {
+        log.payment.warn(`Bill ${bill.billId} is already paid ("حالة الدفع: مكتملة") but "${taskType}" is listed again — waiting for it to close`);
+        await expect
+          .poll(async () => (await (await this.investorTasks()).search(this.rn)).some((t) => t.taskType === taskType), {
+            timeout: 600_000,
+            intervals: [20_000],
+            message: `Bill ${bill.billId} is paid, yet "${taskType}" stayed in the To-Do list for 10 minutes`,
+          })
+          .toBe(false);
+        return;
+      }
       throw new Error(`Bill ${bill.billId} was already notified as paid, yet a payment task still shows it. Not notifying twice — check it manually.`);
     }
 
@@ -170,7 +204,10 @@ export class ApprovalWorkflow {
     try {
       const utility = new PaymentNotificationPage(utilityPage);
       await utility.open();
-      const result = await utility.notify(bill.billId, bill.amount);
+      // Public-projects fee bills (10000, /InvestorResponse) were refused with 400 while pmtAmt kept the template's 5000
+      // (TEST 76900) — the same as transfer bills — so the bill amount is sent. Exploration payments keep the template.
+      const setAmount = /\/InvestorResponse\?/.test(this.investor.page.url());
+      const result = await utility.notify(bill.billId, bill.amount, { setAmount });
       log.payment.info(`Notification called for ${bill.billId} — response: ${result.response || '(empty)'}`);
       this.context.bills.push({ ...result, amount: bill.amount, paidAt: new Date().toISOString(), task: taskType, verified: false });
       this.save();
@@ -193,6 +230,37 @@ export class ApprovalWorkflow {
     this.save();
   }
 
+  /**
+   * Public-projects form tasks — fill, attach, submit, then verify the task left the To-Do list:
+   *   "الضمان المالي": new guarantee number, bank, attachment, declaration → إرسال الرد
+   *   "التصريح البيئي": new permit number, attachment → إرسال
+   */
+  private async handleFormTask(todo: ToDoListPage, taskType: string): Promise<void> {
+    log.investor.info(`Opening "${taskType}"`);
+    await todo.openTask({ requestNumber: this.rn, taskType });
+    let decision: string;
+    if (GUARANTEE_TASK.test(taskType)) {
+      const guarantee = new FinancialGuaranteePage(this.investor.page);
+      await guarantee.expectLoaded();
+      const bank = readVar('GUARANTEE_BANK') ?? DEFAULT_GUARANTEE_BANK;
+      decision = `guarantee ${await guarantee.submit({ bank, attachment: FORM_ATTACHMENT })} (${bank})`;
+    } else {
+      const permit = new EnvironmentalPermitPage(this.investor.page);
+      await permit.expectLoaded();
+      decision = `environmental permit ${await permit.submit(FORM_ATTACHMENT)}`;
+    }
+    log.investor.info(`"${taskType}" submitted — ${decision}`);
+    await expect
+      .poll(async () => (await (await this.investorTasks()).search(this.rn)).some((t) => t.taskType === taskType), {
+        timeout: 120_000,
+        intervals: [10_000],
+        message: `The "${taskType}" task is still in the To-Do list after submitting it`,
+      })
+      .toBe(false);
+    this.context.handledTasks.push({ side: 'investor', task: taskType, decision, at: new Date().toISOString() });
+    this.save();
+  }
+
   // ---------------------------------------------------------------- employee side
 
   private get taskManagement(): TaskManagementPage {
@@ -204,7 +272,7 @@ export class ApprovalWorkflow {
    *   multi-part assessment (مهمة تقييم المتطلبات الفنية) → every item "تحققت المتطلبات", part by part
    *   أرض متاحة (نظم المعلومات الجغرافية) → and uncheck "الأرض بحاجة إلى الموافقات الحكومية"
    *   قبول التوصية (GIS review, financial review, initial review) → accept the recommendation
-   *   التوصية بالقبول (المراجعة العامة) → recommend acceptance
+   *   التوصية بالقبول (المراجعة العامة) / توصية بالقبول (public projects مهمة المراجعة العامة, TEST 76900) → recommend acceptance
    *   تقييم الامتثال الفني → both compliance tables with full marks (was ممتثل before 2026-11-03)
    *   قبول الطلب (موافقه المستوي الخامس — fifth approval) → accept the request
    *   approval levels 1–4 (موافقه المستوي …) and التقييم النهائي → قبول التوصية
@@ -235,7 +303,7 @@ export class ApprovalWorkflow {
     }
     const options = await response.decisions();
     log.employee.info(`Task "${task.taskType}" (type ${response.taskTypeId()}) offers: ${options.join(' | ') || 'no decision options'}`);
-    const pick = ['أرض متاحة', 'قبول التوصية', 'التوصية بالقبول', 'ممتثل', 'قبول الطلب'].find((o) => options.includes(o));
+    const pick = ['أرض متاحة', 'قبول التوصية', 'التوصية بالقبول', 'توصية بالقبول', 'ممتثل', 'قبول الطلب'].find((o) => options.includes(o));
     if (pick) {
       await response.choose(pick);
       log.employee.info(`${pick} selected`);
@@ -258,6 +326,12 @@ export class ApprovalWorkflow {
       const chosen = await new MultiSelect(multi).select(wanted);
       log.employee.info(`Selected: ${chosen.join(', ')}`);
       return chosen.join(', ');
+    }
+    // Review-only tasks with nothing to decide — just a description and "إرسال الرد" (public projects
+    // "التقييم المالي", type 216, VERIFIED on TEST 76900). Only these known types are submitted without a decision.
+    if (!options.length && NO_DECISION_TASKS.test(task.taskType)) {
+      log.employee.info(`Task "${task.taskType}" has no decision — submitted with the description only`);
+      return 'no decision (review only)';
     }
     throw new UnsupportedTaskError('employee', task.taskType, `options offered: ${options.join(' | ') || 'none'}`);
   }
@@ -290,9 +364,19 @@ export class ApprovalWorkflow {
 
   // ---------------------------------------------------------------- orchestration
 
-  /** One round: handles the first pending task found. Returns false when nothing was pending. */
-  private async step(): Promise<boolean> {
+  /**
+   * One round: handles the first pending task found. Returns false when nothing was pending, 'stop' when an open
+   * employee task matches stopAt (that task is left untouched).
+   */
+  private async step(stopAt?: RegExp): Promise<boolean | 'stop'> {
     const open = (await this.taskManagement.search(this.rn)).filter((t) => OPEN_TASK_STATUSES.some((s) => t.status.includes(s)));
+    const stopTask = stopAt && open.find((t) => stopAt.test(t.taskType));
+    if (stopTask) {
+      this.context.stoppedAt = stopTask.taskType;
+      this.save();
+      log.workflow.info(`Request ${this.rn} reached employee task "${stopTask.taskType}" (${stopTask.status}) — stopping here as requested`);
+      return 'stop';
+    }
     if (open.length) {
       await this.handleEmployeeTask(open[0]);
       return true;
@@ -300,12 +384,15 @@ export class ApprovalWorkflow {
     const todo = await this.investorTasks();
     const investorTasks = await todo.search(this.rn);
     if (investorTasks.length) {
-      const task = investorTasks[0];
-      log.investor.info(`To-Do task found: "${task.taskType}"`);
-      if (!PAYMENT_TASK.test(task.taskType)) {
-        throw new UnsupportedTaskError('investor', task.taskType, 'only payment tasks ("الدفع" / "رسوم …") are automated on the investor side');
+      log.investor.info(`To-Do task(s) found: ${investorTasks.map((t) => `"${t.taskType}"`).join(', ')}`);
+      // Public projects open "رسوم الطلب" and "الضمان المالي" together; each is handled in turn.
+      const isForm = (t: string) => GUARANTEE_TASK.test(t) || PERMIT_TASK.test(t);
+      const task = investorTasks.find((t) => PAYMENT_TASK.test(t.taskType) || isForm(t.taskType));
+      if (!task) {
+        throw new UnsupportedTaskError('investor', investorTasks[0].taskType, 'only payment ("الدفع" / "رسوم …"), "الضمان المالي" and "التصريح البيئي" tasks are automated on the investor side');
       }
-      await this.handlePayment(todo, task.taskType);
+      if (isForm(task.taskType)) await this.handleFormTask(todo, task.taskType);
+      else await this.handlePayment(todo, task.taskType);
       return true;
     }
     return false;
@@ -313,14 +400,17 @@ export class ApprovalWorkflow {
 
   /**
    * Runs rounds until nothing is pending for WORKFLOW_IDLE_MS (default 3 min) or the request
-   * reaches a dead status. Bounded by WORKFLOW_MAX_ROUNDS (default 25).
+   * reaches a dead status. Bounded by WORKFLOW_MAX_ROUNDS (default 25). With stopAt, it returns as soon as a
+   * matching employee task is open.
    */
-  async run(): Promise<WorkflowContext> {
+  async run({ stopAt }: RunOptions = {}): Promise<WorkflowContext> {
     const maxRounds = readNumber('WORKFLOW_MAX_ROUNDS', 25);
     const idleMs = readNumber('WORKFLOW_IDLE_MS', 180_000);
     for (let round = 1; round <= maxRounds; round++) {
       log.workflow.info(`Round ${round}: looking for pending tasks on ${this.rn}`);
-      if (await this.step()) continue;
+      const stepped = await this.step(stopAt);
+      if (stepped === 'stop') return this.context;
+      if (stepped) continue;
 
       const status = await this.requestStatus();
       if (DEAD_STATUSES.some((r) => r.test(status))) throw new Error(`Request ${this.rn} ended as "${status}".`);

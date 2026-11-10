@@ -3,6 +3,8 @@ import { InvestorHomePage } from './InvestorHomePage';
 import { InvestorLoginPage } from './InvestorLoginPage';
 import { RequestsPage } from './RequestsPage';
 import { ExplorationLicensePage } from './exploration-license/ExplorationLicensePage';
+import { PublicProjectLicensePage } from './public-projects/PublicProjectLicensePage';
+import { PublicProjectExtensionPage } from './public-projects/PublicProjectExtensionPage';
 
 /**
  * Entry point to every Investor page object for ONE user session.
@@ -24,5 +26,11 @@ export class InvestorPortal {
   }
   get explorationLicense() {
     return new ExplorationLicensePage(this.page);
+  }
+  get publicProjectLicense() {
+    return new PublicProjectLicensePage(this.page);
+  }
+  get publicProjectExtension() {
+    return new PublicProjectExtensionPage(this.page);
   }
 }

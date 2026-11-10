@@ -21,6 +21,8 @@ import { splitRules, WizardValidationError } from '@utils/validation';
  *   employee  → employee who completes the tasks and approvals ('employee1', 'employee2', …)
  *               Credentials come from .env: <ENV>_<USER>_USERNAME / <ENV>_<USER>_PASSWORD,
  *               e.g. UAT_INVESTOR2_USERNAME / UAT_INVESTOR2_PASSWORD.
+ *   stopAt    → stop the workflow when this employee task opens (left untouched), e.g. /الامتثال الفني/;
+ *               undefined runs the request to the end ("مكتمل").
  *
  * How many run AT THE SAME TIME is capped by Playwright's worker count, which can only be set in
  * playwright.config / on the command line — not per file. Default here: half the CPU cores (2 on a
@@ -28,11 +30,12 @@ import { splitRules, WizardValidationError } from '@utils/validation';
  *
  *   npx playwright test tests/exploration-license/new-exploration-license.spec.ts --project=chromium --workers=3
  */
-const RUN: { env: EnvName; licenses: number; investor: UserKey; employee: UserKey } = {
+const RUN: { env: EnvName; licenses: number; investor: UserKey; employee: UserKey; stopAt?: RegExp } = {
   env: 'test',
   licenses: 1,
   investor: 'investor2',
   employee: 'employee1',
+  //stopAt: /الامتثال الفني/,
 };
 
 /** Environments where creating and completing new requests is allowed. */
@@ -40,6 +43,9 @@ const AUTHORISED_ENVS: readonly EnvName[] = ['test', 'uat'];
 
 if (RUN.env === 'prod') throw new Error('new-exploration-license.spec.ts must never run on PROD.');
 process.env.TEST_ENV = RUN.env;
+// Stopping at a task means the run must not give up while that task is still on its way: UAT took more than the
+// default 3 minutes to open the first employee task after submit (4225, 2026-11-10).
+if (RUN.stopAt) process.env.WORKFLOW_IDLE_MS ??= String(10 * 60_000);
 test.use({ investorUser: RUN.investor, employeeUser: RUN.employee });
 
 /**
@@ -50,9 +56,9 @@ const LICENSE_DETAILS = {
   /** فئة الرخصة: 'أ' | 'ب' | 'ج'  ('ج' has no geology expert — the wizard does not show "القدرة الفنية") */
   category: 'أ',
   /** مدة الرخصة (سنوياً): '1' … '5' */
-  durationYears: '3',
+  durationYears: '5',
   /** المعادن: one or more, e.g. ['ذهب'] or ['ذهب', 'نحاس'] — the list depends on the category */
-  minerals: ['كسر رخام'],
+  minerals: [' كسر رخام'],
   /** المجمع التعديني: 'داخل المجمعات التعدينية' | 'خارج المجمعات التعدينية' */
   miningComplex: 'خارج المجمعات التعدينية',
 };
@@ -62,7 +68,7 @@ const LICENSE_DETAILS = {
  * (side = √area, e.g. 4 → 2 × 2 km), placed at a random point of the region being tried.
  * A larger area overlaps existing licences ("تقاطع المواقع") more often, so expect more map attempts.
  */
-const LAND_AREA_KM2 = 1;
+const LAND_AREA_KM2 = 2;
 
 /** Step 2 — how long to wait for the GIS map (iframe load, "تأكيد" button, validation result) per KML attempt. */
 const GIS_MAP_TIMEOUT_MS = 5 * 60_000;
@@ -182,8 +188,7 @@ async function createAndCompleteLicense(investor: InvestorPortal, employee: Empl
           await flow.submit();
           break;
         } catch (e) {
-          if (!(e instanceof WizardValidationError) || !e.rules.some((r) => LOCATION_ERROR.test(r))) throw e;
-          testInfo.annotations.push({ type: `submit rejected location (${retry})`, description: e.rules.join(' | ') });
+          if (!(e instanceof WizardValidationError) || !e.rules.some((r) => LOCATION_ERROR.test(r))) throw e;          testInfo.annotations.push({ type: `submit rejected location (${retry})`, description: e.rules.join(' | ') });
           await flow.backToLocation();
           // Every map attempt of a retry: a new random point anywhere inside Saudi Arabia.
           const regions: LocationArea[] = Array(location.maxAttempts).fill(ANYWHERE_IN_SAUDI);
@@ -197,9 +202,16 @@ async function createAndCompleteLicense(investor: InvestorPortal, employee: Empl
       testInfo.annotations.push({ type: 'status after submission', description: status });
     });
 
-    await test.step('Employee tasks, payments and approvals until the request is completed', async () => {
-      await workflow!.run();
+    const stepTitle = RUN.stopAt ? `Employee tasks and payments until the task matching ${RUN.stopAt}` : 'Employee tasks, payments and approvals until the request is completed';
+    await test.step(stepTitle, async () => {
+      const { stoppedAt, handledTasks } = await workflow!.run({ stopAt: RUN.stopAt });
+      testInfo.annotations.push({ type: 'tasks handled', description: handledTasks.map((t) => `${t.side}: ${t.task}`).join(' → ') });
+      if (RUN.stopAt) {
+        expect(stoppedAt, `Workflow reached the employee task matching ${RUN.stopAt}`).toBeTruthy();
+        testInfo.annotations.push({ type: 'stopped at', description: stoppedAt! });
+      }
     });
+    if (RUN.stopAt) return;
 
     await test.step('Payments distinct and verified, final status', async () => {
       const { bills, finalStatus } = workflow!.context;

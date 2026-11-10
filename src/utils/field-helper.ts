@@ -85,3 +85,37 @@ export async function uploadIfEmpty(slot: Locator, relativeFile: string): Promis
   await activity.idle();
   return 'filled';
 }
+
+/**
+ * Picks a date in an OutSystems DatePicker (flatpickr) through its calendar, like a user, unless it already
+ * holds that date. VERIFIED on TEST (2026-11-05, public-projects licences):
+ *   - the visible input is flatpickr's altInput (read-only, right after the original `input.flatpickr-input`);
+ *   - setting the date through the flatpickr API is NOT enough: OutSystems ignores it (dependent fields stay
+ *     disabled) and out-of-range dates are dropped silently — the calendar pick is what the screen reacts to;
+ *   - the sticky wizard footer and a `span.input-date` wrapper cover the input, so it is scrolled to the middle
+ *     of the screen and clicked at its centre with the mouse.
+ * `original` is the `input.flatpickr-input` (e.g. `input[id$="Input_ContractStartDate"]`); `isoDate` YYYY-MM-DD.
+ */
+export async function pickDate(original: Locator, isoDate: string): Promise<FillResult> {
+  if ((await original.inputValue()) === isoDate) return 'kept';
+  const page = original.page();
+  const [y, m, d] = isoDate.split('-').map(Number);
+  const alt = original.locator('xpath=following-sibling::input[1]');
+  await alt.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  const box = await alt.boundingBox();
+  if (!box) throw new Error(`Date field for ${isoDate} is not visible.`);
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+  const calendar = page.locator('.flatpickr-calendar.open');
+  await expect(calendar).toBeVisible();
+  await calendar.locator('input.cur-year').fill(String(y));
+  await calendar.locator('input.cur-year').press('Enter');
+  await calendar.locator('select.flatpickr-monthDropdown-months').selectOption(String(m - 1));
+  const activity = trackServerActivity(page);
+  await calendar
+    .locator('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay):not(.flatpickr-disabled)', { hasText: new RegExp(`^${d}$`) })
+    .first()
+    .click();
+  await expect(original, `Date ${isoDate} was not accepted (outside the allowed range?)`).toHaveValue(isoDate);
+  await activity.idle();
+  return 'filled';
+}

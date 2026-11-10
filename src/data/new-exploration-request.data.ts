@@ -30,8 +30,7 @@ export interface NewExplorationRequestData {
     /** Maximum KML attempts before giving up. */
     readonly maxAttempts: number;
     /** How long to wait for the GIS map (iframe load, "تأكيد" button, validation result) per attempt. */
-    readonly mapTimeoutMs: number;
-  };
+    readonly mapTimeoutMs: number;  };
 }
 
 export function defaultNewExplorationRequestData(): NewExplorationRequestData {

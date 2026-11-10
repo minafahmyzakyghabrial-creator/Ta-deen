@@ -162,9 +162,13 @@ export function generateKml(options: KmlOptions = {}): GeneratedKml {
     if (!found) throw new Error(`A ${widthKm}×${heightKm} km rectangle does not fit inside Saudi Arabia.`);
     center = found;
   } else if (options.center) {
+    // A region box when the centre lies in one, else the inland outline (e.g. a smaller area nested in a 'saudi' one).
     const owner = keys.map((k) => SAUDI_REGIONS[k]).find((r) => insideRegion(options.center!, r));
-    if (!owner) throw new Error(`Centre ${options.center.lat},${options.center.lon} is outside the known inland Saudi regions.`);
-    region = owner;
+    if (owner) region = owner;
+    else if (insideSaudi(options.center)) {
+      region = { name: 'Saudi Arabia', lat: [options.center.lat, options.center.lat], lon: [options.center.lon, options.center.lon] };
+      inside = insideSaudi;
+    } else throw new Error(`Centre ${options.center.lat},${options.center.lon} is outside the known inland Saudi regions.`);
     center = options.center;
   } else {
     const key = options.region && options.region !== ANYWHERE_IN_SAUDI ? options.region : keys[Math.floor(rnd() * keys.length)];
