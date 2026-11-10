@@ -1,0 +1,153 @@
+:root {
+    --img-width: 538px;
+}
+
+.image_login_bg {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    min-width: 538px;
+    min-height: 100vh;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: transparent url(../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A) 0% 0% repeat padding-box;
+    opacity: 1;
+}
+
+.side-main-contnt{
+    flex-grow: 2;
+    width: calc(100vh - var(--img-width)) !important;
+}
+
+/* Media queries for small screens (laptop) with zoom 125% */
+/* vw : 1536   ,  vh: 386 */
+
+
+@media only screen and (max-width: 1536px) {
+
+    :root {
+        --img-width: 430px;
+    }
+
+
+  .image_login_bg {
+    position: relative; 
+    top: 0px;
+    left: 0px;
+    min-width: 430px;  /*  538px;  */ 
+    min-height: 100vh;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: transparent url(../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A) 0% 0% repeat padding-box;
+    background-repeat: repeat-y;
+    opacity: 1;
+}
+
+}
+
+/* Media queries for small screens (laptop) with zoom 150% */
+/* vw : 1280 ,  vh: 268 */
+
+
+@media only screen and (max-width: 1400px) {
+
+    :root {
+        --img-width: 358px;
+    }
+
+.image_login_bg {
+    position: relative; 
+    top: 0px;
+    left: 0px;
+    min-width: 358px;  /*  538px;  */ 
+    min-height: 100vh;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: transparent url(../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A) 0% 0% repeat padding-box;
+    background-repeat: repeat-y;
+    opacity: 1;
+}
+
+
+}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 821px) and (max-width: 1025px) {
+
+    :root {
+        --img-width: 159px;
+    }
+
+.image_login_bg {
+    position: relative; 
+    top: 0px;
+    left: 0px;
+    min-width: 159px;  /*  538px;  */ 
+    min-height: 100vh;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: transparent url(../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A) 0% 0% repeat padding-box;
+    background-repeat: repeat-y;
+    opacity: 1;
+}
+
+
+}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 820px) {
+
+    :root {
+        --img-width:  min-width: calc(159px - (820px - 100vw )); /* 159px; */
+    }
+
+.image_login_bg {
+    position: relative; 
+    top: 0px;
+    left: 0px;
+    min-width: calc(159px - (820px - 100vw ));
+   /* min-width: 159px; */  /*  538px;  */ 
+    min-height: 100vh;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: transparent url(../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A) 0% 0% repeat padding-box;
+    background-repeat: repeat-y;
+    opacity: 1;
+}
+
+
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+
+:root {
+    --img-width: 0px;
+}
+
+.image_login_bg {
+    display: none;
+    position: relative; 
+    top: 0px;
+    left: 0px;
+    min-width: 0;  /*  538px;  */ 
+  /*  min-height: 100vh;
+    height: 100vh;
+    background: transparent url(../img/Theme.MaskGroup5.png) 0% 0% no-repeat padding-box;
+    background-repeat: repeat-y;
+    opacity: 1;
+    */
+}
+
+
+}

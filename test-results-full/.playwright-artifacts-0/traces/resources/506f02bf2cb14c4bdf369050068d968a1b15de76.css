@@ -1,0 +1,22 @@
+.size-64 { font-size: var(--size-64); }
+.label-card { border-radius: 8px; text-align: center; }
+.service-card-label { font-size: var(--font-size-h6); color: var(--color-primary ); }
+.service-card-header { font-size: var(--font-size-24 ); color: var(--color-primary ); }
+.wizard2 .wizard-item-icon { border-color: rgb(222, 178, 31) !important; color: rgb(222, 178, 31) !important; background-color: rgb(222, 178, 31) !important; }
+.wizard3 .wizard-item-icon { border-color: rgb(54, 179, 126) !important; color: rgb(54, 179, 126) !important; background-color: rgb(54, 179, 126) !important; }
+.wizard4 .wizard-item-icon { border-color: rgb(209, 210, 226) !important; color: rgb(209, 210, 226) !important; background-color: rgb(209, 210, 226) !important; }
+.wizard-wrapper-item.active .wizard-item-icon-wrapper::before, .wizard-wrapper-item.past .wizard-item-icon-wrapper::before { background-color: rgb(229, 229, 229) !important; }
+.wizard-vertical .wizard-wrapper-item .wizard-item-icon-wrapper::before { height: calc(100% + 50px) !important; }
+.disabledContent { cursor: not-allowed; color: var(--color-placeholder) !important; font-weight: var(--font-semi-bold) !important; }
+@media (min-width: 1700px) {
+  .boxheight { min-height: 324px; }
+}
+@media (max-width: 1250px) {
+  .boxheight { min-height: 320px; }
+}
+@media (max-width: 1050px) {
+  .boxheight { min-height: 305px; }
+}
+@media (max-width: 1000px) {
+  .boxheight { min-height: 325px; }
+}

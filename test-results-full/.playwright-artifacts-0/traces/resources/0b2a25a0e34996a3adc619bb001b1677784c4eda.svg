@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <style>
+    .spinner {
+      animation: spin 1s linear infinite;
+      transform-origin: center;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  <g class="spinner">
+    <!-- Background Track Ring -->
+    <circle
+      cx="50"
+      cy="50"
+      r="40"
+      fill="none"
+      stroke="#ECEFF1"
+      stroke-width="8"
+    />
+    <!-- Active Green Segment -->
+    <path
+      d="M 50 10 A 40 40 0 0 0 21.72 21.72"
+      fill="none"
+      stroke="#227B53"
+      stroke-width="8"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>

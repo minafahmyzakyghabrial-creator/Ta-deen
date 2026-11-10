@@ -1,0 +1,4 @@
+.after-foreigner-label::after { content: " (Without National/Iqama ID)"; font-size: var(--font-size-h6); }
+.is-rtl .after-foreigner-label::after { content: " (بدون رقم الهوية / الإقامة)"; font-size: var(--font-size-h6); }
+.make-flex-remaining { flex-grow: 1 !important; }
+.abrus-chat-widget { display: none; }

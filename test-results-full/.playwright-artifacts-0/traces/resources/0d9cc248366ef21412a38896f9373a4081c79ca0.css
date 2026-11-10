@@ -1,0 +1,9 @@
+.notification-button{
+    border-radius: 2px !important;
+    margin-left: var(--space-base);
+    height: 30px !important;
+    margin: 0 5px !important;
+    padding: 5px !important;
+    width: 70px !important;
+}
+

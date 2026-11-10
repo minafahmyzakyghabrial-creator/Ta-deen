@@ -1,0 +1,9 @@
+.content-middle {
+    background-color: transparent !important;
+    box-shadow:none !important;
+    border-radius: 0 !important;
+        padding: 0 !important;
+}
+.content-breadcrumbs{
+    margin-bottom: 0;
+}

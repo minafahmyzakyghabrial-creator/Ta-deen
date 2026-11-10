@@ -1,0 +1,8 @@
+.cus__not__valid {
+    background-color: #FCEDED !important;
+    border: var(--border-size-s) solid var(--color-error) !important;
+}
+.cus__not__valid__datepicker input {
+      background-color: #FCEDED !important;
+    border: var(--border-size-s) solid var(--color-error) !important;
+}

@@ -1,0 +1,10 @@
+.upload-info{
+    font-size: 10px;
+    color: var(--color-placeholder);
+    text-align: initial;
+}
+
+.upload-mim {
+     padding-top:  var(--space-s) !important;
+}
+

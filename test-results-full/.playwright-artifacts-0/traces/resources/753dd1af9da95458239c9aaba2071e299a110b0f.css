@@ -1,0 +1,6 @@
+.accordd{
+        position: absolute;
+    top: 17px;
+    right: 90px;
+    z-index: 999999;
+}

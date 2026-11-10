@@ -1,0 +1,32 @@
+.mySidebar { width: 240px; left: 0px; height: 100vh; background: rgb(255, 255, 255); border-right: 1px solid rgb(221, 221, 221); transition: width 0.7s; overflow: visible; font-size: 12px; padding-left: 10px; }
+.mySidebar.collapsed { width: 60px; }
+.myLogo { padding: 20px; text-align: center; }
+.logoImage img { height: 24px; }
+.mySidebar.collapsed .logoImage { display: none; }
+.logoSymbol { font-size: 24px; }
+.myToggle { padding: 12px; cursor: pointer; background: rgb(240, 240, 240); user-select: none; }
+.navMenu { margin-top: 10px; }
+.navItem { position: relative; }
+.navHeader { display: flex; align-items: center; padding: 12px 10px; cursor: pointer; transition: background 0.2s; }
+.navHeader:hover { background: rgb(240, 240, 240); }
+.navItem.active > .navHeader { background: rgb(232, 245, 255); color: var(--color-primary); border-inline-start: var(--color-primary) 3px solid; font-weight: 600; }
+.navIcon { width: 24px; text-align: center; font-size: 18px; }
+.navText { margin-left: 12px; white-space: nowrap; flex: 1 1 0%; }
+.is-rtl .navText { margin-right: 12px; white-space: nowrap; flex: 1 1 0%; }
+.mySidebar.collapsed .navText { display: none; }
+.navCaret { margin-left: auto; transition: transform 0.3s; }
+.is-rtl .navCaret { margin-left: auto; transition: transform 0.3s; transform: rotate(180deg); }
+.mySidebar.collapsed .navCaret { display: none; }
+.navItem.open > .navHeader .navCaret { transform: rotate(90deg); }
+.navSubmenu { display: none; padding-left: 10px; }
+.is-rtl .navSubmenu { padding-left: 0%; padding-right: 10px; }
+.mySidebar:not(.collapsed) .navItem.open > .navSubmenu { display: block; background: rgb(249, 249, 249); }
+.navSubItem { padding: 10px 20px 10px 30px; cursor: pointer; transition: background 0.2s; }
+.navSubItem:hover { background: rgb(238, 245, 255); }
+.navSubItem.active { background: rgb(232, 245, 255); color: var(--color-primary); border-inline-start: var(--color-primary) 3px solid; font-weight: 600; }
+.navPopup { display: none; position: absolute; top: 0px; left: 100%; background: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 6px; min-width: 200px; z-index: 10; border-radius: 10px; }
+.is-rtl .navPopup { right: 100%; left: 0px; }
+.mySidebar.collapsed .navItem.has-children:hover > .navPopup { display: block; }
+.mySidebar:not(.collapsed) .navPopup { display: none !important; }
+.navPopup .navSubItem { padding: 10px 16px; white-space: nowrap; }
+.navPopup .navSubItem.active { background: rgb(232, 245, 255); color: var(--color-primary); border-inline-start: var(--color-primary) 3px solid; font-weight: 600; margin-left: 0px; }

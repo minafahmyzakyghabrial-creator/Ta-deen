@@ -1,0 +1,3521 @@
+{"layers": [
+ {
+  "layerType": "Feature Layer",
+  "layerId": 1,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA/ElEQVQ4je2SMWqEQBRAf/EbsYudICKrYJXK1tpimj+loE3S5wrxAMEjbLMH8LfW3mD7uUJK6/Bhd1mMs5NEyzwQGZTH+zODsDP4L1yl7/vXJEkirXUHW4VVVT1lWfbm+z4Q0YmZzVahDsPw2fM8UEp1zNz+WVhd6kQm5HneEFH3qBIfCdu2fZe66zoIAmcl2j4Q0SGO41vdFVcl2kat67qToiWuSrQIdZqmja1eKodhMGvXCF0HsYZUzvN8kG3hxehouybgIIqiRikFy9Hxt3WuA8L7H8qyfJG3Meb8IyMAFEWhmfljVThN01Ee2ADeL8Zx/Nwi+ybcg92FX2EUWSczWOEgAAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "e5b9d59e633ff1ccd4d1b7bda3b06af6",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Bauxite",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 2,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAh0lEQVQ4je2TsQrDIBRFTxo/zMEPcpNO0Slk84Mc/LFgeRChQzNoGkhLziSIR9+9qPgy6hYeRv2+cLHGA5OsB8grhGdMuUs4W6OrTCigH6AXa4KLyTcLR5jK5y25pF1YQF54fikD9GUIhPcMK1JMl9DF5Gdr8pZlHb+/ZWE7vCv4w5/SyvWFL8wUIhVNib67AAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "d593d5f57c9d11a732252da16ac68a0b",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Chromite",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 3,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA3klEQVQ4je2TURKCIBCGP4hLlIfJWzSeRj1Nwy3sMNQpkmYV0xzMaJqmh/4XZJGPn93F8GGZP/A7QIurZGzRjYwF2+YtoO1AqhzmGt99W1x9IKuSgHYGe5QqLY4Y1MR+P3LJCW4UqvG0J9ks8Q2UHp+Hw6qXHQ66Ql2Q3XNncQLLh1scZi6jQE0rm4gVQACW80IqWHc4dxHSwbTqq8CpC4XeCyRct1Kw73HJDn0tiZcCaMgt5z4a3Ml6we41h6NL17VI7LDkPhSFVmnGQvUxnsiwokmVF58bKcBU/T7wBiNUVlJqIRV0AAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "1103286b27a618f705eb0f8528debf36",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Copper",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 4,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAZCAYAAAAxFw7TAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABWklEQVQ4jZ2U4XGDMAyFn3JegnSYwDZlCpopYJvQYQJbRD0Vm9hCtmn1xwdYj+/Jkh0K8RzxJeuFcJP1xfi+AHPTY87luJwQEYbwzH4lQsvAsEwAMTpL2NXEcsGExzphbj7RZQUtMQLmX6veNgNtRN5Kzke/lSYRXEe0rMSYcb9Gm8M+EIYgTIThOQJB9E2oyRjd1aiRr9u8THtpEegTwcTKRpY9ybAnlIejXLfbjTZLa6ASYnGZ3q5EQ+jNtin1WS2c9TL8rZSoXSWCkizNGuK11eRPlI0HcFaR/Zq0yyGirqDo56ZlCd2wht39ZMG4HwQlWRr0DKWMXUzX9CcIc5ThBrLoDoI1Sj2ems4k1A2bUOpbSNGZgtaJC7VMz5nxdJagpvTDf4ut6luoeii54c9ZrQpqytJBxFFsm5gyhNzepRxX+mhR5qbnlKCmjGf234JCtI6b0Jl78gdisLFvf7ZXkQAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "b22e1637c28ebcfb3ef436bb13b22dae",
+   "height": 25
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Gold",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 5,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAh0lEQVQ4je2TwQnAIAxF/yGzOI1O0zk6jS7TTlMKCUggJGmlp76LYMLjq5GwGPqFmsZrnfZOAJ3XlLApkVAAbAAGi0NCSzYj9e4JS0BmSslI9xgyEmaoXsJX0BfCkXgU6HlckbB7QmmIpBzRhBFp6qeAmw+ey6JEUofGu8P7OLvTkxKmWS68APaXFrLaZce8AAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "ccd493236edb03b50d6e1abbfc671f15",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Gossan",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 6,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAeUlEQVQ4jWNhoDJgoamBJWoMDSSbwMRwoOcGwwEMA0s0GBz+/2OoJ9nAfwz1JWoMjT23II5BuPAfgwMDrcKw9xYDIzGai9UY/hNlICWAZdRAigEL5UagglEDcecA+rqQCUtpAyotSjQYDpBTSGAtvpAk4JLkAKpHCgD1wxxHS7rlJgAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "0654945db111bc08a3b50bc1405ab18d",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Iron",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 7,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA2klEQVQ4jd2TzQnCMBiG30jOHnt0AesGHjKA9mymSTJNBG+lA0QQF2gdwGuHMJJIoWCbJtaD+ELIHzw8X34ovhz6J8BCSzxgUHEzD1hoCUuEPORuJm7bqzld7ioEpqOwnWYOxjYZBF93q0ytlkwutELJZRqQEOEJeRYsIg7o7ADX3mKaFs4cQIJhxQ0Krfz56cZDOlNTt76bdcumbjvQK9aqdGDJJfZHMcT/7JZdiPVlox9izwiEhjYHLUeeS/wZ9i3deCJ0Eti3nLCL/8sRZmnACDMkARPy+8AnunJP674KacQAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "35c1f3ada809844fba6649c8c44071db",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Lead",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 8,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAApUlEQVQ4je2T4Q0CIQxGnwkD4Ag4CaeDySCuoneTyAgwgqkUY4zmAjG5nPFLoCk/Hm0/MHxZ5g9cLzBonHR1Az0wPuVHjcMnsJkBjlsHdgduDzlCPEOK90s2rUAvmzuAdeXAKjzFxxhCM7DCqqRSqbLblHgpkCppW9U8wyAm5CtkadUVuOS9QNEgBqQTrxKX6QFO6qavM31nRM/Dnn3Qv/eXWQx4A0teJ2l5AdHeAAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "05043744b5f714723decd96a8a7093cc",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Nickel",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 9,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABYAAAAfCAYAAADjuz3zAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABmklEQVRIiZ2W63WDMAyFJR/vVTqAYSRgJMcDhC6Gei6F1BgJO9GPHAL256sneLqxlFK3rmuHa+fcV/Zoxk8IYbH2egtIRKOIdMy83RORfMl2WEoJ4Fk74AKOMU4iMlKD4WAcEmOch2GYTHCMcWLmJmhu2BNjpBzuc/dFUcrMy7quP7h2zsHlMVNrwl9gEXkqrs59359cJKLF8m7//w9OKT2L5GDRd9/3ZtahDApLOA7EM6+5JX9KTegd/FDt99hSuaEGzdc+Ho+xWm7MXFVaM4TDo7OOJvjUIKYM50WxFAs+MZSlt2LUanuOLmK85krcS4Y+MLAwOzYwOouZO63Qa6Y11kuxFo4W1Vij3J7Llp61Qreg2mw5wnACD++rHi21J7CluhyHViWUY+AEHhTVxSvJVHs76DXVUJaHRFOLSUiF+XcmFinllSfsFny0ZJlxo7ROCauCQwgLXpCKampRa4JhLTMkhHCJbRWsJfKduX0Ldkqsa7FtAocQFnztKOVlxrYJTMrka1HbBNaSWFPbBIbtnTVC/f41VLVfV0os7sSmX9oAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 22,
+   "label": "",
+   "contentType": "image/png",
+   "url": "b3e7bf041922fbd120e8494069c36f9c",
+   "height": 31
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Silver",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 10,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAlElEQVQ4jeXUOw6DMAyA4d+UA5UOoE7AyZKcrHRCMNCeCKMsDB0goZnAYxR9cvxITuLIzwEOD+w80z2/dH+B/Z0mE14oZIIZCkBw1YQ9BN4Eo3spxYAKze+ZKPXxGgoOxWzeiQF9rcaCes1UcOVG/YK6XH5ofZf9U/ewqDlU4X2hTbkgWE1Yv9fJQICQnyYKDI3k4AKbYSSaD1dzzAAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "4ab03c95fb91efc425eee54bddeef1fa",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Tin",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 11,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA30lEQVQ4jdVUORLCMAxcz+hfmN6/wT2mz3PSY14WxkeCJWSbggK2iUdZr1ZHQvgy6D8FnYfFhvvgXoTBbV0QPxLEhuvESEpoAZipoPMIlTxF4q4Lwthh666UFZSEhVOefcFK3hGlWEKKucsrqRMuSQyCuevWmt41Lp3PySN3yAdxEDRkl57dsXnyTNDgcQwjnWfYcNLO1LoCWBnZiaZV22O19lBTRnSe90ZOcLAJUXM4neAea92t0z2UE2wS1BjnCrwJSpcDqHtKKtXgXF32P8HOnpIWrE3u7uEIv/+DfQJ5bGh14F4thgAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "b2e99476399f0cfdfaba2ef6c3b12228",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Tungsten",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 12,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA3klEQVQ4jZWU2w3DIAxFbyT2agZgm/Af+p9xMgCdjMoVbV3XD2IpQuFxfGIgCUGUjBV4PRTtONG8+ckB1Q7s/bd73zKwAPfjRJ0GlgGzktFYyYAGTTMwMurAbbyuHjRp2TlILuAJR1tNIG0Aq1nTPon6tvxNWjIqnycN37vpxijBfmmXF+BhjbF6zgO1+hjRTGBUH1bnT2kOcdCTVx/NUp4CiPgDepbjyHC7GgI9y8jOBGqW1PJ7fekuG5aI7FygtJRjl4HWjfDsEAE1S88uBErLyG4KOIwq3ZDo908LnpSSdDAM9flUAAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "9d7bd15b1bafd739671ad32cd60e4759",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Zinc",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 13,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZElEQVQ4je3VwQnAIAyF4Rd4S7hNe2+n7QAdxzFSUhBUekpyq99JEH48PVkPbArcSCDAzqyYsRbRE1R4KEo7copdrqDgbNHxhQm4gmGMJ0YrGMc/BxXlXQ2Pz/maLrxos535BTwY/BIZ6kmt4wAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Reconnaissance License",
+    "contentType": "image/png",
+    "url": "e905427299e83895aaf702a7f0190d89",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWP5v5rBgeE/w34GagBGBkcWqhkGAv8Z9rMwIIF/bOLPGcgATL9eSsLYLMiGfVUo30yOgdwPOn1hhqK4kBqAZdRAigEL5UagglEDKQcsI9hApl8vJUGlBjmGYC2+0CXIBSygYpuaVQAAbtUdtAqujqUAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Exploration License",
+    "contentType": "image/png",
+    "url": "2c5211d0f0e949507a22547aceb578a1",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaUlEQVQ4jWPJyMhwYGBg2M9AHeDIQkXDQGA/yEA4EBEVfc5ABnjz+rUkjM2CbFhGZuZmcgycMX26L8xQFBdSA7CMGkgxYKHcCFQwaiDlgGUEG/jm9WtJUKlBjiFYiy90CXIByEBHalYBAAp3HCyoclUcAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Mining License",
+    "contentType": "image/png",
+    "url": "f5a3984d29301b8966970aa69884d817",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWNh8FnuwMDIuJ+BGuD/f0cWqhkGAoyM+1kYkMFfxucM5ADm/5IwJguKYV/YNpNlIM8vX5ihqC6kAmAZNZBiwEK5Eahg1EDKActINpD5vyS41CAHYC2+0CTIBSygYpuaVQAAS+EY6QBI2EEAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Raw Material Quarry License",
+    "contentType": "image/png",
+    "url": "29adc6e51f529fc9c1cbdaeac173d253",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWPxKWFwYPjPsJ+BGoCRwZGFaoaBwH+G/SwMSEBSROE5Axng+ZsHkjA2C7Jh9WkLN5NjYOOseF+YoSgupAZgGTWQYsBCuRGoYNRAygHLCDbw+ZsHkqBSgxxDsBZf6BLkAhZQsU3NKgAAC6YfOmIP0xIAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Small Mining License",
+    "contentType": "image/png",
+    "url": "31e0c5ad5130c83b78258d9f0ee4a9bf",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWM5zPDfgYmBYT8DFcA/BgZHFmoZBgIgs1gYkACXJQNZ4NtxBJsF2TCZVeQZ+CQMYSiKC6kBWEYNpBiwUG4EKhg1kHLAMoIN/HYcUmqQA7AWX+gS5AIWULFNzSoAAN5KFYW5E7r4AAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["7"],
+    "width": 20,
+    "label": "License Building Materials",
+    "contentType": "image/png",
+    "url": "9cd7929525c415e633a37ee82c1c93c5",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWMp0WBw+P+PYT8DFQAjE4MjC7UMAwGQWSwMSIBfTPA5Axng46v3kjA2C7Jh3nmhm8kxcOuk1b4wQ1FcSA3AMmogxYCFciNQwaiBlAOWEWzgx1fvJUGlBjmGYC2+0CXIBSygYpuaVQAA3EUj0cJyH+cAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["8"],
+    "width": 20,
+    "label": "General Purpose License",
+    "contentType": "image/png",
+    "url": "d91ccf3af0ff8e3b3e052184bb2018cf",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWMpuf/f4T8Dw34GKgBGBgZHFmoZBgIgs1gYkIAkyy8GcsDzP2xwNguyYT6878gycMtnIbihKC6kBmAZNZBiwEK5Eahg1EDKAcsINvD5HzZwqUEOwFp8oUuQC1hAxTY1qwAALQwbFZR4xOwAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["9"],
+    "width": 20,
+    "label": "Surplus License",
+    "contentType": "image/png",
+    "url": "f21948c9e563b6ae31aed1dff9d0ccad",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAYUlEQVQ4jWNh8ClxYGD4v5+BKoDRkYV6hoHA//0sDMiAj5eBLPDpM5zJgmKYlgZ5Bl67ATcU1YVUACyjBlIMWCg3AhWMGkg5YBnJBn76DCk1yAFYiy80CXIBC6jYpmYVAADQnxZshCU5sQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["10"],
+    "width": 20,
+    "label": "Public Projects License",
+    "contentType": "image/png",
+    "url": "070568f59f6f495dd1fae1670b0061ee",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWOZML3tiLSSkCwDFcDTe+8es4AMM7JRkmOgEmChlkEwMGog5YCFCmaggFEDKQcsVDADBYwaOCIMfHrv3WNqGQYyCwBvzw8ExYR7rgAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "36a808371613b0da83b600f374200eae",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Type",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Applications",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 34,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWOZ/pzBgfE/w34GKoD/jAyOLNQyDARAZrEwIAEmFuHnDGSAf3/eSsLYLMiGcYombCbHwO+vF/jCDEVxITUAy6iBFAMWyo1ABaMGUg5YRrCB//68lQSVGuQYgrX4QpcgF7CAim1qVgEAL1wknXOc7JAAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "e5811a49a8fb2226601796ac37f63318",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWPZ//y/w39Ghv0MVACM/xkcWahlGAiAzGJhQAKfmX89ZyAD8P5lk4SxWZANOyTybDM5Btq9kfKFGYriQmoAllEDKQYslBuBCkYNpBywjGADef+ySYJKDXIMwVp8oUuQC1hAxTY1qwAAgnkfAe6jhPQAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "6216cd902db1dff23821ff9cfff391a1",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWP539DgwPD//34GagBGRkcWqhkGAv//72dhQAZcXM8ZyAHfvknCmCwohpmabibLwNOnfWGGorqQCoBl1ECKAQvlRqCCUQMpBywj2cBv3yTBpQY5AGvxhSZBLmABFdvUrAIAmDMfP5mKMcwAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Transferred",
+    "contentType": "image/png",
+    "url": "4ced5b1903b55741ba35520cd0c7f042",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbElEQVQ4jWP5f7nBgYHh/34GqgBGRxbqGQYC//ezMCCBv6yszxnIAMy/f0vC2CzIhn2SktlMjoF8z574wgxFcSE1AMuogRQDFsqNQAWjBlIOWEawgcy/f0uCSg1yDMFafKFLkAtYQMU2NasAAPVTHvw3ALMGAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "2b4a7c146f093dc3d78c9dc44c5fd781",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWN5Pp3B4T8jw34GKgDG/wyOLNQyDARAZrEwIIEfvxgeMJABONgYFGBsFmTDTt5jWEiOgeZKDPEwQ1FcSA3AMmogxYCFciNQwaiBlAOWEWwgBxuDAqjUIMcQrMUXugS5gAVUbFOzCgAAsjkXEF7EmVAAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Terminated - Awaiting Clearance",
+    "contentType": "image/png",
+    "url": "60f2352e9be8fcd7e1ad824d05480b5e",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWPZvHmzw/////czUAEwMjI6slDLMBAAmcXCgAT+MrE9YCADMP/7pQBjsyAb9o5dfiE5Bgr9fBgPMxTFhdQALKMGUgxYKDcCFYwaSDlgGcEGMv/7pQAqNcgxBGvxhS5BLmABFdvUrAIAQWsnAqVdTDYAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "ef0e29131d46eb252ee0cd10e3c8a54f",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIIAq7paNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1p8Zw7wjFjZNQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "457937ce122d151e4762be68a9652827",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Reconnaissance Licenses",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 18,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAdklEQVQ4je3UoQ2AMBCF4dfkMN0AywikAzRBYFi4ig5QVkDSDWoQkKurfpX93Zkvp54cGSc+ePTIIIpizu7XMrnMWPeb5lSCFz0UW+32UN8VICGggj2TAdIJT7QNkE86GE0D5KugjqPuGVM1KmgQdWl1HOkM4g/0Ah7lpvV7CwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "0d107d6be5efbbab974bb86c86b2ad0a",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWP539DgwPD//34GagBGRkcWqhkGAv//72dhQAbv3j1gIAcICSnAmCwohk2evJAsA3Nz42GGorqQCoBl1ECKAQvlRqCCUQMpBywj2UAhIQVwqUEOwFp8oUmQC1hAxTY1qwAALq4ZUhR1ESYAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "c8b5da772add63eec18f38a8102b0f9a",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZklEQVQ4jWP5f7nBgYHh/34GqgBGRxbqGQYC//ezMCCBPywCDOQAlj8fEGxkw77w6pNlIM/ni3BDUVxIDcAyaiDFgIVyI1DBqIGUA5YRbCDLnw/gUoMsQ7AVX+gS5AIWULFNzSoAADqzG0FIcZx0AAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Transferred",
+    "contentType": "image/png",
+    "url": "5a720a6d7cb9c92a2e48582de9f7f4d6",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWNhOPzfgYGJYT8DNcA/BkcWqhkGAkwM+1kYkMEXhgcM5AAeBgUYkwXFsO0MC8ky0JMhHmYoqgupAFhGDaQYsFBuBCoYNZBywDKSDeRhUACXGuQArMUXmgS5gAVUbFOzCgAAwZgQQJWo1PMAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "608c127f1240759f94a4a53800ee4f99",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWM5ffq0AyMj434GKoD///87slDLMBAAmcXCgAT+///7nIEMwMjILAljsyAb9uvXh83kGMjGJuALMxTFhdQALKMGUgxYKDcCFYwaSDlgGcEGMjIyS4JKDXIMwVp8oUuQC1hAxTY1qwAAyEocdwVUCSwAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Terminated - Awaiting Clearance",
+    "contentType": "image/png",
+    "url": "06bf1950340d06c2e1160141de57af99",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAXklEQVQ4jWNZfnyzAwMDw34G6gBHFioaBgL7QQYiAcYHDGSB/wowFguqYf8XkmcgYzzMUDQXUg5YRg2kGLBQbgQqGDWQcsAyog38rwApNcgBWIsvVAlyAchAR2pWAQAQPRAuptpcXAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "d94d5747200af7c42546cdfff4e9af2d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIIAq7paNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1p8Zw7wjFjZNQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "457937ce122d151e4762be68a9652827",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Exploration Licenses",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 16,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWO5fni+A8P///sZqAEYGR1ZqGYYCPz/v5+FARU8YCAPKMAYyAY+YPj/fyFZxjEyxsMMRXchxYBl1ECKAQvlRqCCUQMpBywj20AFaKlBDsBafKFIkAtYQMU2NasAANlTFEhx+m9rAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "f249db38977f62a76824ca99675a0357",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWP5v3+/A8P///sZqAEYGR1ZqGYYCPz/v5+FARU8YCAPKMAYyAY+YPj/fyFZxjEyxsMMRXchxYBl1ECKAQvlRqCCUQMpBywj20AFaKlBDsBafKFIkAtYQMU2NasAAIdBFIzWyuIvAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "884b38c70ada78be8bbef0ef4adfab4a",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZUlEQVQ4je3UsQ3AMAhE0UNiEDZxNs0AHiLJFGm9CRE4jetzye9onqhOz/5e7jiwIRHc+mMPHIPTYGFpHo7h4EDxRNsEN6YF0ilPrBXIpxuMpQL5Jiiw3DMmgSUYs52rLWjsd2F9PEkXsMAlh/QAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Transferred",
+    "contentType": "image/png",
+    "url": "6d963d6a70b8a31a6e2bfc4d133c8b51",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAa0lEQVQ4je3UsRGAMAxDUfnOu7AGAzAufdiAGtZgAHFKaNKilPmNu3eulGd5CsEVAwrEkcII7AFcDkZgAbhlk3GRcVvfBXUaOLKcoF36RN8E/XKA0TVBvwpqHL89+101BGq2tbQaRwcUJusFTcMZN6Z7k/8AAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "42c374c4ce560c0f5fbf667f8adfaaa4",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZElEQVQ4je3VoRHAMAxDUevOg3STZvMkaxR1hw6gnm0UrMB8YPig7P35upHNdgQMT4w2DXwljLjM2LzkxDQQjHMXuDE/oJzrxNoB9XyDsXRAvQJjHHPPhNIIEBixtDGOEoh6AT/gvhke0LQcfwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Terminated - Awaiting Clearance",
+    "contentType": "image/png",
+    "url": "d2d0fd00152a829369002448946aee88",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4je3UsQ2AMBBD0bN0g7AJzE0DNJkjmxj5oEntlPkDPLlytnZeJI+YEIA7f+wBojsYGZus/OTopAcChe4FziwXaJc+MbZAv5xgDC3Qr0Cdo/7MSUaBum09rc7RXSfrBSONIs507e26AAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "e6d78574e90d477437cc2e2dfa6b9511",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIIAq7paNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1p8Zw7wjFjZNQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "457937ce122d151e4762be68a9652827",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Mining Licenses",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 15,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAXUlEQVQ4je3UsQ2AMAxE0Y/kXbIGA2QYhqPHa8AyQY6SIrWvzB/g6aozrvYAJ5rcOnZwA28SKzRqgAzsEyysE5RlG0xneWJtg/lMYCxtMN8Ei8DqRoAeTxvnKED9B/67DCM6kJn4AAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "3c5de7ae06adadd5a8c967f5a393ce9d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4je3UQQ3AMAxD0UQykDLp2IzTyGwjMAxl4ilqLj07x34ATz4Z5/XdJA8ryN0fJPaa+dA4trCQ9jCjCHqgPcG6sEE56MTaBvVQYCxtUC9BtvlnSmGYIW57vja7ui6sHyYgHFmuZrhcAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "8cbbd331039221ddca51dec7a3edc583",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWN5/PqwAyPT//0MVAD//zE6slDLMBAAmcXCgAQYGRkeMJAB/v9nUICxWZAN+/f//0JyDGRiZIyHGYriQmoAllEDKQYslBuBCkYNpBywjGAD//9nUACVGuQYgrX4QpcgF7CAim1qVgEAS+EhoHLOQDYAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Transferred",
+    "contentType": "image/png",
+    "url": "66c2d3e8bc592a506bc5e2a023bd6e52",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWN5/3i/AwPj//0M1AD/GR1ZqGYYCDD+38/CgAwYGR4wkAP+MyjAmCwohv37v5AsA5kY42GGorqQCoBl1ECKAQvlRqCCUQMpBywj2cD/DArgUoMcgLX4QpMgF7CAim1qVgEA0pEYoOTRZw0AAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "0146be8ea6ed6dc46c38af4c8342bdb7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWO5/nq7A8N/hv0M1ACMDI4sVDMMBP4z7GdhQAW3GMgDajAGsoG3GBgZesky7j9DMcxQdBdSDFhGDaQYsFBuBCoYNZBywDKyDVSDlhrkAKzFF4oEuYAFVGxTswoAAJ3UEKyh5PuOAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Terminated - Awaiting Clearance",
+    "contentType": "image/png",
+    "url": "1d69c34869363bfe7a66cb454d0c5f13",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZElEQVQ4jWP5fL7f4T/j//0MVACM/xkdWahlGAiAzGJhQAW3GMgDajAGsoG3GBkYe8kx7T/D/2KYoegupBiwjBpIMWCh3AhUMGog5YBlZBuoBi01yAFYiy8UCXIBC6jYpmYVAABJXRmDBx1SEgAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "dadec7df025afe6b565f14e6f8ee3390",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIIAq7paNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1p8Zw7wjFjZNQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "457937ce122d151e4762be68a9652827",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Raw Material Quarry Licenses",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 17,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZklEQVQ4je3VsQnAIBRF0Su8WZwjmSlzZCaHSJdlfrAQoqT6/i6eShAuVk9dVjawQoi0Ky5WWREvBjcOCXI7a4idnqDB0aLdCyNoBadpPtFbwXn6cTBBrqvhiXzO13jhpTrbkV/AAy2NEsb1p+AQAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "eba41c1e42aa327760d5b53a257bf805",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZElEQVQ4jWP5/H62AyPT//0MVAD//zE6slDLMBAAmcXCgApuMZAH1GAMZANvMf5n7CXHtP+M/4thhqK7kGLAMmogxYCFciNQwaiBlAOWkW2gGrTUIAdgLb5QJMgFLKBim5pVAADeoxmzoKBgWgAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "61e911c46e6d71fb3b2f5cc6cd067c06",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWM5vTrDgen/v/0MVAD/GJkcWahlGAiAzGJhQAL/GRhuMZABGBkY1GBsFmTDGBkYe8kx8D/D/2KYoSgupAZgGTWQYsBCuRGoYNRAygHLCDaQkYFBDVRqkGMI1uILXYJcwAIqtqlZBQAAcLcbExtukPkAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Transferred",
+    "contentType": "image/png",
+    "url": "f582676e4f3a108bbe916b6bbe850944",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4je3VsQ2AIBBG4Qe5QRhFJ3E2J3EAl7BzBDsxV5CAsTquk1eRkHyh+pH9vKYY2XDovpnFC9PUEqoCHBjKkMpZaizDagEDLAVtXuiRDLA76SfaBtif/BjMkHQ1LMjnfL0vrInOtucX8ABbdxa6OqUl6gAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "62f87fa14071cf0649ac5d085c15af3c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAXklEQVQ4jWPZf326AwMT034GaoB//xxZqGYYCDAx7WdhQAUPGMgDCjAGC5phC8k0MB5mKLoLKQYsowZSDFgoNwIVjBpIOWAZ2QYqQEsNcgDW4gtFglzAAiq2qVkFAAA/2xBAJwsv8QAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Terminated - Awaiting Clearance",
+    "contentType": "image/png",
+    "url": "ee8399cadb345b85a37e5d8db9a9ac94",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAa0lEQVQ4je3VsQmAMBCF4XfwBskoOomjiXNYOIZtNjm5QNCI1eU681WBwE+qF677OSlwIIAAM6NixlrEkyDDQ5Hq8Q4Ksio2T08ES422LwzAEezG/kRrBPvxz0FFKqvh8Tlfrwsv2mxHfgEXGE0VPuHI4q4AAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "f915960fb4a8042f695864d32bd01d0c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIIAq7paNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1p8Zw7wjFjZNQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "457937ce122d151e4762be68a9652827",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Small Mining LicensesSmall Mining Licenses",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 19,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbElEQVQ4je3VsQmAMBSE4Xdws2QOnck5nMYBLN3B1kFOXhFIxOrldfpXgcBHqguPa5sk7ZYQgJlZmOcWrUmm0wLBUOqZLQZhjYCClop2L8yIPzgcx4m+HxyPHwZhKL4aEeR1vp4X0eiznfkF3MNRH5SWDyVfAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "5dabf1b266f3dd1714c8f598afac3393",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4je3VwQmAMAyF4RfIIB3FTuJsTtJVBI8O8SSHihVPSW72PxUCHz0leh5cADTkVDURs5qBdyLY4YhE6W99YiQ2DyiCtaPDDzPSCYbTODE2wXj6Y5BEsa3hQT7X13vgzcCaeQIuW44W2Er9+9IAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "f79d48ce63b76634fae0a2b6cd768684",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZElEQVQ4jWP5fHu2w38mpv0MVACM//45slDLMBAAmcXCgApuMZAH1GAMZANvMf5n7CXHtP+M/4thhqK7kGLAMmogxYCFciNQwaiBlAOWkW2gGrTUIAdgLb5QJMgFLKBim5pVAABuLRmgWYAd8wAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Transferred",
+    "contentType": "image/png",
+    "url": "a377ab37166c1d4bc6b4c8a460dfd700",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWP5//+2w38Gxv0MVACMDP8dWahlGAiAzGJhQAGMDxjIAv8VYCwkAxkf/Gf4t5Ac4xgZmOJhhqK5kHLAMmogxYCFciNQwaiBlAOWEW3gfwVIqUEOwFp8oUqQC1hAxTY1qwAAmrMY6Jyv+HcAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "49c9169bec3663cc68ad37ffd0bf6cd7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4je3VsQmAMBCF4Tt5g2QUncTZnMMihYu4h+CTKwKJWF2uM18VCPykesF17LOoZIlAWRAWMyoZUlHVUxxIpnJGHePNzRPUSdcSbV4YASPYDf2J1gj2w4+DJJOthifyOV/vCy/YbEd+AQ+n5R+ED2wpFQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Terminated - Awaiting Clearance",
+    "contentType": "image/png",
+    "url": "c69ca280c98318d6b89fc8b92bf9e39f",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4je3VsQ2AIBCF4XfkDcIoOomzOYkDuIS9O3DmChIwVsd18lckJF+oHjxvXSThQEBasDIKs8wimkRwwZEqcj2zxYpi94BJsFW0e2FEnOBwHCf6JjgefwyqIttqeJDP+XpfeKPNduQX8ACcBhzEgaEntAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "5f62e054f89de9e7b2ffbaa5688a87ae",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIIAq7paNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1p8Zw7wjFjZNQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "457937ce122d151e4762be68a9652827",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Building Material Licenses",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 49,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWO5//6+AwMjw34GaoD/DI4sVDMMBBgZ9rMwoIJfDOQBNhgD2cBfDP8Z3pJlHCODMMxQdBdSDFhGDaQYsFBuBCoYNZBywDKyDWSDlhrkAKzFF4oEuYAFVGxTswoAAOVQDiRIXYbIAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "1e60417e0c3998df5983921cbc9a6ed0",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWN5fv29AwMj434GaoD//x1ZqGYYCDAy7mdhQAUPGMgDCjAGsoEPGP7/X0iWcYyM8TBD0V1IMWAZNZBiwEK5Eahg1EDKAcvINlABWmqQA7AWXygS5AIWULFNzSoAAPfaEsD0VBpsAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "06f9fc48e7ae08933440f35f37f5dc10",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZ0lEQVQ4jWO5vn6+AwPj//0M1AD/GR1ZqGYYCDD+38/CgAL+P2cgCzBKwlhIBv5/zsDIuJks8/7/94UZiuZCygHLqIEUAxbKjUAFowZSDlhGtIGMkpBSgxyAtfhClSAXsICKbWpWAQC1HBcOWAL/iQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Transferred",
+    "contentType": "image/png",
+    "url": "821a9ced93bb45b26c22041450245808",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAM0lEQVQ4je3MsREAMAwCMRe//0hZjVxK19AFDSCkowkimT0NfQSOpaGPwLE09BE45vPwAqOtBAxof6fkAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "7c03424f0e67802fa194220f7814d500",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWO5fH2+AyMT034GKoD///45slDLMBAAmcXCgAz+MzxnIAcwMkjCmCwohjEybibLwP//fWGGorqQCoBl1ECKAQvlRqCCUQMpBywj2UBGBklwqUEOwFp8oUmQC1hAxTY1qwAAOzgZN8KupvIAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Terminated - Awaiting Clearance",
+    "contentType": "image/png",
+    "url": "b076f529997e9bba036ac198fa6a4aa7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaklEQVQ4je3VsQ2AMAxE0TO6JbINDMC0lBSMkxHoMHIRiSAq2x35VaRIT6kuPOs+T6IHErpUFmZhllnEIwUqHAlQ2pk9JpsHVOja0O6FGXGA4Rgn+gYYjz8GBSi2Gh7kc77eF95os535BdwGfxqDoGVusAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "54229c760fe4e22a14db333502a0e4f9",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIIAq7paNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1p8Zw7wjFjZNQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "457937ce122d151e4762be68a9652827",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "General Purpose Licenses",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 47,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAa0lEQVQ4je3VsQmAMBSE4XdwS2QbHcBpM4Clg1g4xskrAolYvbxO/yoQ+Eh14XHWRdJuCQFYmYV5btG6ZLosEAylndljAGoElLQ1dHhhRvzB6ThPjP3gfPwwCEPx1Yggr/P1vIhGn+3ML+AGP+ggRROKoAsAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "a83c749594a7f3848f401ed7a3a6add8",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWM5/fq/AyMTw34GKoD//xgcWahlGAiAzGJhQAWfGcgDvDAGsoGfGRgZbpFl3H8GNZih6C6kGLCMGkgxYKHcCFQwaiDlgGVkG8gLLTXIAViLLxQJcgELqNimZhUAAE8eElSxIx5rAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "555e0753fef7335289bc42d5c8ab0d1b",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbElEQVQ4je3VsQ2AIBCF4XfmDcIoOomzOYmrmFiwhUeuIAFjdVwnf0VC8oXqwTvndVE9EdAjsjEKs8wimgS44EiBVM9sMVU9PKCI7BXtXhgRJzgcx4m+CY7HH4MKJFsND/I5X+8Lb7TZjvwCCkkUHcBwJMCwAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Transferred",
+    "contentType": "image/png",
+    "url": "4beea0e251dfe7ea14653e403191c900",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAYElEQVQ4jWP5/3+/AwPD//0MVAGMjizUMwwE/u9nYUAFDxjIAwowBrKBDxgY/i8kzzzGeJih6C6kGLCMGkgxYKHcCFQwaiDlgGVkG6gALTXIAViLLxQJcgELqNimZhUAAIPBD8y6MXdvAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "5bc58e968f689a6c063ed04d1ca67543",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWP5fLrGgen/v/0MVAD/GJkcWahlGAiAzGJhQAKMDAwPGMgA/xkYFGBsFmTD/v9nWEiOgYyMDPEwQ1FcSA3AMmogxYCFciNQwaiBlAOWEWzgfwYGBVCpQY4hWIsvdAlyAQuo2KZmFQAA+kgcR4wsnpkAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Terminated - Awaiting Clearance",
+    "contentType": "image/png",
+    "url": "d4faf1e54878e1b486590500609329b2",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB+UlEQVQ4ja2VTW7bMBCFPw0GguDCZ4iP0qDLLoKcIGfrCbrqss1V3CvUaCEIg2HxhrLjpMqmMA0bJkU+vp8Z21trH4FnbjPu/YZgGs8CvIzj6XQcgGZAaqUBA8N5btBqvX+vkXDY7w9njAvgz9+n46dvX7+YOZGxnk9GH8lMIpLZjMhkMphGZ8SYl+DH54enuxX0FcM0yFwKRKCW1sEQiBOWzAmzwRjBrCstaSYlbxiWipLTWVhmyQm9Cf4QLBiTGTsfcV1oxhLJkMM2ICaRSUbg5nWDYXg6O3eyQGByiEWSsp6X55sMMRZt0s3yT6fXuchr7u7FXOCYXDwHuAmY3egC6ResxEt2zTMqIGG4Ps14EXwF2LIxIwl9Y2cZ7CSdLGZzZHmqq7T6a1GAvi15sKF8imXBSlbXoRSrhKIr02ys9GHEK/1NhhqhMFYm5VslnbVphS0FcTHO+p73JKv2XEYX2HlDb5NYvcyVna8Bcp3Ia4ZDORgBPtJZVg0mvrLVq/dQbz0FuJAv7fiPZLVVlZ/uV65dclQxexWx1sS0ENWKKuxtho3RxpWF2q4zkmsTFJisUJG7onaYiV6r76XcQXrrdZ/AXVz7GbGrl6tbnKlac43/LeDdh/3h+8Pj04X+xs+UlhqtX34lU2c3PTxcPfjfIcD7W/4F/AXtQxj8lXeuJQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "56ba293c766655731a0ff523ab25cd4f",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIIAq7paNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1p8Zw7wjFjZNQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "457937ce122d151e4762be68a9652827",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Surplus License",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 91,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAa0lEQVQ4je3VsQmAMBSE4XdwS2QbHcBpM4Clg1g4xskrAolYvbxO/yoQ+Eh14XHWRdJuCQFYmYV5btG6ZLosEAylndljAGoElLQ1dHhhRvzB6ThPjP3gfPwwCEPx1Yggr/P1vIhGn+3ML+AGP+ggRROKoAsAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "a83c749594a7f3848f401ed7a3a6add8",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWM5/fq/AyMTw34GKoD//xgcWahlGAiAzGJhQAWfGcgDvDAGsoGfGRgZbpFl3H8GNZih6C6kGLCMGkgxYKHcCFQwaiDlgGVkG8gLLTXIAViLLxQJcgELqNimZhUAAE8eElSxIx5rAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "555e0753fef7335289bc42d5c8ab0d1b",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbElEQVQ4je3VsQ2AIBCF4XfmDcIoOomzOYmrmFiwhUeuIAFjdVwnf0VC8oXqwTvndVE9EdAjsjEKs8wimgS44EiBVM9sMVU9PKCI7BXtXhgRJzgcx4m+CY7HH4MKJFsND/I5X+8Lb7TZjvwCCkkUHcBwJMCwAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Transferred",
+    "contentType": "image/png",
+    "url": "4beea0e251dfe7ea14653e403191c900",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAYElEQVQ4jWP5/3+/AwPD//0MVAGMjizUMwwE/u9nYUAFDxjIAwowBrKBDxgY/i8kzzzGeJih6C6kGLCMGkgxYKHcCFQwaiDlgGVkG6gALTXIAViLLxQJcgELqNimZhUAAIPBD8y6MXdvAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "5bc58e968f689a6c063ed04d1ca67543",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWP5fLrGgen/v/0MVAD/GJkcWahlGAiAzGJhQAKMDAwPGMgA/xkYFGBsFmTD/v9nWEiOgYyMDPEwQ1FcSA3AMmogxYCFciNQwaiBlAOWEWzgfwYGBVCpQY4hWIsvdAlyAQuo2KZmFQAA+kgcR4wsnpkAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Terminated - Awaiting Clearance",
+    "contentType": "image/png",
+    "url": "d4faf1e54878e1b486590500609329b2",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB+UlEQVQ4ja2VTW7bMBCFPw0GguDCZ4iP0qDLLoKcIGfrCbrqss1V3CvUaCEIg2HxhrLjpMqmMA0bJkU+vp8Z21trH4FnbjPu/YZgGs8CvIzj6XQcgGZAaqUBA8N5btBqvX+vkXDY7w9njAvgz9+n46dvX7+YOZGxnk9GH8lMIpLZjMhkMphGZ8SYl+DH54enuxX0FcM0yFwKRKCW1sEQiBOWzAmzwRjBrCstaSYlbxiWipLTWVhmyQm9Cf4QLBiTGTsfcV1oxhLJkMM2ICaRSUbg5nWDYXg6O3eyQGByiEWSsp6X55sMMRZt0s3yT6fXuchr7u7FXOCYXDwHuAmY3egC6ResxEt2zTMqIGG4Ps14EXwF2LIxIwl9Y2cZ7CSdLGZzZHmqq7T6a1GAvi15sKF8imXBSlbXoRSrhKIr02ys9GHEK/1NhhqhMFYm5VslnbVphS0FcTHO+p73JKv2XEYX2HlDb5NYvcyVna8Bcp3Ia4ZDORgBPtJZVg0mvrLVq/dQbz0FuJAv7fiPZLVVlZ/uV65dclQxexWx1sS0ENWKKuxtho3RxpWF2q4zkmsTFJisUJG7onaYiV6r76XcQXrrdZ/AXVz7GbGrl6tbnKlac43/LeDdh/3h+8Pj04X+xs+UlhqtX34lU2c3PTxcPfjfIcD7W/4F/AXtQxj8lXeuJQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "56ba293c766655731a0ff523ab25cd4f",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIIAq7paNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1p8Zw7wjFjZNQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "457937ce122d151e4762be68a9652827",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Public Projects License",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 20,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWOZkat8RE5aRpaBCuDR0yePWUCGmRuayDFQCbBQyyAYGDWQcsBCBTNQwKiBlAMWKpiBAkYNHBEGPnr65DG1DAOZBQCTEw6Fv6HRNQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["0"],
+    "width": 20,
+    "label": "Application",
+    "contentType": "image/png",
+    "url": "15b0496375b0e9553d34fc61cb3235ba",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWNRzjl8REZSVJaBCuDJ89ePWUCGmeiqyzFQCbBQyyAYGDWQcsBCBTNQwKiBlAMWKpiBAkYNHBEGPnn++jG1DAOZBQDiFg6mt77+IAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Active",
+    "contentType": "image/png",
+    "url": "a5009749bbebf83aceb59f04208f0a9c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3MIRUAIAwEUMR1mIICC70yNJm6FjwEAs059gN8RMQ0s94ESCZ25u6jiUAVHRW+g+C4VPgOguNS4RchyVRl+1oJtA8vVIZNBAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Expired",
+    "contentType": "image/png",
+    "url": "e72a26480775da21c78e533b213fbe45",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWN59075CDu7jCwDFcDPn08es4AM4+IykWOgEmChlkEwMGog5YCFCmaggFEDKQcsVDADBYwaOCIM/PnzyWNqGQYyCwDqzg8z9qFtxQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Renewed",
+    "contentType": "image/png",
+    "url": "78a74ea82056defb5d126e97abc02d1e",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAR0lEQVQ4je3MoRUAIAgFQMNfwSiVHVxfJ4HIEj6DwexvcgMchuqsIq0QhJljZ9q7FBKwoiPDdyAclwzfgXBcMvwiDDNnZfta4+kOcdavsd4AAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "c03fc9620c50beadcd68b77a65fb1186",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWM5rDz/iKiMmCwDFcDrJ68es4AMUzfRkmOgEmChlkEwMGog5YCFCmaggFEDKQcsVDADBYwaOCIMfP3k1WNqGQYyCwABag7ZctAs2wAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "License Reported Expired",
+    "contentType": "image/png",
+    "url": "10c6ee4f0850904a739f167a67fbd656",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWOpVJ57RFVGWZaBCuD2k7uPWUCGOZrYyzFQCbBQyyAYGDWQcsBCBTNQwKiBlAMWKpiBAkYNHBEG3n5y9zG1DAOZBQDnKw6fs7HF0gAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Terminated",
+    "contentType": "image/png",
+    "url": "bea4f24768304d0e6cc722204094925e",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWORmL57jYSIIAsDFcCLN+//sIAMczYxfkkNA/eeOStOFZchg1EDKQcsVDADBYwaSDlgoYIZKGDUwBFh4Is37/+ASlpqGAYyCwAXvRST3mipnAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["7"],
+    "width": 20,
+    "label": "Canceled",
+    "contentType": "image/png",
+    "url": "f5c0faa0bb9dc89e018b6b4c05e184a9",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWOp3c2whleQgYWBCuDze4Y/LCDDFIwZXlLDwAdnGcSp4jJkMGog5YCFCmaggFEDKQcsVDADBYwaOCIM/Pye4Q+opKWGYSCzAND+D9cl/JiTAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["8"],
+    "width": 20,
+    "label": "Abandoned",
+    "contentType": "image/png",
+    "url": "e73bd7b424dbf336c35d1b1fcb55cc10",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWOZPqXriLy8mCwDFcDDh68es4AMs7FUl2OgEmChlkEwMGog5YCFCmaggFEDKQcsVDADBYwaOCIMfPjw1WNqGQYyCwAIJQ8TgcHL+QAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "e2471fe628ca0f55971cbd7feeb2d1a4",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Easement Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Easements",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 21,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4jWP5fHu2w38mpv0MVACM//45slDLMBAAmcXCgAwYGR8wkAP+/1eAMREGMjI++P///0JyzGNkZIyHGYrqQioAllEDKQYslBuBCkYNpBywjGQD//9XAJca5ACsxReaBLmABVRsU7MKAABShCF4awJ6TAAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "b973bebec84c36d99baae7a1defcee67",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Building Material Buffer",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 22,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWNhWf1sOzMjgwMDFcDf/wwHWECG7Q7i4qCGga7rvjmwMFAZsIwaSDFgodwIVDBqIOWAhQpmoIBRA0eEgX//MxwAlbTUMAxkFgDbWBDKsuv32AAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["0"],
+    "width": 20,
+    "label": "Draft",
+    "contentType": "image/png",
+    "url": "3b48e254f95210da999ed5edd967768f",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWNZxfJ8OwMTgwMDNcA/hgMsIMP0V4txUMO8i6GvHFgYqAxYRg2kGLBQbgQqGDWQcsBCBTNQwKiBI8PAfwwHQCUtVUz7x3AAAHXFDfPQRJgXAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Application",
+    "contentType": "image/png",
+    "url": "1361bc378ba5ca7e76aa9d8175faf9a6",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPpdk/fzsTI4MBABfDvP8MBFpBhhfVBHNQwsL9xnQMLA5UBy6iBFAMWyo1ABaMGUg5YqGAGChg1cEQY+O8/wwFQSUsNw0BmAQCQ4xBEBqcAUwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Active License",
+    "contentType": "image/png",
+    "url": "d8e7ad64cf72c21e97c71f6ebd9f783d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWNZtYplOyMjkwMDFcD///8OsIAMCwrcwkENA9et93FgYaAyYBk1kGLAQrkRqGDUQMoBCxXMQAGjBo4IA////3cAVNJSwzCQWQCw+BNN0sEsJwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Released",
+    "contentType": "image/png",
+    "url": "216b33578aaf9ca482fe3c692291ea34",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWN5zsy8nYGR0YGBGuD//wMsIMMkqqs5qGHei9ZWBxYGKgOWUQMpBiyUG4EKRg2kHLBQwQwUMGrgyDDw//8DoJKWKqb9/38AAKZXEC3XrZXmAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Rejected",
+    "contentType": "image/png",
+    "url": "d644c8737a7206651f7a1e7526c7f6a7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3UoREAMAgEQcSLeBqiI8qLpSF6yCDRvAtXwMqDu18RMeEUKExVD0PLTCuQGhYchznRW3AeCEZrwV/AqNOSvHhMygtkOCBeSwAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "96550caf37df95c565e2257256ed5b3a",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Status",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Parcels",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 23,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAYklEQVQ4jWO5/H+/AwPD//0MVAGMjizUMwwE/u9nYUAFzxnIA5IwBrKBzxkZGDaTY9p/BgZfmKHoLqQYsIwaSDFgodwIVDBqIOWAZWQbKAktNcgBWIsvFAlyAQuo2KZmFQAABGkQd6ltJDAAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Proposed - Under Study",
+    "contentType": "image/png",
+    "url": "c2f967d7b9882d89b754a9f809f00b4d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAXklEQVQ4jWP5v/+5A8N/xv0M1ACM/x1ZqGYYCPxn3M/CgAqeM5AHJGEMFjTDNpNpoC/MUHQXUgxYRg2kGLBQbgQqGDWQcsAysg2UhJYa5ACsxReKBLmABVRsU7MKAADmeBGNvBnH1gAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Approved",
+    "contentType": "image/png",
+    "url": "13fdb9e7e6163262f09416f4c1b2c1e8",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4jWP5fHu2w38mpv0MVACM//45slDLMBAAmcXCgAwYGR8wkAP+/1eAMREGMjI++P///0JyzGNkZIyHGYrqQioAllEDKQYslBuBCkYNpBywjGQD//9XAJca5ACsxReaBLmABVRsU7MKAABShCF4awJ6TAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Proposed - Canceled",
+    "contentType": "image/png",
+    "url": "b973bebec84c36d99baae7a1defcee67",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZElEQVQ4jWNZfTrDgYHp334GaoB/TI4sVDMMBJj+7WdhQAXPGcgDkjAGsoHPGRkYNpNj2n8GBl+YoegupBiwjBpIMWCh3AhUMGog5YBlZBsoCS01yAFYiy8UCXIBC6jYpmYVAAD9SRLFAYCspwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Approved - Canceled",
+    "contentType": "image/png",
+    "url": "e5afd35aa4d23a1a71f66c91c386fd0d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbElEQVQ4jWPZf/2zAwPT//0M1AD/GB1ZqGYYCDD938/CgAz+MzxnIAcwMkjCmAgD/zM8Z2Rk2EyOef//M/jCDEV1IRUAy6iBFAMWyo1ABaMGUg5YRrKBjAyS4FKDHIC1+EKTIBewgIptalYBAD7dF3NW1JREAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Proposed - Rejected",
+    "contentType": "image/png",
+    "url": "0ff6dd5a676953cd6a6ce35bdefbb3c5",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaUlEQVQ4jWNhKPjvwMDAsJ+BOsCRhYqGgcB+kIFwwMn25wIDGeD7LxYDGJsF2bBkxxOF5Bg4d79FP8xQFBdSA7CMGkgxYKHcCFQwaiDlgGUEG/j9F4sBqNQgxxCsxRe6BLkAZKAjNasAAD2GGlHZ+z5VAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Approved For Bidding",
+    "contentType": "image/png",
+    "url": "25e665b5d9a5af01254b4600e4976e7e",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZklEQVQ4jWNh+H/YgYGBaT8DVcA/RxbqGQYCTPtZGJDB/38XGMgBjEwGMCYLimEvnxSSZaC4TD/MUFQXUgGwjBpIMWCh3AhUMGog5YBlJBvIyGQALjXIAViLLzQJcgELqNimZhUAACdfE29qBeSIAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["7"],
+    "width": 20,
+    "label": "Approved - Suspended from Issuance and Renewal",
+    "contentType": "image/png",
+    "url": "a2c05ef3172530e4bc990a5249b71ffc",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWNZzvDcgYnh/34GKoB/DIyOLNQyDARAZrEwIAE2zq8XGMgAv75zG8DYLMiGeSTXFpJj4I65zf0wQ1FcSA3AMmogxYCFciNQwaiBlAOWEWzgr+/cBqBSgxxDsBZf6BLkAhZQsU3NKgAA7zohyvU2b2wAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["8"],
+    "width": 20,
+    "label": "Approved with Conditions",
+    "contentType": "image/png",
+    "url": "8841d7112432ec1f90505b301c17d35d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWOxWM7gwMDIsJ+BGuA/gyML1QwDAUaG/SwMSICNje0CAxng169fBjA2C7JhTrZeheQYuO/wtn6YoSgupAZgGTWQYsBCuRGoYNRAygHLCDbw169fBqBSgxxDsBZf6BLkAhZQsU3NKgAAJfIgULV+PjMAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["9"],
+    "width": 20,
+    "label": "Approved - Suspended from Issuance",
+    "contentType": "image/png",
+    "url": "f5724a1032c3442c2af70639757d468c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWP5v5rBgeE/w34GagBGBkcWqhkGAv8Z9rMwoIILDOQBAxgD2cALDIwMhWQZ95+hH2YougspBiyjBlIMWCg3AhWMGkg5YBnZBhpASw1yANbiC0WCXMACKrapWQUAAKWGEBeYEb8IAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["10"],
+    "width": 20,
+    "label": "Proposed - Under Designation Procedure",
+    "contentType": "image/png",
+    "url": "c314c2b838c7d7a28cec9dd8c34187e2",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWOZNbn7iJKcuCwDFcC9Ry8fs4AMczDXkmOgEmChlkEwMGog5YCFCmaggFEDKQcsVDADBYwaOCIMvPfo5WNqGQYyCwBK8g8YKxdk0gAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "c721f0ae55bceceaca922811373aeeaf",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "حالة المجمع بالإنجليزية",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Mining Complexes",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 96,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAYklEQVQ4jWO5/H+/AwPD//0MVAGMjizUMwwE/u9nYUAFzxnIA5IwBrKBzxkZGDaTY9p/BgZfmKHoLqQYsIwaSDFgodwIVDBqIOWAZWQbKAktNcgBWIsvFAlyAQuo2KZmFQAABGkQd6ltJDAAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Proposed - Under Study",
+    "contentType": "image/png",
+    "url": "c2f967d7b9882d89b754a9f809f00b4d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAXklEQVQ4jWP5v/+5A8N/xv0M1ACM/x1ZqGYYCPxn3M/CgAqeM5AHJGEMFjTDNpNpoC/MUHQXUgxYRg2kGLBQbgQqGDWQcsAysg2UhJYa5ACsxReKBLmABVRsU7MKAADmeBGNvBnH1gAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Approved",
+    "contentType": "image/png",
+    "url": "13fdb9e7e6163262f09416f4c1b2c1e8",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4jWP5fHu2w38mpv0MVACM//45slDLMBAAmcXCgAwYGR8wkAP+/1eAMREGMjI++P///0JyzGNkZIyHGYrqQioAllEDKQYslBuBCkYNpBywjGQD//9XAJca5ACsxReaBLmABVRsU7MKAABShCF4awJ6TAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Proposed - Canceled",
+    "contentType": "image/png",
+    "url": "b973bebec84c36d99baae7a1defcee67",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZElEQVQ4jWNZfTrDgYHp334GaoB/TI4sVDMMBJj+7WdhQAXPGcgDkjAGsoHPGRkYNpNj2n8GBl+YoegupBiwjBpIMWCh3AhUMGog5YBlZBsoCS01yAFYiy8UCXIBC6jYpmYVAAD9SRLFAYCspwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Approved - Canceled",
+    "contentType": "image/png",
+    "url": "e5afd35aa4d23a1a71f66c91c386fd0d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbElEQVQ4jWPZf/2zAwPT//0M1AD/GB1ZqGYYCDD938/CgAz+MzxnIAcwMkjCmAgD/zM8Z2Rk2EyOef//M/jCDEV1IRUAy6iBFAMWyo1ABaMGUg5YRrKBjAyS4FKDHIC1+EKTIBewgIptalYBAD7dF3NW1JREAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Proposed - Rejected",
+    "contentType": "image/png",
+    "url": "0ff6dd5a676953cd6a6ce35bdefbb3c5",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaUlEQVQ4jWNhKPjvwMDAsJ+BOsCRhYqGgcB+kIFwwMn25wIDGeD7LxYDGJsF2bBkxxOF5Bg4d79FP8xQFBdSA7CMGkgxYKHcCFQwaiDlgGUEG/j9F4sBqNQgxxCsxRe6BLkAZKAjNasAAD2GGlHZ+z5VAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Approved For Bidding",
+    "contentType": "image/png",
+    "url": "25e665b5d9a5af01254b4600e4976e7e",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZklEQVQ4jWNh+H/YgYGBaT8DVcA/RxbqGQYCTPtZGJDB/38XGMgBjEwGMCYLimEvnxSSZaC4TD/MUFQXUgGwjBpIMWCh3AhUMGog5YBlJBvIyGQALjXIAViLLzQJcgELqNimZhUAACdfE29qBeSIAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["7"],
+    "width": 20,
+    "label": "Approved - Suspended from Issuance and Renewal",
+    "contentType": "image/png",
+    "url": "a2c05ef3172530e4bc990a5249b71ffc",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWNZzvDcgYnh/34GKoB/DIyOLNQyDARAZrEwIAE2zq8XGMgAv75zG8DYLMiGeSTXFpJj4I65zf0wQ1FcSA3AMmogxYCFciNQwaiBlAOWEWzgr+/cBqBSgxxDsBZf6BLkAhZQsU3NKgAA7zohyvU2b2wAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["8"],
+    "width": 20,
+    "label": "Approved with Conditions",
+    "contentType": "image/png",
+    "url": "8841d7112432ec1f90505b301c17d35d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWOxWM7gwMDIsJ+BGuA/gyML1QwDAUaG/SwMSICNje0CAxng169fBjA2C7JhTrZeheQYuO/wtn6YoSgupAZgGTWQYsBCuRGoYNRAygHLCDbw169fBqBSgxxDsBZf6BLkAhZQsU3NKgAAJfIgULV+PjMAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["9"],
+    "width": 20,
+    "label": "Approved - Suspended from Issuance",
+    "contentType": "image/png",
+    "url": "f5724a1032c3442c2af70639757d468c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWP5v5rBgeE/w34GagBGBkcWqhkGAv8Z9rMwoIILDOQBAxgD2cALDIwMhWQZ95+hH2YougspBiyjBlIMWCg3AhWMGkg5YBnZBhpASw1yANbiC0WCXMACKrapWQUAAKWGEBeYEb8IAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["10"],
+    "width": 20,
+    "label": "Proposed - Under Designation Procedure",
+    "contentType": "image/png",
+    "url": "c314c2b838c7d7a28cec9dd8c34187e2",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWOZNbn7iJKcuCwDFcC9Ry8fs4AMczDXkmOgEmChlkEwMGog5YCFCmaggFEDKQcsVDADBYwaOCIMvPfo5WNqGQYyCwBK8g8YKxdk0gAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "c721f0ae55bceceaca922811373aeeaf",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "حالة المجمع بالإنجليزية",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Intersection Mining Complexes",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 81,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABBklEQVQ4jdWUUarCMBBFT6CbUD90J60rkbcS7VJciXYn9UO6jMi1U15enTYqD8SBMpAOJ3cyNyn45yi+G3iFg3KA/bAW4AzUiz4/B+ygAvaxz4rG8jrCBjh1E+DCg0U4DaDoKAmwibADqg62KdRTOLR3jNB6HWg9wJEeqnofaOqqOdgI2qheZ72y8x4r1G5tDpZAzwHKdO0P0NQ9BUuiMRe4ChUXPmzs9SQwQm3yXdNORcjYRgWadhYqP9J/Py5Qo++g1HBCZtoG20ldzti1boAVu35UB/zapU7/PQC1m66T3WVB29H0y7lHovDasSKB00dCLd4Hp7w0341j1jYDeK7mJeA7cQMf51UFVWlJjwAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "41610a65cb8a24c718843323912a9327",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "SGS Reserved Locations",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 62,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaklEQVQ4je3UIQ7AIBAF0aFZRdJ6bsPN4QK9RqlGIEsDKPQiGbHJmie/vKEGKp4VGaI07Li4sSQVVnBfxkt/LMmcPBqvtpNhgAuTDaoTPTG3QX2ywJjaoL4BFlzfM00FN0BDbEvbxlGdIf6pxxeZHpATlwAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "d0fe34da37156fbb27398d1e8f58a249",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "SGS Reserved Areas",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 33,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZ0lEQVQ4jWP5fHu2w38mpv0MVACM//45slDLMBAAmcXCgAL+P2cgCzBKwlhIBv5/zsDIuJks8/7/94UZiuZCygHLqIEUAxbKjUAFowZSDlhGtIGMkpBSgxyAtfhClSAXsICKbWpWAQDkXRpVpWKkdAAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "00119609799353f17b3877568ff9655c",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "SGS Rejected Areas",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 28,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABP0lEQVQ4jdWUwU7CQBCGv4nVyEHv8AKe1EMfwKJXnsCXgb4TV7O8AAfTd5A7xNRgcMxsFyy6tED04Fy22U6+/Wfnn0345Uj+N/DpWUe2ijBc74kwAfL+tUz2BrpCM2Coiq3QYerXJT2FK1Y4V2gUnMRgqrgN6CLAqvDf+kaPOQMgc4X269CYQl+eXjKWc15iFdi+wlgqqOXHgUFd1gSrQ3lnqiWZ3fXDrYxiCoecMGuDbcKuoyStb20BQxNmHBIdplL6sqMK4WxPdX9m7CW9nUBVci9/2yqtIZXZGxQuSPeBmh9lRRfhMQq01rtC78wKetrcbQ+bMzB1bcbObQIs2Zs3Bl2Qypdd8vqvH0A7zcbJe9Im4TXYaN39ANr1SCSxckKSgTM+wiNR0vWlaqXo/qaajO/RaJs1uCnnIOAx8Qn27oY5/P6I+gAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "6c4ee2700d7c400a2c5abdd265e151b6",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Government Agencies Reserved Sites",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 29,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABBklEQVQ4jdWUzQ2DMAyFnyUGYZO0Q7Q9dhRglB4RQzRswiaunIQQgvlpVVWqLyHYfHngZwp8OYr/BnKL2l0QqniTYAE0dHHrMSB3OAGowG7Nku7eiTsdXKgwxlM7aAV8TqGawun1fPTg+EAJQgnAZPVWBQZ102syHgCGpGQAu/0Awn1Uyi1quvnvXWyo6zNYGkPImzwxB87VrcHGvAUFoHeBqjBX8VNjl/tARhNNTK5BqnlDvszMvqtQvo/v6DJy6zQqUFrPHUxsjreG+HACi/IURrB7xpbT0pEzsZt6NOlmAZTTZJxWZzlRdmiWEaAyTupPQhonNdfwJ8pi0zYjeKvmLeAn8QIAaVjeUzPwagAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "2c6844ff871d89908dd302cee71226f8",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Points Poultry Farms",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 30,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWP5//+2w38Gxv0MVACMDP8dWahlGAiAzGJhQAHvnjOQBYQkYSwkA989/8+wbDM5xjEyRPnCDEVzIeWAZdRAigEL5UagglEDKQcsI9pAIUlIqUEOwFp8oUqQC1hAxTY1qwAALwcWUhOeI2kAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "2363afd94283f5b3a836ca3c6a229bea",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "ARAMCO Reserved Areas",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 31,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZklEQVQ4jWO5fni+A8P///sZqAEYGR1ZqGYYCPz/v5+FAQX8f85AFmCUhLGQDPz/nOE/42byzPvvCzMUzYWUA5ZRAykGLJQbgQpGDaQcsIxoAxklIaUGOQBr8YUqQS5gARXb1KwCAGekFyLvjwGZAAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "876d9e6b98e38952a5b0db80e372e911",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Government Agencies Reserved Areas",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 32,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZklEQVQ4jWO5fni+A8P///sZqAEYGR1ZqGYYCPz/v5+FAQX8f85AFmCUhLGQDPz/nOE/42byzPvvCzMUzYWUA5ZRAykGLJQbgQpGDaQcsIxoAxklIaUGOQBr8YUqQS5gARXb1KwCAGekFyLvjwGZAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Royal Reserves",
+    "contentType": "image/png",
+    "url": "876d9e6b98e38952a5b0db80e372e911",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaklEQVQ4jWP5fLrGgen/v/0MVAD/GJkcWahlGAiAzGJhQAYs3M8ZyAF/vkrCjUA2jFnKbDM55v19dsoXZiiqC6kAWEYNpBiwUG4EKhg1kHLAMpIN/PNVElxqkAOwFl9oEuQCFlCxTc0qAACO4yShVC19MgAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Nature Reserves",
+    "contentType": "image/png",
+    "url": "50e270cca22cab9e003648f2381fdb53",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAa0lEQVQ4je3VsQmAMBSE4Tu4DTKNnU5u6QiWThAc4UmEoBGrl9fpVwUCP6ku2rd1JDgjgMEmRcWK0hLuiAwPQ6rHK0hkAxdPj7ShRtsXBtAf7Kb+ROsP9tOXg4Z0robH63w9LrxUZjvyCzgA9wcYaM8m5CsAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Proposed Reserves",
+    "contentType": "image/png",
+    "url": "8a97cdebb25a0b8ad6d1d15df3a06b39",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWPpnDX5iKiirCwDFcDr+48fs4AMU7U3lWOgEmChlkEwMGog5YCFCmaggFEDKQcsVDADBYwaOCIMfH3/8WNqGQYyCwD2Tw8SOcyVCQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "608b66203db1cce1f837c31c40dd2d4d",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Reserve Type",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Protected Areas",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 35,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAYUlEQVQ4je3VIQ4AIQxE0TaZVPVQ3Hz3BMtlUBg2hSDQg+x3mJeqAV+tzxijyIVU9UVg7i5mRmG9d2mtFcQjMBbcTfBmSJAOPHGWIB8uGEcJ8k0wxpFtG4jZjqXlb1tfwA8KyBubmnaGTwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["البرنامج_الوطني_للطاقة_المتجددة"],
+    "width": 20,
+    "label": "National Renewable Energy Program",
+    "contentType": "image/png",
+    "url": "087fa3a5611ff35507896afcbc87ec71",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbElEQVQ4je3VsQ2AIBSE4bvklmAbHcBpHYDCQSwsHOMZChIwVo/XyVeRkPyhOnSdxwIyI4LZqrBYQWahYcANBwKpntXGaNw9QaNtNdq9MIJmcJjGE70ZHKcfBwmkshqeyOd8vS+8VGY78gt4AI8mF3FW9fvoAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["النطاق_الإشرافي_للهيئة_الملكية_لمدينة_الرياض"],
+    "width": 20,
+    "label": "The Supervisory Scope Of The Royal Commission For The City Of Riyadh",
+    "contentType": "image/png",
+    "url": "0e13be5ff1594e57be654925d789b1ca",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAk0lEQVQ4jWMpWM6gwMDAkMBAHbCABWSYuIC2GgcbnzAlJv349entyw9XE0AGMoAMY2fhEeblFP9MjmGfv7/khbHBBoIAyDAT+ehb5Bh45uFStZ+fv6AaSC3AMmogxYCFciNQwaiBlAOWEWzg5+8veUGlBjmGQIuvt3ADQYUjiIYVQWSAtzAzQAYuAJW05JqEBhYAAKYCL6lY0xY6AAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["عقارات_الدولة"],
+    "width": 20,
+    "label": "SPGA",
+    "contentType": "image/png",
+    "url": "f1ec072fed11157ad699d3d089b8d0da",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAXklEQVQ4jWO5fH2+AyMT034GKoD///45slDLMBAAmcXCgAreMpAHhGEMFjTDjpNpoCXMUHQXUgxYRg2kGLBQbgQqGDWQcsAysg0UhpYa5ACsxReKBLmABVRsU7MKAAApIhMQ78b6rgAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["مواقع_وزارة_الاسكان"],
+    "width": 20,
+    "label": "Ministry Of Housing",
+    "contentType": "image/png",
+    "url": "8624897695f8f1ed9cbd7494f58bbea3",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAnUlEQVQ4je3UMQ6CQBCF4dlhYrRYWwprExsv6AG4hmfhFJhwAlo2BoILmDeJJrQ7dPCqmeYrf3lW5X0mV9AKczQ/BNgxk0vG7C3YOE2hH2MheICxY3+SQ0jBujh4YqhECmLAruf8lQLWbXN7f3q9/+Bakx00T+zEcjton2wY7OLgUY0URPNFpOlTEHFEz34JSlhQAyCyjdIijtbB+gLpqTjRTiQGYQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["مواقع_وزارة_الدفاع"],
+    "width": 20,
+    "label": "Ministry Of Defence Areas",
+    "contentType": "image/png",
+    "url": "3818acbc9f7d5ec2057611f369c9d10d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWM5ffqwAyMjw34GKoD//xkcWahlGAiAzGJhQAGMbxnIAv+FYSwWVMP+HyfPQEZLmKFoLqQcsIwaSDFgodwIVDBqIOWAZUQb+F8YUmqQA7AWX6gS5AIWULFNzSoAAA7kFhtINgKPAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["الهيئة_السعودية_للمدن_الصناعية"],
+    "width": 20,
+    "label": "Saudi Industrial Cities Authority",
+    "contentType": "image/png",
+    "url": "5c3e608ba04c48116aa9723d88a64fe9",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAlUlEQVQ4jWNZV8kg/PsHgxUDFQArB8MxFpBh8oY+Zlw8IlKUGPbty5tnD89vYWABcUCGsXLwSHNwC/0gx7AfX99xcEHZYANBAGSYpLrtS3IMfH7zsPjvH19QDaQWYBk1kGLAQrkRqGDUQMoBywg28MfXdxygUoMcQ0B6UQwEFY6g8gxWBJEDQGaADQQV26CSlhoAZBYAbH0xR2pzqP0AAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["الهيئة_الملكية_للعلا"],
+    "width": 20,
+    "label": "Royal Commission For Al Ula",
+    "contentType": "image/png",
+    "url": "59d170f5d41aa53de988c5d86d5f968a",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbElEQVQ4jWPZf326AwMT034GaoB//xxZqGYYCDAx7WdhQAb/GZ4zkAMYGSRhTISB/xmeMzIybCbHvP//GXxhhqK6kAqAZdRAigEL5UagglEDKQcsI9lARgZJcKlBDsBafKFJkAtYQMU2NasAACbRFhrSxGNaAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["مواقع_وزارة_الزراعة"],
+    "width": 20,
+    "label": "Ministry Of Agriculture",
+    "contentType": "image/png",
+    "url": "d32beeb0ab61803d07b8cbfeb1c50eaf",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWPpmtF5RFxJVJaBCuDlvdePWUCGadiqyjFQCbBQyyAYGDWQcsBCBTNQwKiBlAMWKpiBAkYNHBEGvrz3+jG1DAOZBQA5Nw79AflCVQAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "14c0e459e6ee75c8da34519051a7045f",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Source Name",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Areas Reserved",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 36,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZ0lEQVQ4jWP5fHu2w38mpv0MVACM//45slDLMBAAmcXCgAL+P2cgCzBKwlhIBv5/zsDIuJks8/7/94UZiuZCygHLqIEUAxbKjUAFowZSDlhGtIGMkpBSgxyAtfhClSAXsICKbWpWAQDkXRpVpWKkdAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["حرم_مواقع_التراث_الثقافي"],
+    "width": 20,
+    "label": "Cultural Heritage Sites Buffer",
+    "contentType": "image/png",
+    "url": "00119609799353f17b3877568ff9655c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAXklEQVQ4jWO5fni+A8P///sZqAEYGR1ZqGYYCPz/v5+FARW8ZSAPCMMYLGiGHSfTQEuYoegupBiwjBpIMWCh3AhUMGog5YBlZBsoDC01yAFYiy8UCXIBC6jYpmYVAAADRhH5MufaMQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["حرم_مواقع_التراث_العمراني"],
+    "width": 20,
+    "label": "Urban Heritage Sites Buffer",
+    "contentType": "image/png",
+    "url": "40d466cc6acefdd6d69ea0e08db767b6",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASUlEQVQ4jWOZMqv9iLySiCwDFcDDe28es4AMs3RQlWOgEmChlkEwMGog5YCFCmaggFEDKQcsVDADBYwaOCIMfHjvzWNqGQYyCwAaEw8UMLp19wAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "dff89a2a5668946d55b9e099697d6781",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Source Name",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Heritage Locations Buffer",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 37,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAjklEQVQ4je3UOw4CMQxF0WBbsigQJdKwD1bBclPNciiQKBEFshR70ONTpE3SMbdKCp/yyTJfpiR6TiMqlgWY7fS0ME091sbjqo+UBB9gwXR0JmvB2EPp+36DCJjtt7cWUO/PA3nU4KhkBbuTfqJuBfuTPwbZQ7EaLQhuKxDjiD37TVBLMD5gsYylHVKx/AIKmy7vTt2n8QAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "2811440010ea55d9657cccef44fca21f",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Ministry of Municipalities and Housing Boundary",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 38,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAYklEQVQ4jWPZf326AwMT034GaoB//xxZqGYYCDAx7WdhQAVvGcgDwjAGsoFvGRj+HyfPPEZLmKHoLqQYsIwaSDFgodwIVDBqIOWAZWQbKAwtNcgBWIsvFAlyAQuo2KZmFQAAY7QQ9OVajOQAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "0f04d2b76981a546ffd0f358e11c2987",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Suggested Areas Al-Badiah Center",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 40,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABNElEQVQ4jcWUzW2EMBCFPRIcOFBA0sYWsKQXXAdsHTO9rFNA2kgK4MABJEcPMWSMgCXSKnkSsoXlT/Pzxpl7srI/BzJz5ZzDpwre+/BrIDO3RNRsHDUiEmKM79779hTwAKaqiKgSkWtd12+HQBG5r1J0RVF8YB2G4RXrOI4vCmbm1kaaAHFoYQCVZTnBZk37rusufd9fsCeihpmdQhMgEV0PYIv0v4U651Kg7WaWZV97MAtVoN5H922ESd3OCFn0P1DcT4CL8jz/dP8xKcPc9T0g3D95D2k8quGGQgJEQUVkOYU1jqA4N34MOo5JyjHGm06IFnsLan0IYQynzRoIc8KkFqp10kZZkImu3QQqFDOqNtK0THpJRn71QGx2GQM/PxAL+AxsF6iRYn3ae2jAuLwLWOsbApKs1m+VT9IAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "da921211ae0c6328e55eaa77f0abb908",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Mining Investment Opportunities",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 41,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABLklEQVQ4jdVU3XmDMAw88bEEyRgZoMl7B2mmKJnCDNL3pAMwBvYWXD8Z45gfkzZfXqoXbGGfTjrJJV5s5f8G7AzqQvBG4Kh7AW76rT5w+hNgZ1CL4FPXTPwjsG1AIU7VeQiwCegMjgxgW0bBtTO47M+oNwH14MQhaNnD+aXgoBnHX0PgPKBrcJ2kSHwJYEWiy5LYieA9Lc8+YbklihOBnTu9T9CCni1UtCzDseiBXZswyxqTO48Y5kF6z37VynSjfRZ7rkAFLlNOxIl3kAPsiW+RkAJxIJd1DKJEpec2AVS1bHPvwaCm03r6fYFKcGe3NjXlPAKJyzgl453YJmlPaQAuR3ABqCydwW3R4CuBd78ZPU9pOCja6IFYfBy0zvNxwyPACLzxqjwF+Iy9HPAH4xVnwvEp/WQAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "1cb1d37032a81759e3db929be613e476",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Violators Data",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 42,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZElEQVQ4jWNpbm52+P///34GKgBGRkZHFmoZBgIgs1gYUMEDBvKAAoyBbOCD////LyTHNEZGxniYoegupBiwjBpIMWCh3AhUMGog5YBlZBuoAC01yAFYiy8UCXIBC6jYpmYVAAAdnRiYQ875+AAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "04ca4edd8702d88fbd8ac8eac4db0ed9",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Building Material Licenses Before Amendment",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 43,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAa0lEQVQ4je3VsQmAMBCF4XfwBskoOomjiXNYOIZtNjm5QNCI1eU681WBwE+qF677OSlwIIAAM6NixlrEkyDDQ5Hq8Q4Ksio2T08ES422LwzAEezG/kRrBPvxz0FFKqvh8Tlfrwsv2mxHfgEXGE0VPuHI4q4AAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "f915960fb4a8042f695864d32bd01d0c",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Building Material Licenses Before The System",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 44,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4je3VsQ2AIBCF4TvzBmEUncTZnMEBXMWeHXjmChIwVsd18lckJF+oHsj5XBeVSwIqlA1RmGUWpElVb3FEMtUzWoyFhwfURfeKdi+MCBMcDuNE3wTHw49BkslWw4N8ztf7whtstiO/gAeAViKWHSR7uQAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "90bbc102dc3b086e697a5c19e681548f",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Exploration Applications Under Wait",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 45,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWP5vLjGgen/v/0MVAD/GJkcWahlGAiAzGJhQAKMDAwPGMgA/xkYFGBsFmTD/v9nWEiOgYyMDPEwQ1FcSA3AMmogxYCFciNQwaiBlAOWEWzgfwYGBVCpQY4hWIsvdAlyAQuo2KZmFQAA/WkcH+hJj8kAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "6c96318773b9b574ad7fd6b7049ee65e",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Investors Requests",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 46,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWO5fni+A8P///sZqAEYGR1ZqGYYCPz/v5+FARU8YCAPKMAYyAY+YPj/fyFZxjEyxsMMRXchxYBl1ECKAQvlRqCCUQMpBywj20AFaKlBDsBafKFIkAtYQMU2NasAANlTFEhx+m9rAAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "f249db38977f62a76824ca99675a0357",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Mining Reserve Areas",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 48,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWP539DgwPD//34GagBGRkcWqhkGAv//72dhQAYfP95iIAfw86vBmCwohk2Y0EuWgQUFxTBDUV1IBcAyaiDFgIVyI1DBqIGUA5aRbCA/vxq41CAHYC2+0CTIBSygYpuaVQAAP/oZbBgYtI8AAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "565adc8bb909178cbc1124a560476fb8",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Rejected Areas",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 50,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAYklEQVQ4jWO5/nq7A8N/hv0M1ACMDI4sVDMMBP4z7GdhQAVvGcgDwjAGsoFvGRj+HyfPPEZLmKHoLqQYsIwaSDFgodwIVDBqIOWAZWQbKAwtNcgBWIsvFAlyAQuo2KZmFQAAqpwPOyS8vU0AAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "f25f28559f26a9ca508369db0930335d",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Mining Areas Under Study",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 51,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZElEQVQ4jWPZf/m/w///DPsZqAAYGRkcWahlGAiAzGJhQAUPGMgDCjAGsoEP/v9nWEiOaYyMDPEwQ9FdSDFgGTWQYsBCuRGoYNRAygHLyDZQAVpqkAOwFl8oEuQCFlCxTc0qAAAPOBSgTf4m7wAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "5ab74209e402ec7bf642cc095c7f6c1d",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Suggested Limestone Reserves",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 52,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWP5fL7f4T/j//0MVACM/xkdWahlGAiAzGJhQAb/GZ4zkAMYGSRhTBYUwxgZNpNl4H8GX5ihqC6kAmAZNZBiwEK5Eahg1EDKActINpCRQRJcapADsBZfaBLkAhZQsU3NKgAAF+kZOitzsncAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "158563c47a2714ac84c5672fb81d45aa",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Uranium Exploration",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 53,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAVklEQVQ4je3UsRGAMAxDURUahE3CSGyIswmbwIlzitRy6T/AKz9xvTeAEzUFE5sAHhM7ZAlEYi6oxgLLYoN29Im9Bv1YYGw16LdAzdHtNwRGXnsUoPEB/5IJ/pmobSoAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "676e68f2f511be32115d5b946d7e4e1e",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Mining Investment Opportunities Buffer",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 54,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4je3UsQ3AIBBDUZC8wTV0rMJuDJbMke4GuBmIjERBbUp+5+aVRu/9GWO0dKCc8wtitdbPzELBIsLcvYGDWClFApm7pwmeDBeUg07sXVAPB4ytC+pNkOeoQssAb5tPy3NUo/UD6z8jrginbCEAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "6d682989f6d02220402549fc3f85a132",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Mineral Belts",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 55,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZUlEQVQ4je3UoQ3AMAxEUQNvUJYNvEU2rwcIt1QSFtYdqotUEHyG/gM8+HWMcYtIl5xcgUXEs9Z6Gam1dplZByjA5pwUiMxMNpiZFkinPHFWIJ8mGEcF8m0Qc2Sh3wDoOC3mmJB/sgwX6tJDbLYAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "283ff90c81cf229d0a51e3a6fdd26de8",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Boundary Of Sulphide Belts",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 57,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA7ElEQVQ4jWNhoDJgGTVw6BnIVZeQUGyiqmrPzMTEeuPRozPtCxf2vPn27Tk5BrLOLS1dmeTp6QMT8DI3tzNUVbXL6OsLuPXkyVOSDKyMispP9PCAGwYDjgYGJnnBwdU5EydmkWSgsZqaJSMjI1Y5dRkZa1z6WHBJMOIyjYGB4T8DAxPJBt588uTIj1+/AjnY2DDk7jx9eoxkA6tmz+6TEBDwiHR2doUZ+v//f4Z1hw9f3X/lShnJBoJAUne325cfP+qUJSScmZiZWe4+e3b27vPn5av37PnOQG7Czps8uYmBgQGER0jWIxkMfgMBp0lJZpLT16oAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["T132KV_فرعي بالقرب من الرياض"],
+    "width": 20,
+    "label": "T132KV_Sub near Riyadh",
+    "contentType": "image/png",
+    "url": "319fb7097a66edc9e93ead00b58bc09e",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA6ElEQVQ4jWNhoDJgGTVw6BnIVWdvX2wiKWnPzMzMeuPNmzPthw/3vPn27Tk5BrLO9fNbmWRo6AMT8FJRsTOUkLDL2LIl4Nbbt09JMrDS2jo/EckwGHBUUDDJs7Coztm6NYskA41lZCwZccipCwlZ49LHgkuC8f9/XOYx/GdgYCLZwJtv3x758edPIAcLppI7794dI9nAqr17+yS4uT0idXVdYYb+Z2BgWHft2tX916+XkWwgCCRt2uT25efPOmVhYWcmRkaWux8+nL377l356nv3vjOQm7Dzdu5sYmBgAOERkvVIBoPfQAD1Q0muwFX7YwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["T230KV_فرعي بالقرب من الرياض"],
+    "width": 20,
+    "label": "T230KV_Sub near Riyadh",
+    "contentType": "image/png",
+    "url": "b3ca0c053e29bfe44d3271ae79052a38",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA0klEQVQ4je3TsUqCURgG4Ef9hegK3BuaIxcJDBEjpKHGRp0iQoegSMHBpSW6gy4gAm+hJZpqDCp0lJbGoDYj44cG/+GIQ2Ev5yzn5Xum70RmnOgf/HvgYofDPOsZso/cnXL2yss0YPaCyzpb8UOV4grFPbafGQaBJzRrP7A4JfIN2gfsB4GrFFIJ3TJrSXNRUpEan8kZkQ4Gn7j5YGdhQtfnNhhscZ5jc5dKjI7Q4+Gao2DwK3U23ugsUU4TDbgfcHzFu2kXu0HX952Trxec3w9+AkuAJEAQWYu7AAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["T380KV_SUB_ بالقرب من الرياض"],
+    "width": 20,
+    "label": "T380KV_Sub near Riyadh",
+    "contentType": "image/png",
+    "url": "c1287d4d5384919453119706f89d555b",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAg0lEQVQ4je3TUQqAIAyA4f/BcxR0j0Coe6n3Kgi6h2AniWw9RjR7iGgvOtCPzaHh4TA/WBzmE6AHnOwnIMiqAm3G2n7PlmhJ0QrqNaCjbqDtJO1gHmEenBa0VM3FkdKhLJGSNwy5vQ05Kk0ZDFrQ52pSdDKMA1NXiFw+Bb75U27F+8EVF54hD7reHIsAAAAASUVORK5CYII=",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "416965912a1ab02b7b1c2c11a42d6e1c",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Line Type",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Electric Substations",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 58,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABF0lEQVQ4jWNhoDJgGTUQGfAymLikMHDzM2CA5/duMNw6v50UA3kZAjLmMJRMC2NgZMSUvX76PkN3RgXDzXOriDPQN3kuQ8m0UKyGgYCmqSJDyYw2hr6sLwzXz2wjbKCZuxVOw2BAy1SZQc/aljgD0cHlYwwMdy8xMPgkMzCwsOJVykLQsL9/GBgKXBkYfnxjYPj7l4EhOJtCA5lZGBiU9RgYbp1jYFDSJqichYEYMPMYA8PP7wwMHFxkGvjzGyofFEHohv3/z8Dw4wcLcQbevjiLQfVSDYOKHvYYABm2tPMqw69fXcQZuLK/iYHx/38GLcs6Bg4uTDW3z19jeHLfkWH7/NfEGQgCKyY0MzCA8EgqbcgCVDcQAOEyTFgdi923AAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "4f9384a98c1def34ec83921946f996d4",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Hydrography Locations",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 59,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB6ElEQVQ4jZ2VjXHjIBCFn3KUELmHk13DmaQHXcbVIFXDOEoNNk4NQu5BSgsXbhayWCHInmRnPJKH4WN/Hk8CC6F1J3EHiaLYwkHGhQLGP/+5drerw3sSIgvcdw1QqM26wmp1j1VZxrVxmvwBvT1L/fxicnCxBNusf2cr4AMeZenBvR2k3nft7qluvkD1B/Dx4c+nzDgGGFSzLlDQwVTJ4fiq9L4Dg0Xs3w1ggwc8w2Uzp30EBnCB4lehNlWVBc6jQ4saKgumllG1u6e6EZTlqizlUg8Zditof28HpXVnhM/yCjBtAzKZXsAVemtlVlI/DRoahmIrSNjXekml2w+90zOngggljsP1TAnYhYHGIBXUaLID4xDfAV7WGp+xwnEBWsDQ1eMWsCY5KCsGrSF9htySvyjQ4BjbMU6T9wYB507j+BahQYsBxCWypGgz/RSkPzzAT196LPAOQ/piWS2VRLHGNr4zfB69PXv3EuQwZAi9Pd/Uay6rOXCcJkM8Pyi6Wnr/olKb49K5nzy4dPLUy94OwLtrk+m7lkwhNRUquZ4ZSbhVn4GH46vfz74qeDFk23m3mftpWu78P5XsMyRgzk8jWHemHwZFMmNw4vwYx7csLAv14FCCIfc6TFNoXvqNcu5Eqln6Rv0Ha8UI5pI+Wh0AAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 21,
+   "label": "",
+   "contentType": "image/png",
+   "url": "1d1d1f84d3cb92ef141fac5a830cc7cb",
+   "height": 21
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Airports",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 60,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACRklEQVRIia2WT3KbMBTGHxnGq2SVmDPETc5Q5NwgnfwZrtINeNOrMDZMcgMb9wxg5wyiXaWbZlE63wMxMhYYdfptwMKjn773nvTkkoXiZRIdDPyhDI8geOTnkNxxkzuh8eMZ8Xi8SjOqqm3w/BhZg3TA7c0nHvO8K/Km0/Y/siz5mRd7IWUp4mUaElULE9AdggBwezPrdes10DsxZWhe7EnKMoxXqR88PcwHQfEq3VBF4hTEBAUQsLzYCcyjw1wT5G7++SBEXWX7D9q+ffC7fz0hMZu037A4hHi9+S4QGRVG9yBcjZMhCARI9PLO74CI2eWRO8yTF7swXiYEmObICT1vehQurF5fscmdSWoewIioBqn9YYLMv/1kUHh/MQg0CfPlxY7nrx05jg+7KmQqBwhP9OWCx3RgV4vXXxTen/fA6hC6cZyIOjfHFbb5etm6QNJVAfyLjPuoTvDkIEf6WBeY7X/3OkIFUgHQGQkeMFTa2BxlPQWhz2t0ZJujMdU5eKja5Gj7NhKEs0rZtM3RkNTB62LX4tSV8sdRnmz2UfTy3lsQDPpfOeoTDllyKGtA1QKbqruXbPdR1ikIhE1KhK7aMkiFD3TA9HwodceixulJN838WuhqV3g71YdMCzFBGjcL/G5BtauEz6Vuy7aV5G6749wET51+1MJWqY+mZdthlZoO20B6OiyEj+i0aMdYGXfMke5yBcEFpXHSC2phyyTCRWMtS9IbYvcWhP1XQwCALG5BDKv/jLxFsiz99abkw7dfZoDSX7kkcTUd9o9mAAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 26,
+   "label": "",
+   "contentType": "image/png",
+   "url": "c484827b15b4e143e776d71c6bd50f41",
+   "height": 26
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Dams",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 61,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACZUlEQVRIiZ2W0XGbQBCGFw8lRDQQvyR2DeakF7sAWx5qSBGgCvzkGhgJCnBeJOQaQHqJGzhSQ8j8dyw+kbsTyj/jwZzxfvx7t7uEdIHydZGdLPyhCpckeVJXn8JpwYPU+scrUuv5pqyo6/bJ81N2McgE3N58V2tR9IWi2Wx4RratutbNUUjZinxdpkTdygYMfRAAbm++Od1GPXQhZgpaN0eSsk3zTRkny8e5F5Rvyh11JFyQ6pe+iut/oQACVjcHgTgmLLRBFvO7kxSxVj8/QTYYhJdDire7d4HMcBrDk3T1TmwQCBAEx3X+StS9WB9T/484dXNI83VBgBmOgjSKZs49YTcAMYzvbeI4gBGRBnF9uCAImL2d3kM+Vxyvbg4qvnYUBDHsulIGZQ9E8VftIL3XMLjED+7dMJ3CMM8LoffGfYw5XQi6/9CQ9J5o94Mm62xngAAwUwfx/gDo2icIJ5AagK5IqAXHcR4DxrDKqCubQ47rdeSDjHXuFPpBD9Nhot9HlwYQetU4fcj/VFDqOHnceENULbqulL+t+zTVlfC4UaApb8ud4H8AdXMkCqjqQd0KRWWrJaSE08JFysF9hcppkxKp6/YKxOkD3QZDcO4KpoOVse5008c3Uqdd4TeGwQE6AQdFb2NY9qb3D8I6ZNZRPwRVXNwPIO2qUH2JR7bpwEwf4GYzHTvS0/ag9iZZjubRANuUMYaWa8Keq5daT9ge4piwCrZ8nGPSYhzjzdTE9HR1skHwgdI7cYIG2LrI8KGxlS2ZA3H8FYT60xAAoAu+ghRMP4x9y2Tbxttdq5qvW3YA6y8vfFZz5YYMrwAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 26,
+   "label": "",
+   "contentType": "image/png",
+   "url": "8afe992b99b63422d83e3e931afeca10",
+   "height": 26
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Sea Ports",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 63,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAR0lEQVQ4jWNhoDJgGTUQBP4zkAYYCbsw5hlxRi2RGiZhiN9bBIKDhYHKgGUYGBjzjMoGkghY6GPgEimqGshItmkMQzcMKQAAoGAHUiyFBREAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "cd9e42fec479c04fe2bb3b4cfc2e2122",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Water Stations",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 64,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOElEQVQ4je3MMRUAIBQCQAZy0MXkdiGJszMsPv8FOKKME8aYF7cfQ9u7GqKMklY1RBknjDEvXgsPkNgEUeeQoyEAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["T132KV_OHT_LINES_NEAR_RIYADH"],
+    "width": 20,
+    "label": "T132KV_OHT_LINES_NEAR_RIYADH",
+    "contentType": "image/png",
+    "url": "5cf4e40afdbb9c5dac4a609e3cccbc8f",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAPUlEQVQ4je3MsQ0AIAhFQUj+SvQ6ufYMhUP4ChO5AU4GU4fX9GGYmQMN3X2hocFUVRMNI2KjocHU4bX3wwNQKghRYnbjOgAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["T132KV_UG_CABLES_NEAR_RIYADH"],
+    "width": 20,
+    "label": "T132KV_UG_CABLES_NEAR_RIYADH",
+    "contentType": "image/png",
+    "url": "c5565df60ec8fbc6af16500649fa76c7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAPklEQVQ4je3MUQ0AIAhFUdheMA1DKsJoMwzB/XDTE+DIYPphmx4MM3OgobsvNDSYqmqiYURsNDSYfth2f3gAmdsIURVmxMgAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["T230KV_OHT_LINES_NEAR_RIYADH"],
+    "width": 20,
+    "label": "T230KV_OHT_LINES_NEAR_RIYADH",
+    "contentType": "image/png",
+    "url": "f4138066964c5d379b791bf767a53f2c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAPUlEQVQ4je3MQQ0AIAwEwTY5YSCsrwoDZ0VE90ECI2BkMP2wTQ+GmTnQsKoWGhpM7j7RMCI2GhpMP2y7PzwhDQhRxqYAaQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["T380KV_OHT_LINES_NEAR_RIYADH"],
+    "width": 20,
+    "label": "T380KV_OHT_LINES_NEAR_RIYADH",
+    "contentType": "image/png",
+    "url": "75f91baf161aee9dd247ad5bed91d8b3",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAPklEQVQ4je3MUQ0AIAhFUcZeMG1AVBpoMmYI7oebngBHBtMP2/RgGBEDDatqoaHB5O4TDTNzo6HB9MO2+8MDXXQIUea5aysAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["T380KV_UG_CABLES_NEAR_RIYADH"],
+    "width": 20,
+    "label": "T380KV_UG_CABLES_NEAR_RIYADH",
+    "contentType": "image/png",
+    "url": "f0e0155dbd6f5125a37edb7c8e16d419",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAN0lEQVQ4je3M0Q0AEBQEwZVcYVROZxTx9kPCFDBBlh+W5cFwQ1dDYNohdjjUsMFSQ2T5Ydn94QH9TANR0TAAGQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["خط_كهرباء_هوائي"],
+    "width": 20,
+    "label": "Over Head Power Lines",
+    "contentType": "image/png",
+    "url": "4a7dc614eff002ce3454582301597245",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAPklEQVQ4je3MwQ0AEBREwSfZohwpQ4XK4KgrirAHiT8FjDBThNf0YdgzxRomGNYQM22o1rAtpjXETBFeez88M8gFUVusR6YAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["مواقع_خطوط_شركة_الكهرباء"],
+    "width": 20,
+    "label": "Electricity Company Lines",
+    "contentType": "image/png",
+    "url": "8adaf0152af53b4f37fcb5c4fd44056b",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOUlEQVQ4jWNhoDJgGTWQYsBCuRGoYCQaaNzNsJ+qBjJQGbCcLWVwpKqBDFQGLKMGUgxYKDdiqBkIAIXMA1FlsiIDAAAAAElFTkSuQmCC",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "cbcbb179c9ad4c20d4f2299262702f74",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Line Type",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Electric Network",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 65,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWNhoDJgGTWQYsAyjAz0W5XGsClsFvUM/P9fiRhlLAw+yx0YmBgciDDQhsFveQNeNf8YDtAgDLdEHmBgYABh/MB3JQfDpogG6oUhI+M9YpSxEG0gETE83BI2kYCFWIXDx0AAvygT6ksTuKYAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["مسار_سكة_الحديد_المقترحة"],
+    "width": 20,
+    "label": "Proposed Railway Route",
+    "contentType": "image/png",
+    "url": "819595c44a6fdc84b0000e5f5fb57bf7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZ0lEQVQ4jWNhoDJgGTWQYsAyjAxUK05juNU7i3oGMvxXIkYVC4NGiQPDPwYHwkr/2TColTTgVcLEcIAGYXij5wADAwMI4wdqRRwMt3oaqBiGjPeIUcVCtHlExPBwS9hEAhZiFQ4fAwFq/xHsWMVqBwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["مسار_قطار_الحرمين_مقترح"],
+    "width": 20,
+    "label": "Haramain Train Proposed Route",
+    "contentType": "image/png",
+    "url": "095e4ab1cfec4db1346c4aec28837a65",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAZ0lEQVQ4jWNhoDJgGTWQYsAyjAxUK05juNU7i3oGMvxXIkYVC4NGiQPDPwYHwkr/2TColTTgVcLEcIAGYXij5wADAwMI4wdqRRwMt3oaqBiGjPeIUcVCtHlExPBwS9hEAhZiFQ4fAwFq/xHsWMVqBwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["مسار_مشروع_سكة_الحديد_المقترحة_جدة_الجبيل"],
+    "width": 20,
+    "label": "Proposed Railway Route from Jeddah to Jubail",
+    "contentType": "image/png",
+    "url": "095e4ab1cfec4db1346c4aec28837a65",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWNhoDJgGTWQYsAyjAz0W5XGsClsFvUM/P9fiRhlLAw+yx0YmBgciDDQhsFveQNeNf8YDtAgDLdEHmBgYABh/MB3JQfDpogG6oUhI+M9YpSxEG0gETE83BI2kYCFWIXDx0AAvygT6ksTuKYAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["railway_سكة_حديد_قائمة"],
+    "width": 20,
+    "label": "Railway",
+    "contentType": "image/png",
+    "url": "819595c44a6fdc84b0000e5f5fb57bf7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWNhoDJgGTWQYsAyjAz0W5XGsClsFvUM/P9fiRhlLAw+yx0YmBgciDDQhsFveQNeNf8YDtAgDLdEHmBgYABh/MB3JQfDpogG6oUhI+M9YpSxEG0gETE83BI2kYCFWIXDx0AAvygT6ksTuKYAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["الخط_المدمج_16_11_1443"],
+    "width": 20,
+    "label": "Merged Line",
+    "contentType": "image/png",
+    "url": "819595c44a6fdc84b0000e5f5fb57bf7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaElEQVQ4jWNhoDJgGTWQYsAyjAz0W5XGsClsFvUM/P9fiRhlLAw+yx0YmBgciDDQhsFveQNeNf8YDtAgDLdEHmBgYABh/MB3JQfDpogG6oUhI+M9YpSxEG0gETE83BI2kYCFWIXDx0AAvygT6ksTuKYAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["مسارات_السكك_الحديدية_الحالية"],
+    "width": 20,
+    "label": "Railway ",
+    "contentType": "image/png",
+    "url": "819595c44a6fdc84b0000e5f5fb57bf7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOUlEQVQ4jWNhoDJgGTWQYsBCuRGoYCQa2MxgsZ+qBjJQGbDUMpxwpKqBDFQGLKMGUgxYKDdiqBkIAILmA1Fb4E2tAAAAAElFTkSuQmCC",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "52540d7cb44da6d53b2ad2ef7d3437e1",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Source Name",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Railway Network",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 66,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAa0lEQVQ4jWNhoDJgGTWQYsAyQg1c7DKx4bHEe3tKDJJ9IXgwZo/RAZbDuov32+xRcqCC4xzALrS5rHQQxqEUHNG9Z8/CwPDvwBKXcwzU8HLsnvwGFkYG2wMMexgOMIysZENNwEJV0xhGpIEAaFYcdVAuWY4AAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["_17Aug2021_شبكة_طرق_وزارة_النقل"],
+    "width": 20,
+    "label": "MOT Roads Network",
+    "contentType": "image/png",
+    "url": "6f2b61c5f17f28e8ec6b0d16260b3fe8",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaklEQVQ4jWNhoDJgGTWQYsAyQg3srKhpeM361Z4Sg0R/cx90+iB9gGVRYdt+7XfCDlRwnAPYhdpfhQ/COJSCq9xv7Vn+Mf07sE/gKQM1vFze0dLAYjoj8wADAwMIj6RkQ03AQlXTGEakgQA0Oh3JFKsIbQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["الشوارع_الرئبسية_أ"],
+    "width": 20,
+    "label": "Main Streets",
+    "contentType": "image/png",
+    "url": "d4c98e70f173cb6a003bbedeaac516e3",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAWElEQVQ4je3SQQ3AIBBE0X9YE7jBAJoabNTGGsANMmjgxH22h4Z+AS+ZZIzg7Afl7FwwF7gUyKECbYEdGJAV8IaaXpucgAJNgXwH53YXwe/dJiyLozgVfACVlQq3wQSUhwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["الطرق_الرئيسية"],
+    "width": 20,
+    "label": "Main Roads",
+    "contentType": "image/png",
+    "url": "a7e165e7e3c42999abc4d004c5316333",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAS0lEQVQ4jWNhoDJgGTWQYsAygg1syIn/T4lBDVMWMqIYWJ8TT5HLGqYsRHUhtQALjNEItYFqBjZAw4BqBlILsFDNJCgYNZByQHUDAZ5jCrwc2M/hAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["الطرق_السريعة"],
+    "width": 20,
+    "label": "Highways",
+    "contentType": "image/png",
+    "url": "d59c81ff02085385cc143739409b2a38",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAWUlEQVQ4jWNhoDJgGTWQYsAyQg182p3WwMT4354Sg/79ZzwoXTqrgeXjzpkNfLpm9VRwnMNHPWMaeJnfPb3haXcaA9W8zMDAwABiUM2FDFQGLKMGUgwGv4EAe44X/aiZJw4AAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["الطريق_المقترح_لمجمع_جبل_فتق"],
+    "width": 20,
+    "label": "Proposed road for Fatq mountain",
+    "contentType": "image/png",
+    "url": "2acb965394f04278df863583ba077a18",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAR0lEQVQ4je3SQQ0AIAxD0R7qC5ytk4YzAkignMYX8LImI8zxg9exLigA7dIay6EkRUQYjuuZ+WCyTrBNxmmLtd7GFn0UqoITsgcNkEHOSjkAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["شوارع_مقترحة_الرياض"],
+    "width": 20,
+    "label": "Riyadh Proposed Streets",
+    "contentType": "image/png",
+    "url": "b63f5ae3f1c3d60afe1160bab0a1a147",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWNhoDJgGTWQYsAycg1sYGBgsKfQrIMgc1hclJQaXJWU6qngOIfd9+7RwMt77t1r2HPvHgPVvMyACMMRlmyoBlioZxTDSDUQAIzbDojsatwFAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["شوارع_مقترحة_المنطقة_الشرقية"],
+    "width": 20,
+    "label": "Eastern Regioln Propsed Roads",
+    "contentType": "image/png",
+    "url": "8085ed8957308566e248429859ed88cb",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWNhoDJgGTWQYsAycg1sYGBgsKfQrIMgc1iq0uwaqlNs6qngOIfWOUdo4OW2WYca2mYdYqCalxkQYTjCkg3VAAv1jGIYqQYCAG0MDfJ7lp0/AAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["طريق_القصيم_الدائرى"],
+    "width": 20,
+    "label": "Qassim Ring Road",
+    "contentType": "image/png",
+    "url": "37b3a750c15775d51d2f64b2694d5cd3",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATElEQVQ4jWNhoDJgGTWQYsAycg1sYGBgsKfQrIMgc1gawhga6kMY6qngOIfGNbTwcsMqhoaGVWA2dbzMgAjDEZZsqAZYqGcUw0g1EAAh2As69+iHnAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["طريق_جدة_مكة_المقترح_شمال"],
+    "width": 20,
+    "label": "Jeddah Makkah Proposed Road",
+    "contentType": "image/png",
+    "url": "bd2ca4b7dfd0c762fbab13a0b01638b0",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAb0lEQVQ4jWNhoDJgGTWQYsAyQg3sn9zb8PLvB3tKDBJnFjjowaF3gGX59Hn79dnkHKjgOId/DP8ZWPTYZA+COFQwkOHSr8f2LEz/GA7s+HGRgRpeLswtbmDRTHU9wMDAAMIjKdlQE7BQ1TSGEWkgAJnjHc5dXk9cAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["طريق_حفيرة_نساح_النهائى_وزارة_النقل"],
+    "width": 20,
+    "label": "Hafira Road",
+    "contentType": "image/png",
+    "url": "d8d3de32ccf1132329a9cb9e89355fb0",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAWUlEQVQ4jWNhoDJgGTWQYsAyQg182p3WwMT4354Sg/79ZzwoXTqrgeVjw8IGvhd29VRwnMPHBmsaeJm/Ib7haXcaA9W8zMDAwABiUM2FDFQGLKMGUgwGv4EAHKkZGn3eDboAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["طريق_مقترح_عسير_جازان"],
+    "width": 20,
+    "label": "Aseer Jazan Proposed Road",
+    "contentType": "image/png",
+    "url": "d65af792b528a545de87d1045aac9c75",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAWUlEQVQ4jWNhoDJgGTWQYsAyQg182p3WwMT4354Sg/79ZzwoXTqrgeXj0qUNfJLO9VRwnMPHpfY08DJ/dHTD0+40Bqp5mYGBgQHEoJoLGagMWEYNpBgMfgMB/kgYeaoOT/4AAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["مسار_طريق_جبل_فرسان_موافق_علية_من_الوكالة"],
+    "width": 20,
+    "label": "Farasan Road",
+    "contentType": "image/png",
+    "url": "396ec5e82edc8fe8d4077d1d42f1cd50",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAV0lEQVQ4jWNhoDJgGTWQYsAyQg3cv39mAwMDoz1lRv0/6OiY3sByevvsBp6PzPVUcJzD6e2zaeBlU8/Uhv37ZzJQzcsMDAwMIMYISzbUBCxUNY1hRBoIALMPFRaMdDWUAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["مشروع_طريق_مدينة_الملك_سلمان_للطاقة_بمدينة_بقيق"],
+    "width": 20,
+    "label": "KSPC Road",
+    "contentType": "image/png",
+    "url": "575d93d058a11a34ef472d6dd63061b5",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVQ4jWNhoDJgGTWQYsBCuRGoYEQayL18P3UNpDJgYfga6UhdA6kMWEYNpBiwUG7EUDMQAHw0A1EZz9PZAAAAAElFTkSuQmCC",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "bffe78702443b87a69922f956cc58019",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Type",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Road Network",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 67,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATUlEQVQ4jWNhoDJgGTWQYsAyMg10YGBgqIfSlIADDAwMjSAD6xmSGxwYDO0pM+78QQeGuQ208XIjyGRqevkAFI+gZENVwEJd4xhGooEA4yUMLy0YrkQAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["حقول_المياه_الشاملة"],
+    "width": 20,
+    "label": "Water Fields",
+    "contentType": "image/png",
+    "url": "f5cf70ba28d9cbdb6e6531ef1c3e6b2c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4jWNhoDJgGTWQYsAyQg1sXn274e+Xn/aUGMTMw36QR0PiAEvXrif72aUFHKjgOAcGhv8MLOzS/AchHMrBz6cf7Vn+/WM48OXGcwZqeLk2VLWBpVCX9wADAwMIj6RkQ03AQlXTGEakgQC9oR3PGSASWwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["مسار_انابيب_نقل_المياه"],
+    "width": 20,
+    "label": "Water Pipe Line",
+    "contentType": "image/png",
+    "url": "3b40b572986a60f2037f95e3f88a7408",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOUlEQVQ4jWNhoDJgGTWQYsBCuRGoYCQaOMWbYT9VDWSgMmDJ2crgSFUDGagMWEYNpBiwUG7EUDMQAJquA1GLCxaNAAAAAElFTkSuQmCC",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "4409641caabe80966291a45477ee89cb",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "Type",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Hydrography Lines",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 70,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWP5/3q9AwMDw34G6gBHFioaBgL7QQYiACPDAwZywH8GBRiTBcWw/wwLyTKQkSEeZiiqC6kAWEYNpBiwUG4EKhg1kHLAMpIN/M+gAC41yAFYiy80CXIByEBHalYBAA00EKYeSvl2AAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "23ac04289ec53532ea978bf7a4fbbaec",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Hkam",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 71,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAa0lEQVQ4je3VsQmAMBCF4XfwBskoOomjiXNYOIZtNjm5QNCI1eU681WBwE+qF677OSlwIIAAM6NixlrEkyDDQ5Hq8Q4Ksio2T08ES422LwzAEezG/kRrBPvxz0FFKqvh8Tlfrwsv2mxHfgEXGE0VPuHI4q4AAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "f915960fb4a8042f695864d32bd01d0c",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Water Sheds",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 72,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAU0lEQVQ4je3VMQoAMQhEUYW5p0fZeBRP6mIggdRj6W+0eqXC3ZeqftJQZjq6sKos7E1EzEyYImLPC3aFAenAE28D8qHBeBqQ74LnntFgne3OF/AD1CwTuf/fqYEAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "7b1f5539218fdaac8a7e6fd748cad812",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Al Harat",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 73,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAXElEQVQ4jWOZfvuzAwPD//0MVAGMjizUMwwE/u9nYUAFbxnIA8IwBguaYcfJNNASZii6CykGLKMGUgxYKDcCFYwaSDlgGdkGCkNLDXIA1uILRYJcwAIqtqlZBQAA1LMOJm2RmTcAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "efc3ae55a5e7b3b409ebaac413ab6198",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Water Fields",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 74,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWO5/nq7A8N/hv0M1ACMDI4sVDMMBP4z7GdhQAUPGMgDCjAGsoEPGP4zLCTLOEaGeJih6C6kGLCMGkgxYKHcCFQwaiDlgGVkG6gALTXIAViLLxQJcgELqNimZhUAANq7D4jROX+kAAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "d29821354af26d8dbe4a0dd98780bb74",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Cultivated Areas",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 26,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA5klEQVQ4jc2V7Q2EIAyGS8IAdQNHYAQdwGkZgBuBEdjAbuDlRUouxPOH1x/3Jhjk4ylQWnyMcdn3PRERMTOJCI361j5qmqbVA5Zzpnme66SriegrpfT61ThmRkleB6E451431i/r0HEcCwzCiFc6YNu2rfRAMcYkIgs4FQj6aPWpvAmFzmPrK7RQKaVCzYAqeyAz16WaAUXkP70cQjiBLWR+BuYWvnXLlvL4WEC57dL02rBlpEhLaR2IFISs8QSGuVrvZ9juY+1Qz2tS/RSuBzw6jlM/eKTtEEIaI+YugrRdnwb9B+sNKsV2PdExMfgAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "023dd05374f7d5293484a43652bdb033",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Emirates",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 25,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAVElEQVQ4je3VMQoAIAxD0Qw5WD15PZp0EFScmm76J0F4OEUCMACOmhoLscgDXOvIZfPAA2tJ0Cd6vlCOH5SjTux9UI9vgyZs43W+totsAcYGln0BAxaJCM/RgHO4AAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "2909f3d205c48ed328fd1d8e04d6ca5e",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Governorates",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 76,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4jWP5fHu2w38mpv0MVACM//45slDLMBAAmcXCgAwYGR8wkAP+/1eAMREGMjI++P///0JyzGNkZIyHGYrqQioAllEDKQYslBuBCkYNpBywjGQD//9XAJca5ACsxReaBLmABVRsU7MKAABShCF4awJ6TAAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "b973bebec84c36d99baae7a1defcee67",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Approved Tourist Sites",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 77,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWNZYcHwn4GKgAVECBg4bBHQtblJiUEfLh9R/3DhgA/EQF2bm5I+qbcodd0HmIHUBCyjBlIMWCg3AhWMGkg5YKGCGShg1EDKAdhAUOFIqUEwMyAGXjjgA8JUcCADAEAjGuafEBvLAAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "af2b86f40b3aecef2d39e9f7e8cde6be",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Estihkam Requests",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 78,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAY0lEQVQ4jWM5/nizw/////czUAEwMjI6slDLMBAAmcXCgAreMpAHhGEMZAPfMjAyHCfLuP8MljBD0V1IMWAZNZBiwEK5Eahg1EDKAcvINlAYWmqQA7AWXygS5AIWULFNzSoAAC58GBsePxbfAAAAAElFTkSuQmCC",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "b0e2277e507a1ca0dd6cabc3d1d32aea",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "MEWA Requests",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 79,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAa0lEQVQ4je3VwQnAIBBE0TFME+lGm0iLgTRhurGLrOxB0JDTurf4T4Lw8DSy4IyCLcOhgCfRC9PUIroCwg1DAontzB7bcSQLWHDlhg4v9IgLnI7zxNgC5+OPQYFEXQ0L8jlf7wtr1Nn2/AIqrjge6c7B+R8AAAAASUVORK5CYII=",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "9e5c124ab1a4894f0a7074f2230ea9ff",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Proposed Sites Rejected By GATA",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 90,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbklEQVQ4jWOZ/pzBgfE/w34GKoD/jAyOLNQyDARAZrEwIAEmFuHnDGSAf3/eSsLYLMiGcYombCbHwO+vF/jCDEVxITUAy6iBFAMWyo1ABaMGUg5YRrCB//68lQSVGuQYgrX4QpcgF7CAim1qVgEAL1wknXOc7JAAAAAASUVORK5CYII=",
+   "groupId": "0",
+   "values": ["1"],
+   "width": 20,
+   "label": "Active",
+   "contentType": "image/png",
+   "url": "e5811a49a8fb2226601796ac37f63318",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "Active Licenses",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 92,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaklEQVQ4je3UoRHAIBSD4cddRsC1A7BBLRsxYmvZgAEq2YFe3l0FOkh+F/PJoJRyjzGyLSiE8IBYupLFM0pYf7u12jI4iMVDA71q5uDKsEE56MTcBvWwwJjaoJ6DPEe13wBvm0/Lc1Sj9QF0fhuquDn6rwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["0"],
+    "width": 20,
+    "label": "Not Modified",
+    "contentType": "image/png",
+    "url": "bbb7aa756e5f89df91dfae0edb67dda4",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAbUlEQVQ4jWPJz8/f////fwcGKgBGRsYDLCDDPHWfM6iIf6HIsDsveRi2X5Z0YAFxQIapiH2m3ImXGRjABlITsIwaSDFgodwIVDBqIOWAhQpmoIBRAykHYANBhSOlAGYGC6jYBpW0oMKRUgAyCwBnFxrnYm6ZRQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Modified",
+    "contentType": "image/png",
+    "url": "958cb1451de1e7255e7d842f34b7cf02",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAaUlEQVQ4je3UsQ3AIBBD0UOyBF1WSDYhEzEi2SQzXEdHZKQU1Kbkd9c8XWWUUmrvPduCQggPiN3HYVdKEva2ZtU9gwexM0b5w+puA1wZNigHnZjboB4WGFMb1Bsgx1HtN8DZ5tJyHNVofRMOH4D3EgUiAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["2"],
+    "width": 20,
+    "label": "Relinquished",
+    "contentType": "image/png",
+    "url": "a8c91c620f9dfcd977f27edd2eee93e7",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3UoREAMAgEQcSLeBqiI8qLpSF6yCDRvAtXwMqDu18RMeEUKExVD0PLTCuQGhYchznRW3AeCEZrwV/AqNOSvHhMygtkOCBeSwAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "96550caf37df95c565e2257256ed5b3a",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Parcels_History",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 93,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpKizazsTI5MBABfDv/78DLCDDuoLaOKhhYNm6KgcWBioDllEDKQYslBuBCkYNpBywUMEMFDBq4Igw8N//fwdAJS01DAOZBQCiyxM+4xyz3gAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Reconnaissance License",
+    "contentType": "image/png",
+    "url": "966876484ba37e5d79b17168c2da143f",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpLMrfzsjE5MBABfD/378DLCDDQjpdOahh4Jry3Q4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4P9//w6ASlpqGAYyCwCQjRN7mF/w7QAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Exploration License",
+    "contentType": "image/png",
+    "url": "43919e9de415b952e871f3020cd7f9dd",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpKszfzsTI5MBABfDv/78DLCDDumOdOahhYOnivQ4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4L///w6ASlpqGAYyCwCQORNyEs4AWwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Mining License",
+    "contentType": "image/png",
+    "url": "83386281b583a5e06cbbe3a3d6e800e9",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJLyzazsTE5MBABfDv378DLCDD3Os7Oahh4M7GcgcWBioDllEDKQYslBuBCkYNpBywUMEMFDBq4Igw8N+/fwdAJS01DAOZBQCWSBNN6uWzZgAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Raw Material Quarry License",
+    "contentType": "image/png",
+    "url": "6aefc0f6448d339e0c45b8c7b0bdfd91",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJLyzazsTI5MBABfDv/78DLCDD3AI6Oahh4K4N5Q4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4L///w6ASlpqGAYyCwCQ4hN+wAdZ/gAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Small Mining License",
+    "contentType": "image/png",
+    "url": "62e3967e16ab0b72228a2d9c0bd0e427",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpKirczsTE6MBABfDv3/8DLCDDurpCOKhhYFnZGgcWBioDllEDKQYslBuBCkYNpBywUMEMFDBq4Igw8N+//wdAJS01DAOZBQCihxM42c3uBQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["7"],
+    "width": 20,
+    "label": "License Building Materials",
+    "contentType": "image/png",
+    "url": "6fbe6ee9673034f2feed9cd52b5c4a1d",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJLyrczsTE5MBABfDv378DLCDD3LtyOKhh4M6yKQ4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4L9//w6ASlpqGAYyCwCWYhNf/ri5iQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["8"],
+    "width": 20,
+    "label": "General Purpose License",
+    "contentType": "image/png",
+    "url": "ecdda64422b2bfa68b07a35047430516",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpKizczsTI6MBABfDv//8DLCDDugNiOKhhYOmGJQ4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4L///w+ASlpqGAYyCwCW2BNpOetd5AAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["9"],
+    "width": 20,
+    "label": "Surplus License",
+    "contentType": "image/png",
+    "url": "3ade3c76dabc7596ee852c429ac4495c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpLCzazsTI5MBABfDv/78DLCDDipI6OahhYN+8cgcWBioDllEDKQYslBuBCkYNpBywUMEMFDBq4Igw8N//fwdAJS01DAOZBQCcohNCAkzGCwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["10"],
+    "width": 20,
+    "label": "Public Projects License",
+    "contentType": "image/png",
+    "url": "c53f749fc73164cb9dc98852009e8c0c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3UoREAMAgEQcSLeBqiI8qLpSF6yCDRvAtXwMqDu18RMeEUKExVD0PLTCuQGhYchznRW3AeCEZrwV/AqNOSvHhMygtkOCBeSwAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "96550caf37df95c565e2257256ed5b3a",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Applications_History",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 94,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJzc/f/p+JwYGBCoDxH8MBFpBhJ4zkOahhoMW5hw4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFhIOM/hgOgkpYahoHMAgDs4Q+B9mk+owAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "Reconnaissance License",
+    "contentType": "image/png",
+    "url": "11c457b2d1b24b24a0193b5ca58598f0",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJy83f/v8fkwMDFQAj078DLCDDnu+y5KCGgZJuxx1YGKgMWEYNpBiwUG4EKhg1kHLAQgUzUMCogSPCQEamfwdAJS01DAOZBQAlHxDBaqxe4gAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "Exploration License",
+    "contentType": "image/png",
+    "url": "fcee92ecec64a651e86fcd5a1feb99eb",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATklEQVQ4jWPJz83dzvD/nwMDNQAj0wEWkGHa+3ZwUMO8q04eDiwMVAYsowZSDFgoNwIVjBpIOWChghkoYNTAkWEgI9MBUElLFdMYmQ4AALtaDfvOyetpAAAAAElFTkSuQmCC",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "Mining License",
+    "contentType": "image/png",
+    "url": "d2c8c16e05d77b689f1ade469d03024c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJz8/dzsT034GBCuDfP8YDLCDDzBx3cVDDwFP73RxYGKgMWEYNpBiwUG4EKhg1kHLAQgUzUMCogSPCwH//GA+ASlpqGAYyCwBRHRJndLXF4AAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "Raw Material Quarry License",
+    "contentType": "image/png",
+    "url": "fba4650d04dcad77c508af896e0b2515",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJzcvf/v8/gwMDFQAjI8MBFpBh17+oc1DDQE2emw4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFhICMjwwFQSUsNw0BmAQDJcg2q0ifgmAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "Small Mining License",
+    "contentType": "image/png",
+    "url": "2e5ea38999339fc84481b7a4e4fb814c",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAATUlEQVQ4jWPJz83bzvCfwYGBGoCR4QALyDCtw384qGHeNVsWBxYGKgOWUQMpBiyUG4EKRg2kHLBQwQwUMGrgyDCQkeEAqKSlimmMDAcAf1QLsi5YQBwAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["7"],
+    "width": 20,
+    "label": "License Building Materials",
+    "contentType": "image/png",
+    "url": "a2346930cf1817afb5abd9ba7a6445a5",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAASklEQVQ4jWPJz8vdzsDw34GBKoDxAAvIMME/lzmoYdx7Fl0HFgYqA5ZRAykGLJQbgQpGDaQcsFDBDBQwauAIMZDxAKikpY5xjAcAfV8Lu8LRFVsAAAAASUVORK5CYII=",
+    "groupId": "0",
+    "values": ["8"],
+    "width": 20,
+    "label": "General Purpose License",
+    "contentType": "image/png",
+    "url": "f7251f0f40888656405a6b7ecb54b0e6",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJzc/d/o/hnwMDFQATA9MBFpBhO+S3c1DDQI+Hng4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFhIBMD0wFQSUsNw0BmAQC3Dg4P4bkMQAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["9"],
+    "width": 20,
+    "label": "Surplus License",
+    "contentType": "image/png",
+    "url": "f4eed723722d306cd6cd949f2c930a8b",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJz83fzvSfyYGBCuAf478DLCDDDHYZcVDDwAtu5xxYGKgMWEYNpBiwUG4EKhg1kHLAQgUzUMCogSPCwH+M/w6ASlpqGAYyCwBP2xJ8E29XfAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["10"],
+    "width": 20,
+    "label": "Public Projects License",
+    "contentType": "image/png",
+    "url": "fb2bc12b49087a6ed24767e9984ff213",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3UoREAMAgEQcSLeBqiI8qLpSF6yCDRvAtXwMqDu18RMeEUKExVD0PLTCuQGhYchznRW3AeCEZrwV/AqNOSvHhMygtkOCBeSwAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "96550caf37df95c565e2257256ed5b3a",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Licenses_History",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 97,
+  "maxScale": 0,
+  "legend": [
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpLCrczsjE5MBABfD/378DLCDDUrsKOKhh4OyyCQ4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4P9//w6ASlpqGAYyCwCckhNAziGQhQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["1"],
+    "width": 20,
+    "label": "رخصة استطلاع",
+    "contentType": "image/png",
+    "url": "694f3813bcdf328632acfb335d4cec7a",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpzC/azsTE5MBABfDv378DLCDDSp06OahhYPe+cgcWBioDllEDKQYslBuBCkYNpBywUMEMFDBq4Igw8N+/fwdAJS01DAOZBQCWSRNcLev+uwAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["3"],
+    "width": 20,
+    "label": "رخصة كشف",
+    "contentType": "image/png",
+    "url": "348a90c659caec1626190e683956e680",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpys/fzsTE5MBABfDv378DLCDDOl1dOKhhYPnuPQ4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4L9//w6ASlpqGAYyCwCJ2hOIqmppIQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["4"],
+    "width": 20,
+    "label": "رخصة تعدين",
+    "contentType": "image/png",
+    "url": "552214a9fe1148baab76beb5c4db514b",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpLCzazsjE5MBABfD/378DLCDDwtO7Oahh4MqZpQ4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4P9//w6ASlpqGAYyCwCc/BNWjVYv5AAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["5"],
+    "width": 20,
+    "label": "رخصة محجر مواد خام",
+    "contentType": "image/png",
+    "url": "01f62aa3e86f5712d4cd71e02d35dfe3",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJL8rfzsTE5MBABfDv378DLCDDnDudOahh4N7yvQ4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4L9//w6ASlpqGAYyCwCKJROLQeZLcAAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["6"],
+    "width": 20,
+    "label": "رخصة منجم صغير",
+    "contentType": "image/png",
+    "url": "5baaffdc5315e5178fff43ffc0351799",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpKsrfzsTE5MBABfDv378DLCDDOrvcOahhYHnZTgcWBioDllEDKQYslBuBCkYNpBywUMEMFDBq4Igw8N+/fwdAJS01DAOZBQCb+xNDC4NvqQAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["7"],
+    "width": 20,
+    "label": "رخصة محجر مواد بناء",
+    "contentType": "image/png",
+    "url": "9a9b13228eabb5dd06a910879537c55a",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpKizczsTI5MBABfDv/78DLCDDOuMaOahhYPmiegcWBioDllEDKQYslBuBCkYNpBywUMEMFDBq4Igw8N//fwdAJS01DAOZBQCcZBM3f9RcGgAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["8"],
+    "width": 20,
+    "label": "رخصة أغراض عامة",
+    "contentType": "image/png",
+    "url": "6dbee0c7e667143b84958190d7d4cfda",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpKizczsTE6MBABfDv3/8DLCDDOnL8OahhYMWUjQ4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4L9//w+ASlpqGAYyCwCcoRNcANDsagAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["9"],
+    "width": 20,
+    "label": "رخصة فائض خامات",
+    "contentType": "image/png",
+    "url": "de8c7e17bce3e8b8101d8ab551ce8d94",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWPJzy/azsTE5MBABfDv378DLCDDHN07Oahh4P6d5Q4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4L9//w6ASlpqGAYyCwCKZBOJHo4l9AAAAABJRU5ErkJggg==",
+    "groupId": "0",
+    "values": ["10"],
+    "width": 20,
+    "label": "رخصة مشاريع حكومية",
+    "contentType": "image/png",
+    "url": "46deb01c96a6bf33ca3d7cdb8fa896eb",
+    "height": 20
+   },
+   {
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARklEQVQ4je3UoREAMAgEQcSLeBqiI8qLpSF6yCDRvAtXwMqDu18RMeEUKExVD0PLTCuQGhYchznRW3AeCEZrwV/AqNOSvHhMygtkOCBeSwAAAABJRU5ErkJggg==",
+    "groupId": "1",
+    "width": 20,
+    "label": "<all other values>",
+    "contentType": "image/png",
+    "url": "96550caf37df95c565e2257256ed5b3a",
+    "height": 20
+   }
+  ],
+  "legendGroups": [
+   {
+    "heading": "License_Type_Ar",
+    "id": "0"
+   },
+   {
+    "heading": "",
+    "id": "1"
+   }
+  ],
+  "layerName": "Licenses",
+  "minScale": 0
+ },
+ {
+  "layerType": "Feature Layer",
+  "layerId": 95,
+  "maxScale": 0,
+  "legend": [{
+   "imageData": "iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAT0lEQVQ4jWMpLCrczsjE6MBABfD/3/8DLCDDIjuCOahh4PKKtQ4sDFQGLKMGUgxYKDcCFYwaSDlgoYIZKGDUwBFh4P9//w+ASlpqGAYyCwCXChNsjl6WuQAAAABJRU5ErkJggg==",
+   "groupId": "0",
+   "width": 20,
+   "label": "",
+   "contentType": "image/png",
+   "url": "759d5a63edc89a5a34f17944c8fd50ca",
+   "height": 20
+  }],
+  "legendGroups": [{
+   "heading": "",
+   "id": "0"
+  }],
+  "layerName": "KSA Boundry",
+  "minScale": 0
+ }
+]}

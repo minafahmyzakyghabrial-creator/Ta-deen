@@ -1,0 +1,4 @@
+.uploader-tooltip-hover {
+pointer-events: auto;
+z-index: 999;
+}

@@ -1,0 +1,30 @@
+[tooltip] { position: relative; }
+[tooltip]::before, [tooltip]::after { text-transform: none; font-size: 0.9em; line-height: 1; user-select: none; pointer-events: none; position: absolute; display: none; opacity: 0; }
+[tooltip]::before { content: ""; border: 5px solid transparent; z-index: 1001; }
+[tooltip]::after { content: attr(tooltip); font-family: Helvetica, sans-serif; text-align: center; min-width: 3em; max-width: 21em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 1ch 1.5ch; border-radius: 0.3ch; box-shadow: rgba(0, 0, 0, 0.55) 0px 1em 2em -0.5em; background: rgb(37, 37, 37); color: rgb(255, 255, 255); z-index: 1000; }
+[tooltip]:hover::before, [tooltip]:hover::after { display: block; }
+[tooltip=""]::before, [tooltip=""]::after { display: none !important; }
+[tooltip]:not([flow])::before, [tooltip][flow^="up"]::before { bottom: 100%; border-bottom-width: 0px; border-top-color: rgb(51, 51, 51); }
+[tooltip]:not([flow])::after, [tooltip][flow^="up"]::after { bottom: calc(100% + 5px); }
+[tooltip]:not([flow])::before, [tooltip]:not([flow])::after, [tooltip][flow^="up"]::before, [tooltip][flow^="up"]::after { left: 50%; transform: translate(-50%, -0.5em); }
+[tooltip][flow^="down"]::before { top: 100%; border-top-width: 0px; border-bottom-color: rgb(51, 51, 51); }
+[tooltip][flow^="down"]::after { top: calc(100% + 5px); }
+[tooltip][flow^="down"]::before, [tooltip][flow^="down"]::after { left: 50%; transform: translate(-50%, 0.5em); }
+[tooltip][flow^="left"]::before { top: 50%; border-right-width: 0px; border-left-color: rgb(51, 51, 51); left: calc(0em - 5px); transform: translate(-0.5em, -50%); }
+[tooltip][flow^="left"]::after { top: 50%; right: calc(100% + 5px); transform: translate(-0.5em, -50%); }
+[tooltip][flow^="right"]::before { top: 50%; border-left-width: 0px; border-right-color: rgb(51, 51, 51); right: calc(0em - 5px); transform: translate(0.5em, -50%); }
+[tooltip][flow^="right"]::after { top: 50%; left: calc(100% + 5px); transform: translate(0.5em, -50%); }
+@keyframes tooltips-vert { 
+  100% { opacity: 0.9; transform: translate(-50%, 0px); }
+}
+@keyframes tooltips-horz { 
+  100% { opacity: 0.9; transform: translate(0px, -50%); }
+}
+[tooltip]:not([flow]):hover::before, [tooltip]:not([flow]):hover::after, [tooltip][flow^="up"]:hover::before, [tooltip][flow^="up"]:hover::after, [tooltip][flow^="down"]:hover::before, [tooltip][flow^="down"]:hover::after { animation: 300ms ease-out 0s 1 normal forwards running tooltips-vert; }
+[tooltip][flow^="left"]:hover::before, [tooltip][flow^="left"]:hover::after, [tooltip][flow^="right"]:hover::before, [tooltip][flow^="right"]:hover::after { animation: 300ms ease-out 0s 1 normal forwards running tooltips-horz; }
+.black-theme [tooltip]::after { background: rgb(0, 0, 0); color: rgb(255, 255, 255); border-color: rgb(0, 0, 0); box-shadow: rgba(0, 0, 0, 0.55) 0px 1em 2em -0.5em; }
+.white-theme [tooltip]::after { background: rgb(255, 255, 255); color: rgb(0, 0, 0); border-color: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.55) 0px 1em 2em -0.5em; }
+.black-theme [tooltip][flow^="up"]::before, .black-theme [tooltip][flow^="up"]::after { border-top-color: rgb(0, 0, 0); }
+.white-theme [tooltip][flow^="up"]::before, .white-theme [tooltip][flow^="up"]::after { border-top-color: rgb(255, 255, 255); }
+.black-theme [tooltip][flow^="down"]::before, .black-theme [tooltip][flow^="down"]::after { border-bottom-color: rgb(0, 0, 0); }
+.white-theme [tooltip][flow^="down"]::before, .white-theme [tooltip][flow^="down"]::after { border-bottom-color: rgb(255, 255, 255); }

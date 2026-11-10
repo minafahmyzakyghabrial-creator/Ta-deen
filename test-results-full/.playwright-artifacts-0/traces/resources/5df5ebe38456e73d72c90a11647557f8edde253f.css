@@ -1,0 +1,11 @@
+.ImgContainer{
+    
+display: Flex;
+justify-content:left;
+}
+.int-img {
+ width: 25px;
+ height: 25px;
+
+ margin-right: 8px;
+}

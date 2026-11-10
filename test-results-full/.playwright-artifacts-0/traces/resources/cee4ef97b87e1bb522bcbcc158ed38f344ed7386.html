@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <script type='text/javascript'>window.OutSystemsApp = { basePath: '/MiningPortal/' };</script>
+        
+        
+        <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1" />
+<script type="text/javascript">
+(function () {
+    function appendMetaTagAttributes(metaTag, attribute, values) {
+        var elem = document.querySelector("meta[name=" + metaTag + "]");
+
+        if (elem) {
+            var attrContent = elem.getAttribute(attribute);
+            elem.setAttribute(attribute, (attrContent ? attrContent + "," : "") + values.join(","));
+        }
+    }
+
+    if (navigator && /OutSystemsApp/i.test(navigator.userAgent)) {
+        // If this app is running on the native shell, we want to disable the zoom
+        appendMetaTagAttributes("viewport", "content", ["user-scalable=no", "minimum-scale=1.0"]);
+    }
+})();</script>
+
+        <script type="text/javascript" src="scripts/OutSystemsManifestLoader.js?3F3fZzzNKkqKoP2DsjtxFw"></script>
+<script type="text/javascript" src="scripts/OutSystems.js?Vl1mix+VGhP8bkZG4BZEfg"></script>
+<script type="text/javascript" src="scripts/OutSystemsSettings.js?eb8EpsWBOGllYA+DJKPOwg"></script>
+<script type="text/javascript" src="scripts/OutSystemsReactView.js?eS73QndG4m5aMXXZVjKQJw"></script>
+<script type="text/javascript" src="scripts/Debugger.js?kykRf_HfQIYZ3ajM_MnnhA"></script>
+<script type="text/javascript" src="scripts/MiningPortal.appDefinition.js?vsVXt4W9QcZwvm+ZHmxPYg"></script>
+<script type="text/javascript" src="scripts/OutSystemsReactWidgets.js?JJ3HMAa6vv2p99ezZWdwzQ"></script>
+<link type="text/css" rel="stylesheet" href="css/_Basic.css?EqGzAe81QbZLXJyfY3oLwA"></link>
+
+        <script type="text/javascript">OSManifestLoader.indexVersionToken = "8+VS3cEo2BeltRBiCKY5Ew";
+</script>
+    </head>
+    <body>
+        <div id="reactContainer"></div>
+        <noscript><span>JavaScript is required</span></noscript>
+
+        <script type="text/javascript" src="scripts/MiningPortal.index.js?b_KFm+L2SdGvKyBb+gaRtw"></script>
+
+    </body>
+</html>

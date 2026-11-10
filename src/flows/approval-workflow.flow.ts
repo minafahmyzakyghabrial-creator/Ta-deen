@@ -215,10 +215,11 @@ export class ApprovalWorkflow {
       await utilityPage.close();
     }
 
-    // The click is not proof: the payment task must leave the investor's To-Do list.
+    // The click is not proof: the payment task must leave the investor's To-Do list. TEST can take ~6 min to register
+    // a payment (public projects final "الدفع", 77043, 2026-11-10), so allow 10.
     await expect
       .poll(async () => (await (await this.investorTasks()).search(this.rn)).some((t) => t.taskType === taskType), {
-        timeout: 180_000,
+        timeout: 600_000,
         intervals: [10_000],
         message: `Payment of bill ${bill.billId} was not reflected: the "${taskType}" task is still in the To-Do list`,
       })

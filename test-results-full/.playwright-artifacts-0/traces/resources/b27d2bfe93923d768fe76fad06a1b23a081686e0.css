@@ -1,0 +1,11 @@
+.content-middle
+{
+    background-color: #F9F9FA;
+} 
+.close__acc__success{
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 50px;
+    text-align: center;
+}

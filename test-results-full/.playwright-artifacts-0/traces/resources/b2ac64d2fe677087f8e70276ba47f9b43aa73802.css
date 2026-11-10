@@ -1,0 +1,16 @@
+.search_reset-btn {
+    position: absolute;
+    top: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: var(--font-size-s);
+}
+.is-rtl .search_reset-btn {
+    left: 20px;
+}
+.is-ltr .search_reset-btn {
+    right: 20px;
+}

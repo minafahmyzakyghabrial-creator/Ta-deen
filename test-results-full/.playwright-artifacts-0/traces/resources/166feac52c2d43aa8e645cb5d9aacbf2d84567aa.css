@@ -1,0 +1,60 @@
+.text-pink-darker {
+    color: #736160;
+}
+.text-pink {
+    color: #bd9f9d;
+}
+.text-primary-dark {
+    color: #6f6147;
+}
+.text-primary-base {
+    color: #9e8a66;
+}
+.text-color-blue {
+    color: #05253c;
+}
+.text-color-blue-light {
+    color: #304a5d;
+}
+.text-violet {
+    color: #413258;
+}
+.text-cyan {
+    color: #1ad9c7;
+}
+.text-green {
+color: #00bc70;
+}
+.text-blue {
+    color: #05253c;
+}
+.radius20 {
+    border-radius: 20px;
+}
+.box-shadow {
+    box-shadow: 0px 2px 10px 0px rgba(19, 25, 34, 0.03);
+}
+.quick__action .list-item-content-text {
+white-space: pre-wrap !important;
+}
+.most__request .osui-progress-bar__value:before {
+    background: #1ad9c7;
+}
+.chart__photo {
+    width: 100px;
+}
+.fa {
+    display: inline-block !important;
+    font: normal normal normal 14px / 1 FontAwesome !important;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+.fa-2x {
+    font-size: 2em !important;
+}
+
+.layout .footer.ThemeGrid_Container
+{
+    margin-bottom: 0px !important;
+}

@@ -1,0 +1,17 @@
+.text-pink-darker { color: rgb(115, 97, 96); }
+.text-pink { color: rgb(189, 159, 157); }
+.text-primary-dark { color: rgb(111, 97, 71); }
+.text-primary-base { color: rgb(158, 138, 102); }
+.text-color-blue { color: rgb(5, 37, 60); }
+.text-color-blue-light { color: rgb(48, 74, 93); }
+.text-violet { color: rgb(65, 50, 88); }
+.text-cyan { color: rgb(26, 217, 199); }
+.text-green { color: rgb(0, 188, 112); }
+.text-blue { color: rgb(5, 37, 60); }
+.radius20 { border-radius: 20px; }
+.box-shadow { box-shadow: rgba(19, 25, 34, 0.03) 0px 2px 10px 0px; }
+.quick__action .list-item-content-text { white-space: pre-wrap !important; }
+.most__request .osui-progress-bar__value::before { background: rgb(26, 217, 199); }
+.chart__photo { width: 100px; }
+.fa { text-rendering: auto; -webkit-font-smoothing: antialiased; display: inline-block !important; font: 14px / 1 FontAwesome !important; }
+.fa-2x { font-size: 2em !important; }

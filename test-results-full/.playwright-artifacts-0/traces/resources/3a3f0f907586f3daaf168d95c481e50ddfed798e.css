@@ -1,0 +1,3 @@
+.back-make-center { align-items: stretch; align-content: center; }
+.align-left { direction: ltr !important; text-align: left !important; }
+.align-right { direction: rtl !important; text-align: right !important; }

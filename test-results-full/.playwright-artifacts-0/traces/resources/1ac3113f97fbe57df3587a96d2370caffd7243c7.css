@@ -1,0 +1,194 @@
+ .custom-wrapper-change-color .profile-label .change-label-color {
+     color: var(--step-text) !important;
+ }
+
+ .table-body-custom-td .esnad-cancel-circle1 {
+     cursor: pointer;
+     width: 1.25rem;
+     height: 1.25rem;
+     line-height: 1.25rem;
+ }
+
+ .text-subtitle {
+     color: var(--calender) !important;
+ }
+
+ .Collapse-wrapper .osui-accordion-item__content--is-expanded {
+     padding: var(--space-none) var(--space-s);
+ }
+
+ /* ------------public projects------------ */
+ .error-msg+.custom-wrapper-icon.input-icon,
+ span.input-number:has(.not-valid)~.custom-wrapper-icon.input-icon {
+     top: 35%;
+ }
+
+ .esnad-custom-lable {
+     color: var(--color-black) !important;
+     /* color: #161616 !important; */
+     font-size: 0.875rem;
+     line-height: 1.25rem;
+     font-weight: 400;
+
+     font-family: var(--font-reg) !important;
+ }
+
+
+.custom-heading {
+    font-size: 16px !important;
+    color: var(--color-black) !important;
+    margin-right: var(--space-s);
+    font-weight: var(--font-semi-bold) !important;
+
+}
+
+ .text-secondary-paragraph {
+     color: #6C737F !important;
+
+
+ }
+
+ .padding-inline-start-xs {
+     padding-inline-start: var(--space-xs);
+ }
+
+ .customWidth-popup-dialog {
+     max-width: 1054px !important;
+ }
+
+ .dga-lable_popup-dialog {
+     color: #1F2A37 !important;
+     font-size: 18px !important;
+     font-family: 'IBM-Plex-Sans-Arabic' !important;
+     font-weight: var(--font-semi-bold) !important;
+     line-height: 28px;
+ }
+
+
+ .padding-inline-start-xs {
+     padding-inline-start: var(--space-xs);
+ }
+
+
+.esnad-custom-title {
+    color: var(--color-black) !important;
+    /* color: #161616 !important; */
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    font-family: "IBM-Plex-Sans-med" !important;
+}
+
+.custom-Obligations-title {
+    font-size: 16px;
+     line-height: 1.25rem;
+    font-weight: 500;
+    font-family: "IBM-Plex-Sans-med" !important;
+
+}
+
+.orang-icon-color {
+     max-width: 1054px !important;
+ }
+
+ .dga-lable_popup-dialog {
+     color: #1F2A37 !important;
+     font-size: 18px !important;
+     font-family: 'IBM-Plex-Sans-Arabic' !important;
+     font-weight: var(--font-semi-bold) !important;
+     line-height: 28px;
+ }
+
+.breadcrumb-title2-color {
+    color: #9DA4AE !important;
+}
+
+ .padding-inline-start-xs {
+     padding-inline-start: var(--space-xs);
+ }
+
+ .customWidth-popup-dialog {
+     max-width: 1054px !important;
+ }
+
+ .dga-lable_popup-dialog {
+     color: #1F2A37 !important;
+     font-size: 18px !important;
+     font-family: 'IBM-Plex-Sans-semiBold' !important;
+     font-weight: 600 !important;
+     line-height: 28px;
+ }
+
+ .text-popup-id {
+     font-size: 14px;
+     line-height: 20px;
+     font-weight: 500;
+     font-family: var(--font-semi-bold) !important;
+ }
+
+ .orang-icon-color {
+     color: #DC6803;
+ }
+ .breadcrumb-title-color{
+    color: #384250 !important;
+ }
+
+ .fontFamily-IBM-Plex-Sans-Arabic {
+     font-family: 'IBM-Plex-Sans-Arabic' !important;
+ }
+
+ /* .fontFamily-BM-Plex-Sans-reg {
+     font-family: "IBM-Plex-Sans-reg" !important;
+ } */
+
+ .fontFamily-IBM-Plex-Sans-med {
+     font-family: "IBM-Plex-Sans-med" !important;
+ }
+.fontFamily-IBM-Plex-Sans-bold{
+    font-family: "IBM-Plex-Sans-bold" !important;
+}
+
+.InputWithButtonWrapper  +.fontFamily-BM-Plex-Sans-reg {
+     font-family: "IBM-Plex-Sans-reg" !important;
+ }
+
+ .InputWithButtonWrapper:has(.not-valid) button,
+ .InputWithButtonWrapper:has(.validation-message) button {
+     position: relative;
+     bottom: 18px;
+ }
+
+/* .alignErrorMsgWrapper .dga-table .table-row td:has(.not-valid) {
+  padding: 6px 7px !important;
+} 
+.alignErrorMsgWrapper .dropdown-container.not-valid > select.dropdown-display {
+    padding: 6px 7px !important;
+} */
+      
+
+tr.alignErrorMsgWrapper:has(.not-valid) td,
+.dga-table tr:has(.not-valid) td {
+    padding-top: 6px !important;
+    padding-bottom: 7px !important;
+}
+
+
+/* -------relinq */
+.custom-bullet-list {
+  background-color: #1e622a;
+  padding: 2px;
+  border-radius: 50%;
+}
+/* ----------------exploration-license-compliance */
+.full-width-wrapper img {
+    width: 100%;
+    height: auto;
+}
+.tooltip-wapper .osui-tooltip__balloon-wrapper.top-right .osui-tooltip__balloon-wrapper__balloon {
+  min-width: 350px !important;
+}
+
+.popup-backdrop:has(.customWidth-popup-dialog), 
+[data-popup-backdrop]:has(.customWidth-popup-dialog) {
+    z-index: 9999 !important;
+}

@@ -1,0 +1,4 @@
+.page-tooltip-scroll {
+    max-height: 250px;
+    overflow-y: auto;
+}

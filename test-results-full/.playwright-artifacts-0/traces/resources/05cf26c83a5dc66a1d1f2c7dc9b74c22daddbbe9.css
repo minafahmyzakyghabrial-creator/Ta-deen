@@ -1,0 +1,23 @@
+:root { --img-width: 538px; }
+.image_login_bg { position: relative; top: 0px; left: 0px; min-width: 538px; min-height: 100vh; background: url("../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A") 0% 0% repeat padding-box padding-box transparent; opacity: 1; }
+.side-main-contnt { flex-grow: 2; width: calc(100vh - var(--img-width)) !important; }
+@media only screen and (max-width: 1536px) {
+  :root { --img-width: 430px; }
+  .image_login_bg { position: relative; top: 0px; left: 0px; min-width: 430px; min-height: 100vh; background: url("../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A") 0% 0% repeat-y padding-box padding-box transparent; opacity: 1; }
+}
+@media only screen and (max-width: 1400px) {
+  :root { --img-width: 358px; }
+  .image_login_bg { position: relative; top: 0px; left: 0px; min-width: 358px; min-height: 100vh; background: url("../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A") 0% 0% repeat-y padding-box padding-box transparent; opacity: 1; }
+}
+@media (min-width: 821px) and (max-width: 1025px) {
+  :root { --img-width: 159px; }
+  .image_login_bg { position: relative; top: 0px; left: 0px; min-width: 159px; min-height: 100vh; background: url("../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A") 0% 0% repeat-y padding-box padding-box transparent; opacity: 1; }
+}
+@media (min-width: 481px) and (max-width: 820px) {
+  :root { --img-width: min-width: calc(159px - (820px - 100vw )); }
+  .image_login_bg { position: relative; top: 0px; left: 0px; min-width: calc(-661px + 100vw); min-height: 100vh; background: url("../img/Theme.MaskGroup5_2x.png?QzUQWhX9EqXVKxwXTJHT9A") 0% 0% repeat-y padding-box padding-box transparent; opacity: 1; }
+}
+@media (max-width: 480px) {
+  :root { --img-width: 0px; }
+  .image_login_bg { display: none; position: relative; top: 0px; left: 0px; min-width: 0px; }
+}

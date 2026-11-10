@@ -1,0 +1,351 @@
+.dga-total-price.dga-total-pric-blue {
+    background-color: var(--info-bgt);
+    border-bottom: 2px solid var(--info);
+    color: var(--info-icon);
+}
+
+.dga-total-price.dga-total-price-blue a{
+    color: var(--info-icon);
+}
+
+.dga-total-price img{
+  filter: brightness(0) saturate(100%) invert(39%) sepia(47%) 
+          saturate(1093%) hue-rotate(108deg) brightness(91%) 
+          contrast(95%);
+}
+.file-restrictions {
+    color: var(--calender) 
+}
+
+.file-upload-group.has-file,
+.file-upload-group.uploading,
+.file-upload-group.uploaded,
+.file-upload-group .file-item {
+    border: 1px solid var(--gray-tab);
+    background: var(--bg-gray-hover);
+}
+
+.file-upload-group.has-file .label,
+.file-upload-group.uploading .label,
+.file-upload-group.uploaded .label,
+.file-upload-group .file-item .label {
+    line-height: 1.25rem;
+    color: var(--main-color);
+    word-break: break-word;
+    max-width: unset;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-inline-start: 0;
+}
+
+
+.form-control[data-textarea].margin-bottom-none{
+    margin-bottom: 0 !important;
+}
+
+.form-control[data-textarea].margin-bottom-s{
+    margin-bottom: var(--space-s) !important;
+}
+.rehabilitation-assessment-report .validation-message{
+    margin-top: var(--space-s);
+    display: block;
+}
+
+.rehabilitation-sustainability-employee .fixed-layout-table,
+.rehabilitation-sustainability-employee .list-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.rehabilitation-sustainability-employee .fixed-layout-table .table-row td:first-child {
+    width: auto;
+}
+
+.rehabilitation-sustainability-employee .fixed-layout-table .table-row td,
+.rehabilitation-sustainability-employee .list-table .table-row td {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.rehabilitation-sustainability-employee .table-custom-dga
+.table-header-custom.gridContainer,
+.rehabilitation-sustainability-employee .table-custom-dga
+.table-body-custom-odd.gridContainer {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+}
+
+.rehabilitation-sustainability-employee .table-custom-dga
+.table-body-custom-td {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.rehabilitation-sustainability-employee .osui-tooltip,
+.rehabilitation-sustainability-employee .osui-tooltip__content {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.rehabilitation-sustainability-employee .text-truncate {
+    display: block !important;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+}
+
+/* Start Rehabilitation Certificate */
+.certificate-container {
+    background-color: #f7f7f7;
+    padding: 32px;
+    font-family: inherit;
+}
+.certificate-title-section {
+    text-align: center;
+}
+
+.certificate-title-section .cer_Title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #4a4a4a;
+    margin-bottom: 8px;
+}
+
+.certificate-title-section .cer_subTitle {
+    font-size: 16px;
+    color: #707070;
+}
+
+.certificate-meta-info {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.8;
+}
+.certificate_logo img{
+    max-width: 300px;
+}
+.certificate_listing{
+    width: 100%;
+    border: 1px solid #dcdcdc;
+    margin-top: 20px;
+}
+.certificate_listing .grid-row {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.certificate_listing .grid-row:last-child {
+    border-bottom: none;
+}
+.certificate_listing .grid-row > [class*="col"] {
+    padding: 12px 16px;
+    border-left: 1px solid #dcdcdc; 
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+        flex: 1 1 0;
+}
+.certificate_listing .grid-row > [class*="col"]:last-child {
+    border-left: none;
+}
+.certificate_listing .grid-row:nth-child(even) {
+    background-color: #e8e8e8;
+    color: #212121;
+}
+.certificate_listing .grid-row:nth-child(even) *{
+    color: #212121;
+    font-weight: 600;
+}
+
+.certificate_listing .grid-row:nth-child(odd){
+background-color: #ffffff;
+    color: #333333;
+}
+.certificate_listing .grid-row:nth-child(odd) *{
+    color: #333333;
+}
+.certificate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+       margin-top: 20px;
+    padding-block: 20px;
+    margin-bottom: 20px;
+        font-size: var(--font-size-h6);
+}
+.certificate-footer > div {
+    width: 100%;
+}
+.note-text {
+    font-size: var(--font-size-base);
+    color: #666666;
+    margin-top: 16px;
+}
+.data_wrap span.validation-message {
+    display: block;
+}/* !!End Rehabilitation Certificate */
+
+body .osui-tooltip__balloon-wrapper .osui-tooltip__balloon-wrapper__balloon span,
+body .osui-tooltip__balloon-wrapper.top .osui-tooltip__balloon-wrapper__balloon span {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+.dga-wizard img{
+    width: var(--space-l);
+    height: var(--space-l);
+}
+
+
+.cus__table__improve .td__imporove {
+    border: 1px solid var(--gray-tab);
+}
+.cus__table__improve .td__imporove.border-bottom-none {
+    border-bottom: 0 !important;
+}
+
+.cus__table__improve .td__imporove.border-top-none {
+    border-top: 0 !important;
+}
+
+div .position-relative:last-child .gridContainer5:last-child  .td__imporove:first-child,
+div .position-relative:last-child .gridContainer4:last-child .td__imporove:first-child{
+    border-radius: 0 0 8px 0;
+}
+
+.rehabilitation-additional-requirements div[data-block*='Rehabilitation_Upload_Attachment'],
+.sustainability-assessment-response div[data-block*='CommonUploader']{
+    width: 100%;
+}
+
+
+body .custom-tooltip .osui-tooltip__balloon-wrapper__balloon,
+body .custom-tooltip .osui-tooltip__balloon-wrapper.top {
+    padding: 0;
+    font-size: var(--font-size-base);
+    max-width: 600px;
+}
+
+body .osui-tooltip__balloon-wrapper__balloon:has(.custom-tooltip-wrapper), 
+body .osui-tooltip__balloon-wrapper{
+    padding: 0 !important;
+}
+
+.table-body-custom-td .cus__not__valid[data-upload] {
+    padding-inline: var(--space-base) !important
+}
+
+.box-body-base{
+    margin-bottom: var(--space-base);
+    padding: var(--space-base);
+    background-color: var(--bg-gray);
+}
+
+.dga-table .form-control, .table-custom-dga .table-body-custom-td .form-control, .table-custom-dga .input-disabled-readonly{
+    margin-bottom: 0 !important;
+}
+
+.dga-table .validation-message, .table-custom-dga .table-body-custom-td .validation-message{
+    margin-top: var(--space-s) !important;
+}
+
+.db-col-33{ 
+    width: calc(33% - 6px);
+}
+
+
+.financing__num {
+    position: absolute;
+    right: var(--space-s);
+    bottom: 0rem;
+    z-index: 99;
+}
+
+.is-rtl .financing__num {
+   left: var(--space-s);
+   right: auto;
+}
+
+.radio-button:disabled:checked:before {
+    box-shadow: 0px 0px 0px 2px var(--color-border) !important;
+}
+
+.list-to-table-header.table-header{
+    font-size: 12px;
+}
+
+.dga-table .gridContainer7.table-row, 
+.dga-table .gridContainer7.table-header {
+    grid-template-columns: repeat(6, 3fr) 1fr !important;
+    color: var(--calender);
+}
+
+.dga-table .gridContainer7.table-header, 
+.dga-table .dga-table .gridContainer7.table-row:nth-child(odd){
+    background-color: var(--gray-tab);
+}
+
+.dga-table .gridContainer7.table-row:nth-child(even) {
+    background: white;
+}
+
+.dga-table .gridContainer7>div:not(:last-child){
+    border-inline-end: 1px solid #D2D6DB;
+}
+.dga-table .gridContainer7.table-row:not(:last-child)>div{
+    border-block-end: 1px solid #D2D6DB;
+}
+
+.label-disabled{
+    color: var(--color-border);
+}
+
+.popup-dialog.popup-lg {
+    max-width: 1054px;
+}
+
+/* Bug TP-19874 */
+.content-breadcrumbs>.fs-24.fw-700>span {
+    line-height: 1.325;
+    display: block;
+}
+
+/* General Fix: TP-19038, TP-19675 */
+textarea.form-control[disabled] {
+    pointer-events: auto !important;
+}
+/* TP-19835 */
+.check-list.not-valid > span.validation-message{
+    position: unset !important;
+    margin-top: var(--space-s);
+}
+/* TP-18234 */
+.file-loading-wrapper{
+    border: 1px solid var(--gray-tab);
+    border-radius: 4px;
+    display: block;
+    text-align: start;
+}
+
+/* .esnad-Loading {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+} */
