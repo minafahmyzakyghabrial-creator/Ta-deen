@@ -50,6 +50,8 @@ export interface PaidBill extends NotificationResult {
  * Public projects (TEST 76900): "رسوم الطلب", then — after the third approval — "دفع المقابل المالي" and "دفع الايجار السطحي".
  */
 const PAYMENT_TASK = /دفع|رسوم/;
+/** Last investor task of a public-projects licence: "الدفع" (after "دفع المقابل المالي" and "دفع الايجار السطحي"). */
+export const PUBLIC_PROJECTS_FINAL_PAYMENT = /^\s*الدفع\s*$/;
 /** Public-projects investor task "الضمان المالي" (VERIFIED on TEST 76900): guarantee number, bank, attachment, declaration. */
 const GUARANTEE_TASK = /الضمان المالي/;
 /** Public-projects investor task "التصريح البيئي" (TEST 76900, after "مهمة المراجعة العامة"): permit number + attachment. */
@@ -71,6 +73,11 @@ export interface WorkflowContext {
 export interface RunOptions {
   /** Stop — without assigning or answering it — as soon as an open employee task matches this. */
   stopAt?: RegExp;
+  /**
+   * Stop as soon as an investor payment task matching this is paid and verified. Public projects end with "الدفع";
+   * TEST closes that task, then can relist it as paid for minutes before the request turns "مكتمل" (77043, 77053).
+   */
+  stopAfterPayment?: RegExp;
 }
 
 export class UnsupportedTaskError extends Error {
@@ -369,7 +376,7 @@ export class ApprovalWorkflow {
    * One round: handles the first pending task found. Returns false when nothing was pending, 'stop' when an open
    * employee task matches stopAt (that task is left untouched).
    */
-  private async step(stopAt?: RegExp): Promise<boolean | 'stop'> {
+  private async step(stopAt?: RegExp, stopAfterPayment?: RegExp): Promise<boolean | 'stop'> {
     const open = (await this.taskManagement.search(this.rn)).filter((t) => OPEN_TASK_STATUSES.some((s) => t.status.includes(s)));
     const stopTask = stopAt && open.find((t) => stopAt.test(t.taskType));
     if (stopTask) {
@@ -393,7 +400,15 @@ export class ApprovalWorkflow {
         throw new UnsupportedTaskError('investor', investorTasks[0].taskType, 'only payment ("الدفع" / "رسوم …"), "الضمان المالي" and "التصريح البيئي" tasks are automated on the investor side');
       }
       if (isForm(task.taskType)) await this.handleFormTask(todo, task.taskType);
-      else await this.handlePayment(todo, task.taskType);
+      else {
+        await this.handlePayment(todo, task.taskType);
+        if (stopAfterPayment?.test(task.taskType)) {
+          this.context.stoppedAt = `after payment "${task.taskType}"`;
+          this.save();
+          log.workflow.info(`Request ${this.rn}: "${task.taskType}" paid and verified — stopping here as requested`);
+          return 'stop';
+        }
+      }
       return true;
     }
     return false;
@@ -404,12 +419,12 @@ export class ApprovalWorkflow {
    * reaches a dead status. Bounded by WORKFLOW_MAX_ROUNDS (default 25). With stopAt, it returns as soon as a
    * matching employee task is open.
    */
-  async run({ stopAt }: RunOptions = {}): Promise<WorkflowContext> {
+  async run({ stopAt, stopAfterPayment }: RunOptions = {}): Promise<WorkflowContext> {
     const maxRounds = readNumber('WORKFLOW_MAX_ROUNDS', 25);
     const idleMs = readNumber('WORKFLOW_IDLE_MS', 180_000);
     for (let round = 1; round <= maxRounds; round++) {
       log.workflow.info(`Round ${round}: looking for pending tasks on ${this.rn}`);
-      const stepped = await this.step(stopAt);
+      const stepped = await this.step(stopAt, stopAfterPayment);
       if (stepped === 'stop') return this.context;
       if (stepped) continue;
 

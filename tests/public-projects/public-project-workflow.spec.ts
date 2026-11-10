@@ -1,6 +1,6 @@
 import { expect, test } from '@fixtures/test';
-import { EnvName, getEnvName, getRequestNumber, readVar, UserKey } from '@config/index';
-import { ApprovalWorkflow } from '@flows/approval-workflow.flow';
+import { EnvName, getEnvName, getRequestNumber, UserKey } from '@config/index';
+import { ApprovalWorkflow, PUBLIC_PROJECTS_FINAL_PAYMENT } from '@flows/approval-workflow.flow';
 
 /**
  * Run settings for this file.
@@ -38,9 +38,10 @@ test.use({ investorUser: RUN.investor, employeeUser: RUN.employee });
  *   npm run test:public-project:workflow
  *   $env:REQUEST_NUMBER="77043"; npm run test:public-project:workflow
  *
- * Optional: EXPECTED_FINAL_STATUS=<status text> (default "مكتمل").
+ * The run ends once the final "الدفع" is paid and its task closes. It does not wait for "مكتمل": TEST can relist the
+ * paid task for minutes before the request completes (77043, 77053).
  */
-test('Public projects building-materials licence: employee workflow to the end @workflow', async ({ investor, employee }, testInfo) => {
+test('Public projects building-materials licence: employee workflow to the final payment @workflow', async ({ investor, employee }, testInfo) => {
   test.setTimeout(90 * 60_000);
   test.skip(getEnvName() !== 'test', 'Uses the TEST payment utility — authorised on TEST only.');
   const requestNumber = getRequestNumber(RUN.request);
@@ -54,21 +55,16 @@ test('Public projects building-materials licence: employee workflow to the end @
       expect(status, `Request ${requestNumber} must be submitted first (public-project-license.spec.ts)`).not.toMatch(/مسودة/);
     });
 
-    await test.step('Employee tasks ↔ investor payments and forms, until the request settles', async () => {
-      await workflow.run();
+    await test.step('Employee tasks ↔ investor payments and forms, until the final "الدفع" is paid', async () => {
+      await workflow.run({ stopAfterPayment: PUBLIC_PROJECTS_FINAL_PAYMENT });
     });
 
-    await test.step('Payments: every bill distinct and verified', async () => {
+    await test.step('Every payment verified, the last one "الدفع"', async () => {
       const { bills } = workflow.context;
       testInfo.annotations.push({ type: 'bills', description: bills.map((b) => `${b.task}: ${b.billId}`).join(' · ') || '(none)' });
       expect(new Set(bills.map((b) => b.billId)).size, 'Every payment used a different bill').toBe(bills.length);
       for (const bill of bills) expect(bill.verified, `Payment of bill ${bill.billId} was verified`).toBe(true);
-    });
-
-    await test.step('Final request status', async () => {
-      const finalStatus = workflow.context.finalStatus ?? '';
-      testInfo.annotations.push({ type: 'final status', description: finalStatus });
-      expect(finalStatus).toContain(readVar('EXPECTED_FINAL_STATUS') ?? 'مكتمل');
+      expect(bills.at(-1)?.task ?? '', 'Last payment').toMatch(PUBLIC_PROJECTS_FINAL_PAYMENT);
     });
   } finally {
     testInfo.annotations.push({ type: 'tasks handled', description: workflow.context.handledTasks.map((t) => `${t.side}: ${t.task} (${t.decision})`).join(' → ') });
