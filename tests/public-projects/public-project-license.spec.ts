@@ -1,5 +1,5 @@
 import { expect, test } from '@fixtures/test';
-import { EnvName, getEnvName, UserKey } from '@config/index';
+import { EnvName, getEnvName, readVar, UserKey } from '@config/index';
 import { publicProjectLicenseData } from '@data/public-project-license.data';
 import { ApprovalWorkflow } from '@flows/approval-workflow.flow';
 
@@ -21,7 +21,7 @@ const RUN: { env: EnvName; investor: UserKey; employee: UserKey; mineral: string
   employee: 'employee1',
   mineral: 'البحص:(أي صخر ملائم للاستغلال كبحص)',
   quantity: '200000',
-  workflow: false,
+  workflow: true,
 };
 
 /** Environments where submitting real requests is allowed. */
@@ -106,6 +106,14 @@ test('Public projects building-materials licence: investor submits a new request
       const { finalStatus, handledTasks } = await workflow.run();
       testInfo.annotations.push({ type: 'tasks handled', description: handledTasks.map((t) => `${t.side}: ${t.task}`).join(' → ') });
       testInfo.annotations.push({ type: 'final status', description: finalStatus ?? '' });
+    });
+
+    await test.step('Payments verified and the request completed', async () => {
+      const { bills, finalStatus } = workflow!.context;
+      testInfo.annotations.push({ type: 'bills', description: bills.map((b) => `${b.task}: ${b.billId}`).join(' · ') || '(none)' });
+      expect(new Set(bills.map((b) => b.billId)).size, 'Every payment used a different bill').toBe(bills.length);
+      for (const bill of bills) expect(bill.verified, `Payment of bill ${bill.billId} was verified`).toBe(true);
+      expect(finalStatus ?? '').toContain(readVar('EXPECTED_FINAL_STATUS') ?? 'مكتمل');
     });
   } finally {
     if (licence.attempts.length) await testInfo.attach('location-attempts.json', { body: JSON.stringify(licence.attempts, null, 2), contentType: 'application/json' });
