@@ -57,8 +57,8 @@ export class ExplorationLicensePage extends BasePage {
   /** A NEW (unsaved) application wizard is open on step 1 — no In_RequestId in the URL yet. */
   async expectNewLoaded(): Promise<void> {
     const activity = trackServerActivity(this.page);
-    await this.page.waitForURL(/Exploration_License\?/, { waitUntil: 'commit', timeout: 60_000 });
-    await expect(this.wizard.steps.first()).toBeVisible({ timeout: 60_000 });
+    await this.page.waitForURL(/Exploration_License\?/, { waitUntil: 'commit', timeout: 150_000 });
+    await expect(this.wizard.steps.first()).toBeVisible({ timeout: 150_000 });
     await expect(this.wizard.nextButton).toBeVisible();
     await activity.idle();
   }
@@ -78,9 +78,9 @@ export class ExplorationLicensePage extends BasePage {
     // 'commit' = the navigation has started; the module's document itself can take >15 s to load.
     await this.page.waitForURL(new RegExp(`Exploration_License\\?.*In_RequestId=${requestNumber}(&|$)`), {
       waitUntil: 'commit',
-      timeout: 60_000,
+      timeout: 150_000,
     });
-    await expect(this.wizard.steps.first()).toBeVisible({ timeout: 60_000 });
+    await expect(this.wizard.steps.first()).toBeVisible({ timeout: 150_000 });
     await expect(this.wizard.nextButton).toBeVisible();
     await activity.idle();
   }

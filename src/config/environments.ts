@@ -47,14 +47,15 @@ const ENVIRONMENTS = {
     actionTimeout: 20_000,
     navigationTimeout: 60_000,
   },
+  // TEST is very slow (2026-11-12): screens and server actions routinely take 20–60 s, so its limits are raised.
   test: {
     name: 'test',
     displayName: 'Testing',
     isProduction: false,
     retries: 1,
-    expectTimeout: 15_000,
-    actionTimeout: 20_000,
-    navigationTimeout: 60_000,
+    expectTimeout: 40_000,
+    actionTimeout: 45_000,
+    navigationTimeout: 150_000,
   },
   uat: {
     name: 'uat',

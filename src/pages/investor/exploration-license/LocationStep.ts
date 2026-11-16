@@ -42,7 +42,7 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
   }
 
   async expectLoaded(): Promise<void> {
-    await expect(this.page.getByRole('radio', { name: 'تحميل ملف' })).toBeVisible({ timeout: 60_000 });
+    await expect(this.page.getByRole('radio', { name: 'تحميل ملف' })).toBeVisible({ timeout: 150_000 });
   }
 
   private mapFrame(previousUrl?: string): Frame | undefined {
@@ -50,7 +50,7 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
   }
 
   private async uploadKml(file: string): Promise<void> {
-    const parsed = this.page.waitForResponse((r) => r.url().includes('ActionBinaryDataToText'), { timeout: 30_000 });
+    const parsed = this.page.waitForResponse((r) => r.url().includes('ActionBinaryDataToText'), { timeout: 90_000 });
     await this.page.locator('input[type=file][accept=".KML"]').setInputFiles(file);
     await parsed;
     await expect(this.page.getByRole('button', { name: 'انظر على الخريطة' }).or(this.page.getByText('انظر على الخريطة', { exact: true })).first()).toBeVisible();
@@ -87,10 +87,10 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
 
     for (let attempt = 1; attempt <= d.maxAttempts; attempt++) {
       const region = d.regions[attempt - 1] ?? allRegions[Math.floor(Math.random() * allRegions.length)];
-      const kml = generateKml({ region, widthKm: d.widthKm, heightKm: d.heightKm, name: `Automation ${Date.now()}` });
+      const kml = generateKml({ region, shape: d.shape, widthKm: d.widthKm, heightKm: d.heightKm, name: `Automation ${Date.now()}` });
       const file = path.join(outDir, `attempt-${attempt}-${kml.center.lat}_${kml.center.lon}.kml`);
       fs.writeFileSync(file, kml.kml);
-      gisLog.info(`Attempt ${attempt}: ${kml.region} — centre ${kml.center.lat}, ${kml.center.lon} — ${+(d.widthKm * d.heightKm).toFixed(3)} km²`);
+      gisLog.info(`Attempt ${attempt}: ${kml.region} — centre ${kml.center.lat}, ${kml.center.lon} — ${d.shape ?? 'triangle'}, ${+(d.widthKm * d.heightKm).toFixed(3)} km²`);
 
       // Close a previous error dialog on the map before uploading again.
       const previous = this.mapFrame();
@@ -126,7 +126,9 @@ export class LocationStep extends WizardStep<NewExplorationRequestData['location
           message: 'The GIS map showed no result after "تأكيد" — the location was not saved',
         })
         .not.toBe('');
-      if (/تقاطع|عكس اتجاه|غير مسموح|خطأ/.test(message)) {
+      // Only an explicit "نجاح" means the location was saved. "طلب غير صالح" (TEST 2026-11-11) and any other
+      // message leave it unsaved — Next then refuses with "رجاءاً تحديد الموقع" — so they get a new location.
+      if (/تقاطع|عكس اتجاه|غير مسموح|غير صالح|خطأ/.test(message) || !/نجاح/.test(message)) {
         gisLog.warn(`Map rejected attempt ${attempt} after "تأكيد": ${message}`);
         this.attempts.push({ attempt, region: kml.region, file, result: message });
         continue;

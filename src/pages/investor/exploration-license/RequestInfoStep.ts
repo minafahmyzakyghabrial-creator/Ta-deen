@@ -1,9 +1,16 @@
 import { expect, Locator } from '@playwright/test';
 import { AddRowDialog } from '@components/AddRowDialog';
 import { MultiSelect } from '@components/MultiSelect';
+import { readNumber } from '@config/index';
 import { NewExplorationRequestData } from '@data/new-exploration-request.data';
+import { createLogger } from '@utils/logger';
 import { trackServerActivity } from '@utils/os-waits';
 import { WizardStep } from './WizardStep';
+
+const log = createLogger('Eligibility');
+
+/** The company fails an eligibility check, so the new request cannot be filled in. */
+export class IneligibleError extends Error {}
 
 /**
  * Step 1 — "معلومات الطلب" on a NEW request.
@@ -24,13 +31,56 @@ export class RequestInfoStep extends WizardStep<NewExplorationRequestData['reque
   }
 
   async expectLoaded(): Promise<void> {
-    await expect(this.section('مدة الرخصة والمعادن المطلوبة')).toBeVisible({ timeout: 60_000 });
+    await expect(this.section('مدة الرخصة والمعادن المطلوبة')).toBeVisible({ timeout: 150_000 });
+  }
+
+  /**
+   * Eligibility rows ("التحقق من الأهلية", block NewLicenseCommonBlocks.LicenseInformation_Eligibility) that failed.
+   * VERIFIED on TEST 2026-11-12: each row is an icon div + a label; the icon is "esnad-success-fill success-fill-green"
+   * when met and "esnad-wrong-fill wrong-fill-red" when not. Empty when every check passed or the panel is absent.
+   */
+  private async failedEligibilityChecks(): Promise<string[]> {
+    const panel = this.section('التحقق من الأهلية').getByRole('tabpanel');
+    if (!(await panel.count())) return [];
+    return panel
+      .first()
+      .locator('div.padding-12')
+      .filter({ has: this.page.locator('[class*="wrong-fill"]') })
+      .evaluateAll((rows) => rows.map((r) => r.textContent?.trim() ?? '').filter(Boolean));
+  }
+
+  /**
+   * The declarations — and so the whole step — are locked while the company fails an eligibility check: on TEST
+   * (2026-11-12, investor3) "رأس مال الشركة ≥ ١٠٠ ألف ريال سعودي" passed at 09:35 and failed at 09:47, so the result
+   * can come from a slow or flaky outside check. Reload the new-request screen a few times with pauses; if it still
+   * fails, stop with the failed checks named instead of timing out on a disabled button.
+   */
+  private async ensureEligible(applyAll: Locator): Promise<void> {
+    const attempts = readNumber('ELIGIBILITY_ATTEMPTS', 4);
+    for (let attempt = 1; ; attempt++) {
+      const enabled = await expect(applyAll).toBeEnabled({ timeout: 30_000 }).then(() => true, () => false);
+      if (enabled) return;
+      const failed = await this.failedEligibilityChecks();
+      if (attempt >= attempts) {
+        throw new IneligibleError(
+          `The investor's company is not eligible for a new request — the declarations stay locked. ` +
+            `Failed check(s): ${failed.join(' | ') || '(none shown as failed)'}. Use another investor/company or fix its data on this environment.`,
+        );
+      }
+      const pause = 30_000 * attempt;
+      log.warn(`Eligibility failed (${failed.join(' | ') || 'declarations locked'}) — reloading in ${pause / 1000}s, attempt ${attempt + 1}/${attempts}`);
+      await this.page.waitForTimeout(pause);
+      await this.page.reload();
+      await this.expectLoaded();
+    }
   }
 
   protected async fillStep(d: NewExplorationRequestData['requestInfo'] & { attachment: string }): Promise<void> {
     // Declarations (legal attestations — authorised for TEST runs)
     const declarations = this.section(/التزامات وإفصاحات مقدم الطلب/);
-    await declarations.getByRole('button', { name: 'تطبيق على الكل', exact: true }).click();
+    const applyAll = declarations.getByRole('button', { name: 'تطبيق على الكل', exact: true });
+    await this.ensureEligible(applyAll);
+    await applyAll.click();
     await expect(declarations.getByRole('checkbox', { checked: false })).toHaveCount(0);
     this.record('التزامات وإفصاحات مقدم الطلب', 'filled');
 

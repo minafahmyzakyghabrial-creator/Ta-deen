@@ -26,34 +26,42 @@ export class PaymentPage extends BasePage {
 
   /**
    * The payment module can answer with OutSystems' error page ("_error.html" — "There was an error processing your
-   * request", button "RELOAD"), seen on TEST on 2026-10-31 (request 76367). The page is then reloaded (up to twice)
-   * by going back to the payment URL; a third failure is reported as it is. Each attempt waits
-   * PAYMENT_PAGE_TIMEOUT_MS (default 2 minutes) — TEST was slow to render the page.
+   * request", button "RELOAD"), seen on TEST on 2026-10-31 (request 76367) and three times in a row on 2026-11-12
+   * (77182) when the reloads came seconds apart. So a failed load is retried PAYMENT_PAGE_ATTEMPTS times (default 6)
+   * with a growing pause first (20 s, 40 s, 60 s…), alternating the page's own "RELOAD" with reopening the payment
+   * URL. Each attempt waits PAYMENT_PAGE_TIMEOUT_MS (default 2 minutes) — TEST is slow to render the page.
+   * Mind the short TEST payment deadline (~20 min): the whole budget stays well inside it.
    */
   async expectLoaded(): Promise<void> {
     const timeout = readNumber('PAYMENT_PAGE_TIMEOUT_MS', 120_000);
+    const attempts = readNumber('PAYMENT_PAGE_ATTEMPTS', 6);
     // The payment URL is reached first; the error page replaces it afterwards (VERIFIED on 76367).
-    await this.page.waitForURL(/DoPayment\?|\/InvestorResponse\?/, { timeout });
+    await this.page.waitForURL(/DoPayment\?|\/InvestorResponse\?|\/InvestorReviewTaskDetails\?/, { timeout });
     if (this.isInvestorResponse) return this.issueReference(timeout);
     const paymentUrl = this.page.url();
     const reference = this.page.getByText(/الرقم المرجعي لنظام سداد/).first();
-    for (let attempt = 1; attempt <= 3; attempt++) {
+    const reload = this.page.getByRole('button', { name: 'RELOAD' }).or(this.page.getByText('RELOAD', { exact: true })).first();
+    for (let attempt = 1; attempt <= attempts; attempt++) {
       const shown = await reference
-        .or(this.page.getByRole('button', { name: 'RELOAD' }))
+        .or(reload)
         .first()
         .waitFor({ timeout })
         .then(async () => reference.isVisible(), () => false);
       if (shown) return;
-      if (attempt === 3) break;
-      console.warn(`[Payment] Payment page did not load (${this.page.url()}) — reloading, attempt ${attempt + 1}/3`);
-      await this.page.goto(paymentUrl);
+      if (attempt === attempts) break;
+      const pause = 20_000 * attempt;
+      console.warn(`[Payment] Payment page did not load (${this.page.url()}) — retrying in ${pause / 1000}s, attempt ${attempt + 1}/${attempts}`);
+      await this.page.waitForTimeout(pause);
+      if (attempt % 2 === 1 && (await reload.isVisible().catch(() => false))) await reload.click().catch(() => undefined);
+      else await this.page.goto(paymentUrl);
     }
     await expect(reference, `Payment page (${paymentUrl})`).toBeVisible({ timeout: 5_000 });
   }
 
   /** Public-projects fee task ("رسوم الطلب" → /Licenses_PublicProjects/InvestorResponse). */
   private get isInvestorResponse(): boolean {
-    return /\/InvestorResponse\?/.test(this.page.url());
+    // Small mine "دفع رسوم الرخصة" (/Licenses_MSM/InvestorReviewTaskDetails, TEST 77270) works the same way.
+    return /\/InvestorResponse\?|\/InvestorReviewTaskDetails\?/.test(this.page.url());
   }
 
   /**
@@ -66,29 +74,38 @@ export class PaymentPage extends BasePage {
    */
   private async issueReference(timeout: number): Promise<void> {
     const url = this.page.url();
-    const reference = this.page.getByText(/الرقم المرجعي لنظام سداد\s*\d/).first();
-    const loaded = this.page.getByText(/أقر بمعرفتي/).or(reference).first();
+    // Label and number can sit in separate elements, so the reference is looked for in the page text.
+    const hasReference = async () => PaymentPage.REFERENCE.test((await this.page.locator('body').innerText()).replace(/\s+/g, ' '));
+    const reference = {
+      isVisible: hasReference,
+      waitFor: ({ timeout: t }: { timeout: number }) => expect.poll(hasReference, { timeout: t, intervals: [2_000] }).toBe(true),
+    };
+    const loaded = this.page.getByText(/أقر بمعرفتي/).or(this.page.getByText(PaymentPage.REFERENCE)).first();
     await expect(loaded).toBeVisible({ timeout });
     await trackServerActivity(this.page).idle();
     if (await reference.isVisible()) return;
-    const submit = this.page.getByRole('button', { name: /^\s*إرسال( الرد)?\s*$/ }).filter({ visible: true }).first();
+    // Small mine "دفع رسوم الرخصة" names the button "تأكيد" (TEST 77270).
+    const submit = this.page.getByRole('button', { name: /^\s*(إرسال( الرد)?|تأكيد)\s*$/ }).filter({ visible: true }).first();
     for (const box of await this.page.getByRole('checkbox').filter({ visible: true }).all()) {
       if (!(await box.isChecked())) await box.check();
     }
     const applyAll = this.page.getByRole('button', { name: 'تطبيق على الكل', exact: true });
     if (await applyAll.isVisible()) await applyAll.click();
-    await expect(submit).toBeEnabled({ timeout: 30_000 });
+    await expect(submit).toBeEnabled({ timeout: 90_000 });
     await submit.click();
     for (let attempt = 1; attempt <= 6; attempt++) {
-      if (await reference.waitFor({ timeout: 30_000 }).then(() => true, () => false)) return;
+      if (await reference.waitFor({ timeout: 90_000 }).then(() => true, () => false)) return;
       await this.page.goto(url);
       await expect(loaded).toBeVisible({ timeout });
     }
-    await expect(reference, `SADAD reference after "إرسال" (${url})`).toBeVisible({ timeout: 5_000 });
+    if (!(await reference.isVisible())) throw new Error(`No SADAD reference after "${await submit.innerText().catch(() => 'إرسال')}" (${url})`);
   }
 
+  /** "الرقم المرجعي لنظام سداد 2026…" (payments) or "الرقم المرجعي 2026…" / "#2026…" (small mine). */
+  private static readonly REFERENCE = /الرقم المرجعي(?: لنظام سداد)?\s*#?\s*\d{6,}/;
+
   private parse(text: string): Bill | undefined {
-    const id = text.match(/الرقم المرجعي لنظام سداد\s*(\d{6,})/)?.[1];
+    const id = text.match(/الرقم المرجعي(?: لنظام سداد)?\s*#?\s*(\d{6,})/)?.[1];
     const fee = text.match(/(رسوم[^\d]{0,60}?)\s*([\d,]+(?:\.\d+)?)/);
     const amount = fee ? Number(fee[2].replace(/,/g, '')) : 0;
     return id && amount > 0 ? { billId: id, amount, description: fee![1].trim() } : undefined;

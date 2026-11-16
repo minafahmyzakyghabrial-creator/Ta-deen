@@ -2,10 +2,15 @@ import { test } from '@fixtures/test';
 import { ToDoListPage } from '@pages/investor/ToDoListPage';
 import { TaskManagementPage } from '@pages/employee/TaskManagementPage';
 process.env.TEST_ENV = 'test';
-test.use({ investorUser: 'investor3', employeeUser: 'employee1' });
+test.use({ investorUser: 'investor2', employeeUser: 'employee1' });
+// Read-only probe: status, investor To-Do tasks and employee tasks of the requests in PROBE_REQUESTS.
 test('status', async ({ investor, employee }) => {
   test.setTimeout(10 * 60_000);
-  for (const rn of ['76900', '76915']) {
+  if (!process.env.PROBE_REQUESTS) {
+    await investor.requests.open();
+    console.log('LATEST', JSON.stringify(await investor.requests.latestRequest()));
+  }
+  for (const rn of (process.env.PROBE_REQUESTS ?? '').split(',').filter(Boolean)) {
     await investor.requests.open();
     await investor.requests.find(rn);
     console.log('STATUS', rn, await investor.requests.cell(rn, 'الحالة'));

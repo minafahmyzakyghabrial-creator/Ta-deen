@@ -83,8 +83,8 @@ export class TaskResponsePage extends BasePage {
 
   /** Exploration: /Request_Response; public projects: /Request_PublicProjects_Response (VERIFIED on TEST 76900). */
   async expectLoaded(requestNumber: string): Promise<void> {
-    await this.page.waitForURL(new RegExp(`Request(_PublicProjects)?_Response\\?.*In_RequestId=${requestNumber}(&|$)`), { timeout: 60_000 });
-    await expect(this.page.getByRole('tab', { name: 'الرد على الطلب' })).toBeVisible({ timeout: 60_000 });
+    await this.page.waitForURL(new RegExp(`Request(_PublicProjects)?_Response\\?.*In_RequestId=${requestNumber}(&|$)`), { timeout: 150_000 });
+    await expect(this.page.getByRole('tab', { name: 'الرد على الطلب' })).toBeVisible({ timeout: 150_000 });
   }
 
   /** Task type id from the URL (e.g. 169 = GIS, 140 = GIS review) — logged for traceability. */
@@ -96,7 +96,7 @@ export class TaskResponsePage extends BasePage {
     const activity = trackServerActivity(this.page);
     await this.page.getByRole('tab', { name: 'الرد على الطلب' }).click();
     // Either the submit button (single-page task) or the part-wizard arrows show once it rendered.
-    await expect(this.submitButton.or(this.page.locator('a[id$="-Next2"], a[id$="-Next"]')).filter({ visible: true }).first()).toBeVisible({ timeout: 60_000 });
+    await expect(this.submitButton.or(this.page.locator('a[id$="-Next2"], a[id$="-Next"]')).filter({ visible: true }).first()).toBeVisible({ timeout: 150_000 });
     await activity.idle();
   }
 
@@ -162,7 +162,11 @@ export class TaskResponsePage extends BasePage {
 
   /** Fills the employee description if the field is present and empty. */
   async fillDescriptionIfEmpty(text: string): Promise<boolean> {
-    const field = this.respondPanel.getByRole('textbox', { name: 'اكتب هنا' }).filter({ visible: true });
+    // Small mine tasks (Licenses_MSM, TEST 77270): the "الوصف" textarea has no "اكتب هنا" placeholder.
+    const field = this.respondPanel
+      .getByRole('textbox', { name: 'اكتب هنا' })
+      .or(this.respondPanel.locator('textarea[id$="TextArea_Description"], textarea[id$="TextArea_Comment"]'))
+      .filter({ visible: true });
     if ((await field.count()) === 0 || (await field.first().inputValue()).trim()) return false;
     await field.first().fill(text);
     return true;
@@ -200,7 +204,7 @@ export class TaskResponsePage extends BasePage {
       await section.getByRole('button', { name: 'إضافة', exact: true }).click();
       const dialog = this.page.getByRole('dialog').filter({ visible: true }).last();
       const items = dialog.locator('[id$="-NoOutstandingFinancialObligations"]');
-      await expect(items.first()).toBeVisible({ timeout: 30_000 });
+      await expect(items.first()).toBeVisible({ timeout: 90_000 });
       const count = await items.count();
       for (let i = 0; i < count; i++) {
         const item = items.nth(i);
@@ -222,7 +226,7 @@ export class TaskResponsePage extends BasePage {
       const activity = trackServerActivity(this.page);
       // The popup's save button was "إضافة" until TEST 2026-11-05, then "حفظ".
       await dialog.getByRole('button', { name: /^\s*(حفظ|إضافة)\s*$/ }).click();
-      await expect(dialog, `"${title.source}" popup did not save — ${(await inlineErrors(dialog)).join(' | ')}`).toBeHidden({ timeout: 30_000 });
+      await expect(dialog, `"${title.source}" popup did not save — ${(await inlineErrors(dialog)).join(' | ')}`).toBeHidden({ timeout: 90_000 });
       await activity.idle();
       rated.push(count);
     }
@@ -245,7 +249,7 @@ export class TaskResponsePage extends BasePage {
           if (await confirm.isVisible()) await confirm.click();
           return outcome;
         },
-        { timeout: 30_000, intervals: [500] },
+        { timeout: 90_000, intervals: [500] },
       )
       .toBe('done')
       .catch(() => undefined);

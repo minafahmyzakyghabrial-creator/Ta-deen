@@ -8,7 +8,7 @@ import { EmployeeTask, OPEN_TASK_STATUSES, TaskManagementPage } from '@pages/emp
 import { TaskResponsePage } from '@pages/employee/TaskResponsePage';
 import { InvestorPortal } from '@pages/investor/InvestorPortal';
 import { StepReport } from '@pages/investor/exploration-license/WizardStep';
-import { PaymentPage } from '@pages/investor/PaymentPage';
+import { Bill, PaymentPage } from '@pages/investor/PaymentPage';
 import { EnvironmentalPermitPage } from '@pages/investor/public-projects/EnvironmentalPermitPage';
 import { FinancialGuaranteePage } from '@pages/investor/public-projects/FinancialGuaranteePage';
 import { ToDoListPage } from '@pages/investor/ToDoListPage';
@@ -31,7 +31,10 @@ const DEAD_STATUSES = [/ملغي/, /مرفوض/];
 const COMPLETED_STATUS = 'مكتمل';
 const EMPLOYEE_NOTE = 'تمت المراجعة - اختبار آلي';
 /** Employee tasks that offer no decision at all — only a description and "إرسال الرد". */
-const NO_DECISION_TASKS = /^\s*التقييم المالي\s*$/;
+// Small mine licence "مراجعة نظم المعلومات الجغرافية" (type 139, TEST 77270): view-only map, description + optional
+// attachment, no decision — unlike the exploration GIS review, which offers "قبول التوصية" (options are checked first).
+// Small mine "مراجعة الضمان المالي" (type 122): the guarantee read-only + "إفادة الموظف" comment, no decision.
+const NO_DECISION_TASKS = /^\s*(التقييم المالي|مراجعة نظم المعلومات الجغرافية|مراجعة الضمان المالي)\s*$/;
 /** Government entities for "الموافقات الحكومية" — chosen by the TEST owner (2026-10-26); GOV_ENTITIES overrides. */
 const DEFAULT_GOV_ENTITIES = ['وزارة الشوون البلدية والقروية والسكان', 'وزارة الطاقة', 'وزارة البيئة والمياه والزراعة', 'وزارة الداخلية'];
 
@@ -207,20 +210,9 @@ export class ApprovalWorkflow {
     const ack = await paymentPage.acknowledge();
     log.investor.info(ack === undefined ? 'No acknowledgement on this payment page' : `Acknowledgment submitted${ack.length ? ` — ${ack.join(' | ')}` : ''}`);
 
-    const utilityPage = await this.investor.page.context().newPage();
-    try {
-      const utility = new PaymentNotificationPage(utilityPage);
-      await utility.open();
-      // Public-projects fee bills (10000, /InvestorResponse) were refused with 400 while pmtAmt kept the template's 5000
-      // (TEST 76900) — the same as transfer bills — so the bill amount is sent. Exploration payments keep the template.
-      const setAmount = /\/InvestorResponse\?/.test(this.investor.page.url());
-      const result = await utility.notify(bill.billId, bill.amount, { setAmount });
-      log.payment.info(`Notification called for ${bill.billId} — response: ${result.response || '(empty)'}`);
-      this.context.bills.push({ ...result, amount: bill.amount, paidAt: new Date().toISOString(), task: taskType, verified: false });
-      this.save();
-    } finally {
-      await utilityPage.close();
-    }
+    // Public-projects fee bills (10000, /InvestorResponse) were refused with 400 while pmtAmt kept the template's 5000
+    // (TEST 76900) — the same as transfer bills — so the bill amount is sent. Exploration payments keep the template.
+    await this.notifyBill(bill, taskType, /\/InvestorResponse\?|\/InvestorReviewTaskDetails\?/.test(this.investor.page.url()));
 
     // The click is not proof: the payment task must leave the investor's To-Do list. TEST can take ~6 min to register
     // a payment (public projects final "الدفع", 77043, 2026-11-10), so allow 10.
@@ -235,6 +227,50 @@ export class ApprovalWorkflow {
     if (paid) paid.verified = true;
     log.payment.info(`Payment state verified — "${taskType}" task closed for bill ${bill.billId} (${ordinal} payment)`);
     this.context.handledTasks.push({ side: 'investor', task: taskType, decision: `paid ${bill.billId}`, at: new Date().toISOString() });
+    this.save();
+  }
+
+  /** Calls the TEST/UAT payment notification for a bill and records it (unverified) in the workflow state. */
+  private async notifyBill(bill: Bill, task: string, setAmount: boolean): Promise<void> {
+    const utilityPage = await this.investor.page.context().newPage();
+    try {
+      const utility = new PaymentNotificationPage(utilityPage);
+      await utility.open();
+      const result = await utility.notify(bill.billId, bill.amount, { setAmount });
+      log.payment.info(`Notification called for ${bill.billId} — response: ${result.response || '(empty)'}`);
+      this.context.bills.push({ ...result, amount: bill.amount, paidAt: new Date().toISOString(), task, verified: false });
+      this.save();
+    } finally {
+      await utilityPage.close();
+    }
+  }
+
+  /**
+   * Pays a bill that comes with the submission instead of a To-Do task: the small mine licence fee is shown on the
+   * wizard's last step ("الدفع") and the request then waits in "بإنتظار الدفع" with no investor task (TEST 77270).
+   * Notified once (never twice, even across runs), then verified when the request status leaves "بإنتظار الدفع" —
+   * the success dialog warns this can take 15 minutes; PAYMENT_STATUS_TIMEOUT_MS overrides the 20-minute wait.
+   */
+  async paySubmissionBill(bill: Bill, task = 'رسوم تقديم الرخصة'): Promise<void> {
+    const known = this.context.bills.find((b) => b.billId === bill.billId);
+    if (known?.verified) return log.payment.info(`Bill ${bill.billId} already paid and verified — skipping`);
+    if (!known) {
+      assertMutationsAllowed(`Pay bill ${bill.billId}`);
+      // A 10000 fee: the template's own amount was refused for such bills elsewhere, so the bill amount is sent.
+      await this.notifyBill(bill, task, true);
+    } else log.payment.warn(`Bill ${bill.billId} was notified before — only waiting for the status`);
+    let status = '';
+    await expect
+      .poll(async () => !/بإنتظار الدفع|بانتظار الدفع/.test((status = await this.requestStatus())), {
+        timeout: readNumber('PAYMENT_STATUS_TIMEOUT_MS', 20 * 60_000),
+        intervals: [30_000],
+        message: `Bill ${bill.billId} was notified, but request ${this.rn} stayed "بإنتظار الدفع"`,
+      })
+      .toBe(true);
+    const paid = this.context.bills.find((b) => b.billId === bill.billId);
+    if (paid) paid.verified = true;
+    log.payment.info(`Payment verified — request ${this.rn} is now "${status}" (bill ${bill.billId})`);
+    this.context.handledTasks.push({ side: 'investor', task, decision: `paid ${bill.billId}`, at: new Date().toISOString() });
     this.save();
   }
 
@@ -421,7 +457,7 @@ export class ApprovalWorkflow {
    */
   async run({ stopAt, stopAfterPayment }: RunOptions = {}): Promise<WorkflowContext> {
     const maxRounds = readNumber('WORKFLOW_MAX_ROUNDS', 25);
-    const idleMs = readNumber('WORKFLOW_IDLE_MS', 180_000);
+    const idleMs = readNumber('WORKFLOW_IDLE_MS', 300_000);
     for (let round = 1; round <= maxRounds; round++) {
       log.workflow.info(`Round ${round}: looking for pending tasks on ${this.rn}`);
       const stepped = await this.step(stopAt, stopAfterPayment);

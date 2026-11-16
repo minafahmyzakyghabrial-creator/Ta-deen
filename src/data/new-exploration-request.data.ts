@@ -1,4 +1,4 @@
-import { LocationArea } from '@utils/kml-generator';
+import { LocationArea, Shape } from '@utils/kml-generator';
 import { saudiNationalId } from '@utils/data-generator';
 import { deepMerge, loadOptionalTestData } from './test-data';
 
@@ -30,7 +30,10 @@ export interface NewExplorationRequestData {
     /** Maximum KML attempts before giving up. */
     readonly maxAttempts: number;
     /** How long to wait for the GIS map (iframe load, "تأكيد" button, validation result) per attempt. */
-    readonly mapTimeoutMs: number;  };
+    readonly mapTimeoutMs: number;
+    /** Polygon of the generated KML: 'triangle' (default) or 'rectangle'; its area is widthKm × heightKm either way. */
+    readonly shape?: Shape;
+  };
 }
 
 export function defaultNewExplorationRequestData(): NewExplorationRequestData {

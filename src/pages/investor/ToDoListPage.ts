@@ -27,8 +27,8 @@ export class ToDoListPage extends BasePage {
 
   async open(): Promise<void> {
     await this.page.getByRole('link', { name: /قائمة المهام\s*$/ }).first().click();
-    await this.page.waitForURL(/\/ToDoList(\?|$)/, { timeout: 60_000 });
-    await expect(this.searchInput).toBeVisible({ timeout: 60_000 });
+    await this.page.waitForURL(/\/ToDoList(\?|$)/, { timeout: 150_000 });
+    await expect(this.searchInput).toBeVisible({ timeout: 150_000 });
   }
 
   private rows(requestNumber: string): Locator {

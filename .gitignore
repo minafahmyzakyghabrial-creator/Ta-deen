@@ -28,3 +28,9 @@ Thumbs.db
 
 # Generated KML files from test runs
 test-data/kml/generated/
+test-results-*/
+~$*
+
+# Test-case workbook and bug screenshots (kept local only)
+test-cases/*.xlsx
+test-cases/**/*.png

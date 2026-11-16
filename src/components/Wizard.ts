@@ -72,7 +72,7 @@ export class Wizard {
    * Clicks Next and resolves when EITHER the next step is active and its data has loaded,
    * OR the click produced validation errors (then `moved` is false and `errors` lists them).
    */
-  async next(timeout = 90_000): Promise<StepChange> {
+  async next(timeout = 180_000): Promise<StepChange> {
     const from = await this.activeIndex();
     const names = await this.stepNames();
     // Only ERROR toasts block; a success toast ("تم حفظ البيانات بنجاح") can appear mid-transition.
@@ -106,7 +106,7 @@ export class Wizard {
   }
 
   /** Clicks Previous and resolves once the earlier step is active and its data has loaded. */
-  async previous(timeout = 90_000): Promise<StepChange> {
+  async previous(timeout = 180_000): Promise<StepChange> {
     const from = await this.activeIndex();
     const names = await this.stepNames();
     const activity = trackServerActivity(this.page);

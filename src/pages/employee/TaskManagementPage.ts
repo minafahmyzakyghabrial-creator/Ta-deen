@@ -47,9 +47,9 @@ export class TaskManagementPage extends BasePage {
       const menuEntry = this.page.getByText('إدارة المهام', { exact: true }).filter({ visible: true }).first();
       if (await menuEntry.isVisible()) await menuEntry.click();
       else await this.page.goto(new URL('/SharedServices_TaskManagement/TaskManagement', this.page.url()).toString());
-      await this.page.waitForURL(/\/TaskManagement(\?|$)/, { timeout: 60_000 });
+      await this.page.waitForURL(/\/TaskManagement(\?|$)/, { timeout: 150_000 });
     }
-    await expect(this.table).toBeAttached({ timeout: 60_000 });
+    await expect(this.table).toBeAttached({ timeout: 150_000 });
   }
 
   rows(requestNumber: string): Locator {
@@ -103,7 +103,7 @@ export class TaskManagementPage extends BasePage {
 
   /** "الرد على الطلب" — opens the task's response page in a new tab. */
   async openResponse(task: EmployeeTask): Promise<TaskResponsePage> {
-    const popup = this.page.context().waitForEvent('page', { timeout: 60_000 });
+    const popup = this.page.context().waitForEvent('page', { timeout: 150_000 });
     await this.menu(task).click('الرد على الطلب');
     const page = await popup;
     const response = new TaskResponsePage(page);

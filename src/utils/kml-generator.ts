@@ -1,8 +1,9 @@
 /**
  * KML generator for test locations inside Saudi Arabia.
  *
- * Produces a KML 2.2 document with one closed rectangular polygon (lon,lat order, as KML
- * requires). Points are drawn from INLAND regions only — sampling the national bounding box
+ * Produces a KML 2.2 document with one closed polygon (lon,lat order, as KML requires): a TRIANGLE by
+ * default (user request, 2026-11-12), or a rectangle with shape: 'rectangle'. Either way its area is
+ * widthKm × heightKm, so callers that size a location by area keep working. Points are drawn from INLAND regions only — sampling the national bounding box
  * (lon 34–56, lat 16–32) would also hit the Red Sea, the Gulf and neighbouring countries.
  *
  * The GIS task on TEST validates degree ranges of longitude 34–55 E and latitude 16–32 N and
@@ -51,7 +52,7 @@ export interface KmlOptions {
   region?: LocationArea;
   /** Explicit centre (overrides region); must lie inside one of SAUDI_REGIONS. */
   center?: { lat: number; lon: number };
-  /** Rectangle size in kilometres (default 1 × 1). */
+  /** Size in kilometres (default 1 × 1); the polygon's area is widthKm × heightKm whatever its shape. */
   widthKm?: number;
   heightKm?: number;
   /** Placemark / document name. */
@@ -64,7 +65,14 @@ export interface KmlOptions {
    * the KML spec itself prefers counter-clockwise outer boundaries.
    */
   orientation?: 'clockwise' | 'counter-clockwise';
+  /**
+   * 'triangle' (default): isosceles, apex north, base w·√2 and height h·√2 — the same area as w × h, inside a
+   * box √2 times larger. 'rectangle': w × h.
+   */
+  shape?: Shape;
 }
+
+export type Shape = 'triangle' | 'rectangle';
 
 export interface Corner {
   readonly lat: number;
@@ -75,7 +83,7 @@ export interface GeneratedKml {
   readonly kml: string;
   readonly region: string;
   readonly center: Corner;
-  /** Four distinct corners in the requested orientation (default clockwise); the KML ring repeats the first. */
+  /** Distinct vertices (3 for a triangle, 4 for a rectangle) in the requested orientation (default clockwise); the KML ring repeats the first. */
   readonly corners: Corner[];
 }
 
@@ -112,10 +120,27 @@ function insideSaudi(p: Corner): boolean {
   return inside;
 }
 
-/** SW → NW → NE → SE is clockwise when looking at a north-up map. */
-function rectangle(center: Corner, widthKm: number, heightKm: number): Corner[] {
-  const dLat = heightKm / 2 / KM_PER_DEG_LAT;
-  const dLon = widthKm / 2 / kmPerDegLon(center.lat);
+/** Width and height (km) of the box around the polygon — a triangle of area w × h needs a √2-larger box. */
+function boxKm(shape: Shape, widthKm: number, heightKm: number): { w: number; h: number } {
+  const k = shape === 'triangle' ? Math.SQRT2 : 1;
+  return { w: widthKm * k, h: heightKm * k };
+}
+
+/**
+ * Clockwise vertices on a north-up map, centred on the box centre:
+ *   rectangle SW → NW → NE → SE;  triangle SW → apex (N) → SE.
+ */
+function polygon(shape: Shape, center: Corner, widthKm: number, heightKm: number): Corner[] {
+  const box = boxKm(shape, widthKm, heightKm);
+  const dLat = box.h / 2 / KM_PER_DEG_LAT;
+  const dLon = box.w / 2 / kmPerDegLon(center.lat);
+  if (shape === 'triangle') {
+    return [
+      { lat: center.lat - dLat, lon: center.lon - dLon },
+      { lat: center.lat + dLat, lon: center.lon },
+      { lat: center.lat - dLat, lon: center.lon + dLon },
+    ];
+  }
   return [
     { lat: center.lat - dLat, lon: center.lon - dLon },
     { lat: center.lat + dLat, lon: center.lon - dLon },
@@ -144,6 +169,8 @@ export function generateKml(options: KmlOptions = {}): GeneratedKml {
   const widthKm = options.widthKm ?? 1;
   const heightKm = options.heightKm ?? 1;
   if (widthKm <= 0 || heightKm <= 0) throw new Error('widthKm and heightKm must be positive.');
+  const shape: Shape = options.shape ?? 'triangle';
+  const box = boxKm(shape, widthKm, heightKm);
 
   let region: Region;
   let center: Corner;
@@ -153,13 +180,13 @@ export function generateKml(options: KmlOptions = {}): GeneratedKml {
     const lons = SAUDI_INLAND_OUTLINE.map(([, lon]) => lon);
     region = { name: 'Saudi Arabia (random)', lat: [Math.min(...lats), Math.max(...lats)], lon: [Math.min(...lons), Math.max(...lons)] };
     inside = insideSaudi;
-    // Draw from the outline's bounding box until the whole rectangle lies inside the outline.
+    // Draw from the outline's bounding box until the whole polygon lies inside the outline.
     let found: Corner | undefined;
     for (let i = 0; i < 10_000 && !found; i++) {
       const c = { lat: region.lat[0] + rnd() * (region.lat[1] - region.lat[0]), lon: region.lon[0] + rnd() * (region.lon[1] - region.lon[0]) };
-      if (rectangle(c, widthKm, heightKm).every(insideSaudi)) found = c;
+      if (polygon(shape, c, widthKm, heightKm).every(insideSaudi)) found = c;
     }
-    if (!found) throw new Error(`A ${widthKm}×${heightKm} km rectangle does not fit inside Saudi Arabia.`);
+    if (!found) throw new Error(`A ${widthKm}×${heightKm} km ${shape} does not fit inside Saudi Arabia.`);
     center = found;
   } else if (options.center) {
     // A region box when the centre lies in one, else the inland outline (e.g. a smaller area nested in a 'saudi' one).
@@ -173,19 +200,19 @@ export function generateKml(options: KmlOptions = {}): GeneratedKml {
   } else {
     const key = options.region && options.region !== ANYWHERE_IN_SAUDI ? options.region : keys[Math.floor(rnd() * keys.length)];
     region = SAUDI_REGIONS[key];
-    // Keep the whole rectangle inside the region box.
-    const halfLat = heightKm / 2 / KM_PER_DEG_LAT;
+    // Keep the whole polygon inside the region box.
+    const halfLat = box.h / 2 / KM_PER_DEG_LAT;
     const latMin = region.lat[0] + halfLat;
     const latMax = region.lat[1] - halfLat;
     const lat = latMin + rnd() * (latMax - latMin);
-    const halfLon = widthKm / 2 / kmPerDegLon(lat);
+    const halfLon = box.w / 2 / kmPerDegLon(lat);
     const lonMin = region.lon[0] + halfLon;
     const lonMax = region.lon[1] - halfLon;
-    if (latMax <= latMin || lonMax <= lonMin) throw new Error(`A ${widthKm}×${heightKm} km rectangle does not fit in ${region.name}.`);
+    if (latMax <= latMin || lonMax <= lonMin) throw new Error(`A ${widthKm}×${heightKm} km ${shape} does not fit in ${region.name}.`);
     center = { lat, lon: lonMin + rnd() * (lonMax - lonMin) };
   }
 
-  const clockwise = rectangle(center, widthKm, heightKm);
+  const clockwise = polygon(shape, center, widthKm, heightKm);
   const ordered = (options.orientation ?? 'clockwise') === 'clockwise' ? clockwise : [clockwise[0], ...clockwise.slice(1).reverse()];
   const corners: Corner[] = ordered.map((c) => ({ lat: round(c.lat), lon: round(c.lon) }));
   for (const c of corners) {
@@ -200,7 +227,7 @@ export function generateKml(options: KmlOptions = {}): GeneratedKml {
     <name>${name}</name>
     <Placemark>
       <name>${name}</name>
-      <description>${escapeXml(`${region.name} — ${widthKm} x ${heightKm} km (approx. ${round(widthKm * heightKm)} km2)`)}</description>
+      <description>${escapeXml(`${region.name} — ${shape}, ${widthKm} x ${heightKm} km (approx. ${round(widthKm * heightKm)} km2)`)}</description>
       <Polygon>
         <outerBoundaryIs>
           <LinearRing>

@@ -1,6 +1,7 @@
 import { TestInfo } from '@playwright/test';
 import { expect, test } from '@fixtures/test';
 import { EnvName, getEnvName, readVar, UserKey } from '@config/index';
+import { FeedbackMessage } from '@components/FeedbackMessage';
 import { EmployeePortal } from '@pages/employee/EmployeePortal';
 import { InvestorPortal } from '@pages/investor/InvestorPortal';
 import { ApprovalWorkflow } from '@flows/approval-workflow.flow';
@@ -8,7 +9,7 @@ import { ExplorationLicenseFlow } from '@flows/exploration-license.flow';
 import { StepReport } from '@pages/investor/exploration-license/WizardStep';
 import { NoLocationAcceptedError } from '@pages/investor/exploration-license/LocationStep';
 import { newExplorationRequestData } from '@data/new-exploration-request.data';
-import { ANYWHERE_IN_SAUDI, LocationArea } from '@utils/kml-generator';
+import { ANYWHERE_IN_SAUDI, LocationArea, Shape } from '@utils/kml-generator';
 import { splitRules, WizardValidationError } from '@utils/validation';
 
 /**
@@ -56,19 +57,25 @@ const LICENSE_DETAILS = {
   /** فئة الرخصة: 'أ' | 'ب' | 'ج'  ('ج' has no geology expert — the wizard does not show "القدرة الفنية") */
   category: 'أ',
   /** مدة الرخصة (سنوياً): '1' … '5' */
-  durationYears: '5',
+  durationYears: '1',
   /** المعادن: one or more, e.g. ['ذهب'] or ['ذهب', 'نحاس'] — the list depends on the category */
-  minerals: [' كسر رخام'],
+  minerals: ['كسر رخام'],
   /** المجمع التعديني: 'داخل المجمعات التعدينية' | 'خارج المجمعات التعدينية' */
   miningComplex: 'خارج المجمعات التعدينية',
 };
 
 /**
- * Step 2 — "موقع الطلب": area of the land in km². The generated KML is a square of this area
- * (side = √area, e.g. 4 → 2 × 2 km), placed at a random point of the region being tried.
+ * Step 2 — "موقع الطلب": area of the land in km², placed at a random point of the region being tried.
  * A larger area overlaps existing licences ("تقاطع المواقع") more often, so expect more map attempts.
  */
-const LAND_AREA_KM2 = 2;
+const LAND_AREA_KM2 = 3;
+
+/**
+ * Step 2 — shape of the generated land. Both have exactly LAND_AREA_KM2:
+ *   'triangle'  → isosceles, apex north (accepted by the TEST map, 2026-11-12 — requests 77182, 77184)
+ *   'rectangle' → a square of side √area (e.g. 4 → 2 × 2 km)
+ */
+const LAND_SHAPE: Shape = 'rectangle';
 
 /** Step 2 — how long to wait for the GIS map (iframe load, "تأكيد" button, validation result) per KML attempt. */
 const GIS_MAP_TIMEOUT_MS = 5 * 60_000;
@@ -80,6 +87,9 @@ const GIS_MAP_TIMEOUT_MS = 5 * 60_000;
  * timeout). Likewise the map step itself keeps generating new locations until one is accepted.
  */
 const LOCATION_ERROR = /الموقع|إحداثيات/;
+
+/** Step 2 — times to place the location again when Next says it was not saved ("رجاءاً تحديد الموقع"). */
+const LOCATION_SAVE_RETRIES = 3;
 
 /**
  * New Exploration License — creates a request from scratch and completes it end to end:
@@ -111,7 +121,7 @@ async function createAndCompleteLicense(investor: InvestorPortal, employee: Empl
   const data = newExplorationRequestData();
   if (!(LAND_AREA_KM2 > 0)) throw new Error(`LAND_AREA_KM2 must be a positive number of km² (got ${LAND_AREA_KM2}).`);
   const side = Math.sqrt(LAND_AREA_KM2);
-  const location = { ...data.location, widthKm: side, heightKm: side, mapTimeoutMs: GIS_MAP_TIMEOUT_MS };
+  const location = { ...data.location, shape: LAND_SHAPE, widthKm: side, heightKm: side, mapTimeoutMs: GIS_MAP_TIMEOUT_MS };
   const license = investor.explorationLicense;
   const wizard = license.wizard;
   const flow = new ExplorationLicenseFlow(investor);
@@ -163,16 +173,26 @@ async function createAndCompleteLicense(investor: InvestorPortal, employee: Empl
       await wizard.expectActive(1);
     });
 
-    await test.step(`Step 2 — موقع الطلب: ${LAND_AREA_KM2} km² KML upload, map check, retry until confirmed`, async () => {
+    await test.step(`Step 2 — موقع الطلب: ${LAND_AREA_KM2} km² ${LAND_SHAPE} KML upload, map check, retry until confirmed`, async () => {
       testInfo.annotations.push({ type: 'land area', description: `${LAND_AREA_KM2} km² (${side.toFixed(3)} × ${side.toFixed(3)} km)` });
       try {
-        await fillLocationUntilAccepted(location);
+        // A location the map seemed to accept can still be missing on Next ("رجاءاً تحديد الموقع"): place it again.
+        for (let round = 1; ; round++) {
+          await fillLocationUntilAccepted(location);
+          const change = await wizard.next();
+          if (change.moved) {
+            expect(change.to).toBe('خطة العمل و الانفاق');
+            break;
+          }
+          const rules = splitRules(change.errors);
+          if (round >= LOCATION_SAVE_RETRIES || !rules.some((r) => /تحديد الموقع/.test(r))) throw new WizardValidationError(change.from, rules);
+          testInfo.annotations.push({ type: `location not saved (${round})`, description: rules.join(' | ') });
+          await new FeedbackMessage(investor.page).closeAll(); // the toast would cover the map buttons
+        }
       } finally {
         await testInfo.attach('location-attempts.json', { body: JSON.stringify(license.location.attempts, null, 2), contentType: 'application/json' });
       }
       testInfo.annotations.push({ type: 'location attempts', description: String(license.location.attempts.length) });
-      const change = await next();
-      expect(change.to).toBe('خطة العمل و الانفاق');
     });
 
     await test.step('Steps 3–8 — same as the draft test, then submit', async () => {

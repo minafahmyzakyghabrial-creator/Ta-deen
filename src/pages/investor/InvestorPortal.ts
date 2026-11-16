@@ -5,6 +5,7 @@ import { RequestsPage } from './RequestsPage';
 import { ExplorationLicensePage } from './exploration-license/ExplorationLicensePage';
 import { PublicProjectLicensePage } from './public-projects/PublicProjectLicensePage';
 import { PublicProjectExtensionPage } from './public-projects/PublicProjectExtensionPage';
+import { SmallMiningLicensePage } from './small-mining/SmallMiningLicensePage';
 
 /**
  * Entry point to every Investor page object for ONE user session.
@@ -29,6 +30,9 @@ export class InvestorPortal {
   }
   get publicProjectLicense() {
     return new PublicProjectLicensePage(this.page);
+  }
+  get smallMiningLicense() {
+    return new SmallMiningLicensePage(this.page);
   }
   get publicProjectExtension() {
     return new PublicProjectExtensionPage(this.page);

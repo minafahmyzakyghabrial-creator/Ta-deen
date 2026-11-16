@@ -56,7 +56,7 @@ export class PaymentNotificationPage {
   async open(): Promise<void> {
     PaymentNotificationPage.allowedOrThrow();
     await this.page.goto(this.url);
-    await expect(this.page.getByRole('button', { name: 'Call Notification' })).toBeVisible({ timeout: 60_000 });
+    await expect(this.page.getByRole('button', { name: 'Call Notification' })).toBeVisible({ timeout: 150_000 });
   }
 
   /** The template body printed on the page (the JSON after the instructions). */
@@ -93,11 +93,11 @@ export class PaymentNotificationPage {
     const responseArea = this.page.locator('body');
     const before = await responseArea.innerText();
     await this.page.locator('textarea').first().fill(requestBody);
-    const served = this.page.waitForResponse((r) => r.url().includes('/ActionBill_Req'), { timeout: 60_000 });
+    const served = this.page.waitForResponse((r) => r.url().includes('/ActionBill_Req'), { timeout: 150_000 });
     await this.page.getByRole('button', { name: 'Call Notification' }).click();
     // The server's answer is authoritative; the page text can lag behind it (it was read as empty on TEST).
     const result = (await (await served).json())?.data?.Response as { Status?: string; Message?: string } | undefined;
-    await expect.poll(() => responseArea.innerText(), { timeout: 60_000, message: 'No response from Call Notification' }).not.toBe(before);
+    await expect.poll(() => responseArea.innerText(), { timeout: 150_000, message: 'No response from Call Notification' }).not.toBe(before);
     const after = await responseArea.innerText();
     const response = after.slice(after.lastIndexOf('Reponse :') + 'Reponse :'.length).trim();
     if (result?.Status !== 'S000') {

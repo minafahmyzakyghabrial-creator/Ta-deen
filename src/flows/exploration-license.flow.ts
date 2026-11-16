@@ -155,7 +155,7 @@ export class ExplorationLicenseFlow {
     const activity = trackServerActivity(this.license.page);
     // The submit call starts ~0.5 s after the click and can slip past the quiet-period tracker;
     // navigating away before it answers aborts it and leaves the request a draft (TEST, request 76422).
-    const submitted = waitForScreenService(this.license.page, { action: 'ActionSubmitExplorationRequest' }, 120_000);
+    const submitted = waitForScreenService(this.license.page, { action: 'ActionSubmitExplorationRequest' }, 300_000);
     await this.wizard.submitButton.click();
     const response = await submitted;
     await activity.idle();

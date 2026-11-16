@@ -18,8 +18,8 @@
     "test:new-exploration": "cross-env TEST_ENV=test playwright test tests/exploration-license/new-exploration-license.spec.ts --project=chromium --headed",
     "test:new-exploration:fast": "cross-env TEST_ENV=test RECORD=off playwright test tests/exploration-license/new-exploration-license.spec.ts --project=chromium",
     "test:public-project": "cross-env TEST_ENV=test playwright test tests/public-projects/public-project-license.spec.ts --project=chromium --headed",
-    "test:public-project:workflow": "cross-env TEST_ENV=test playwright test tests/public-projects/public-project-workflow.spec.ts --project=chromium --headed",
     "test:public-project:extension": "cross-env TEST_ENV=test playwright test tests/public-projects/public-project-extension.spec.ts --project=chromium --headed",
+    "test:small-mining": "cross-env TEST_ENV=test playwright test tests/small-mining/small-mining-license.spec.ts --project=chromium --headed",
     "test:transfer": "cross-env TEST_ENV=test playwright test tests/exploration-transfer --project=chromium --workers=1 --grep-invert @return-chain",
     "test:transfer:returns": "cross-env TEST_ENV=test playwright test tests/exploration-transfer --project=chromium --workers=1 --grep @return-chain",
     "test:transfer:available": "cross-env TEST_ENV=test playwright test tests/exploration-transfer --project=chromium --workers=1 --grep @available-land",
@@ -38,7 +38,10 @@
     "report": "playwright show-report reports/html",
     "allure:generate": "allure generate allure-results --clean -o reports/allure",
     "allure:open": "allure open reports/allure",
-    "allure:serve": "allure serve allure-results"
+    "allure:serve": "allure serve allure-results",
+    "test:expired": "cross-env TEST_ENV=test playwright test tests/expired-license-followup --project=chromium --workers=1",
+    "test:expired:view": "cross-env TEST_ENV=test playwright test tests/expired-license-followup/expired-license-followup.view.spec.ts --project=chromium --workers=1",
+    "test:expired:workflow": "cross-env TEST_ENV=test playwright test tests/expired-license-followup/expired-license-followup.workflow.spec.ts --project=chromium --workers=1 --headed"
   },
   "engines": {
     "node": ">=20"
