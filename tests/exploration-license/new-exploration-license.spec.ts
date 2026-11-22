@@ -57,7 +57,7 @@ const LICENSE_DETAILS = {
   /** فئة الرخصة: 'أ' | 'ب' | 'ج'  ('ج' has no geology expert — the wizard does not show "القدرة الفنية") */
   category: 'أ',
   /** مدة الرخصة (سنوياً): '1' … '5' */
-  durationYears: '1',
+  durationYears: '2',
   /** المعادن: one or more, e.g. ['ذهب'] or ['ذهب', 'نحاس'] — the list depends on the category */
   minerals: ['كسر رخام'],
   /** المجمع التعديني: 'داخل المجمعات التعدينية' | 'خارج المجمعات التعدينية' */

@@ -27,7 +27,7 @@ test.describe(`Expired licence follow-up — view (licence ${RUN.licence})`, () 
       `${rows.length} rows: ${rows.map((r) => r['رقم الطلب']).join(', ')}`, [list.rows.nth(1)]);
     const row = rows[0];
     const expiry = row['تاريخ انتهاء الرخصة'];
-    const today = new Date().toISOString().slice(0, 10);
+    const today = new Date().toLocaleDateString('en-CA') // local date (UTC was a day behind after midnight, 2026-11-19);
     await b.check(expiry !== '-' && expiry <= today, page, { key: 'licence-not-expired', title: 'Follow-up created for a licence that has not expired', uc: 'UC-001 BR-001', expected: 'Only genuinely expired licences get a follow-up.', severity: 'High', defect: 'DEF-006' },
       `تاريخ انتهاء الرخصة = ${expiry} (today ${today})`, [list.cell(rn, 'تاريخ انتهاء الرخصة')]);
     const remaining = Number(row['المهلة النظامية المتبقية']);
@@ -54,6 +54,91 @@ test.describe(`Expired licence follow-up — view (licence ${RUN.licence})`, () 
     const file = await list.exportFileName();
     await b.check(file.startsWith(X.exportFileName), page, { key: 'export-file-name-requests', title: 'Export file name (Request Management)', uc: 'UC-002 ALT-003; Change #2', expected: `${X.exportFileName}.xlsx`, severity: 'Low', defect: 'DEF-010' },
       file, [list.exportButton]);
+  });
+
+  test('UC-002/UC-003 — search: request number, unknown licence, reset, task list by licence', async ({ employee }, testInfo) => {
+    test.setTimeout(20 * 60_000);
+    const b = bugs(testInfo);
+    const page = employee.page;
+    const rn = await requestNumber(page);
+    const list = new ExpiredFollowUpRequestsPage(page);
+    await list.open();
+
+    const byRequest = await list.search({ request: rn });
+    await b.check(byRequest.length === 1 && byRequest[0]['رقم الرخصة'] === RUN.licence, page,
+      { key: 'search-by-request', title: 'Search by request number does not return exactly that request', uc: 'UC-002 field 1', expected: `1 row: ${rn} / ${RUN.licence}`, severity: 'High' },
+      byRequest.map((r) => `${r['رقم الطلب']} / ${r['رقم الرخصة']}`).join(', ') || 'no rows', [list.panel]);
+
+    const unknown = await list.search({ licence: '99999999999' });
+    await b.check(unknown.length === 0, page, { key: 'search-unknown-licence', title: 'Search by a non-existent licence returns rows', uc: 'UC-002 ALT-001', expected: 'No rows', severity: 'Medium' },
+      unknown.map((r) => r['رقم الطلب']).join(', '), [list.panel]);
+    await b.check(await list.noData.isVisible().catch(() => false), page, { key: 'search-no-results-message', title: 'No "no results" message for an empty search', uc: 'UC-002 ALT-001', expected: X.messages.noResults, severity: 'Low' },
+      'not shown', [list.panel]);
+
+    await list.search({ request: rn, licence: RUN.licence });
+    await list.resetButton.click();
+    await page.waitForLoadState('networkidle').catch(() => {});
+    await page.waitForTimeout(5_000);
+    await list.openFilter();
+    const after = { request: await list.requestNumberInput.inputValue(), licence: await list.licenceNumberInput.inputValue() };
+    await b.check(!after.request && !after.licence, page, { key: 'reset-keeps-filters', title: '"إعادة تهيئة" does not clear the filters', uc: 'UC-002 ALT-002', expected: 'Empty filters, full list', severity: 'Medium' },
+      JSON.stringify(after), [list.resetButton]);
+
+    const tasks = new ExpiredFollowUpTasksPage(page);
+    await tasks.open();
+    const tRows = await tasks.search({ licence: RUN.licence });
+    console.log('TASK ROWS BY LICENCE', JSON.stringify(tRows));
+    await b.check(tRows.some((r) => r['رقم الطلب'] === rn), page, { key: 'task-search-by-licence', title: 'Task list search by licence number does not find the request', uc: 'UC-003 search', expected: `Row ${rn}`, severity: 'Medium' },
+      tRows.map((r) => r['رقم الطلب']).join(', ') || 'no rows', [tasks.panel]);
+  });
+
+  test('Data — the same request shows the same data in Request Management, Task Management, details and history', async ({ employee }, testInfo) => {
+    test.setTimeout(20 * 60_000);
+    const b = bugs(testInfo);
+    const page = employee.page;
+    const rn = await requestNumber(page);
+    const list = new ExpiredFollowUpRequestsPage(page);
+    await list.open();
+    const [R] = await list.search({ request: rn });
+    const tasks = new ExpiredFollowUpTasksPage(page);
+    await tasks.open();
+    const [T] = await tasks.search({ request: rn });
+    await list.open();
+    await list.search({ request: rn });
+    const d = await list.view(rn);
+    const p = d.page;
+    const company = await d.openTab('ملف الشركة');
+    const det = await d.requestDetails();
+    const h = await d.history();
+    console.log('DATA R', JSON.stringify(R), '\nDATA T', JSON.stringify(T), '\nDATA D', JSON.stringify(det));
+    const yesNo = (v?: string) => ({ No: 'لا', Yes: 'نعم' } as Record<string, string>)[v ?? ''] ?? v ?? '';
+    const today = new Date().toLocaleDateString('en-CA') // local date, not UTC;
+    const expiry = R?.['تاريخ انتهاء الرخصة'] ?? '';
+    const created = (h.text.match(/تاريخ تقديم الطلب\s*\n\s*(\d{4}-\d{2}-\d{2}|\d{2}\/\d{2}\/\d{4})/) ?? [])[1] ?? '';
+    const fields: [string, string, Record<string, string | undefined>, string?][] = [
+      ['licence-number', 'رقم الرخصة', { 'Request Management': R?.['رقم الرخصة'], 'Task Management': T?.['رقم الرخصة'], details: det['رقم الرخصة'] }, RUN.licence],
+      ['licence-type', 'نوع الرخصة', { 'Request Management': R?.['نوع الرخصة'], 'Task Management': T?.['نوع الرخصة'], details: det['نوع الرخصة'] }],
+      ['category', 'فئة الرخصة', { 'Request Management': R?.['فئة الرخصة'], 'Task Management': T?.['فئة الرخصة'], details: det['فئة الرخصة'] }],
+      ['expiry', 'تاريخ انتهاء الرخصة', { 'Request Management': expiry, 'Task Management': T?.['تاريخ انتهاء الرخصة'], details: det['تاريخ إنتهاء الرخصة'] ?? det['تاريخ انتهاء الرخصة'] }],
+      ['exceeded', 'تجاوز المهلة النظامية؟', { 'Request Management': yesNo(R?.['تجاوز المهلة النظامية؟']), 'Task Management': yesNo(T?.['تجاوز المهلة النظامية؟']), details: yesNo(det['تجاوز المهلة النظامية؟']) },
+        /^\d{4}-\d{2}-\d{2}$/.test(expiry) ? (expectedRemainingDays(expiry) > 0 ? 'لا' : 'نعم') : undefined],
+      ['remaining', 'المهلة النظامية المتبقية', { 'Request Management': R?.['المهلة النظامية المتبقية'], 'Task Management': T?.['المهلة النظامية المتبقية'], details: det['عدد الأيام المتبقية'] },
+        /^\d{4}-\d{2}-\d{2}$/.test(expiry) ? String(expectedRemainingDays(expiry)) : undefined],
+      ['created', 'تاريخ إنشاء الطلب', { 'Request Management': R?.['تاريخ إنشاء الطلب'], details: det['تاريخ إنشاء الطلب'], 'سجل الطلب (creation entry)': created.slice(0, 10) }],
+      ['status', 'حالة الطلب', { 'Request Management': R?.['حالة الطلب'], details: det['حالة الطلب'] }],
+    ];
+    for (const [key, label, shown, expected] of fields) {
+      const values = Object.values(shown).filter((v) => v !== undefined && v !== '');
+      const same = new Set(values).size <= 1;
+      const right = expected === undefined || values.every((v) => v === expected);
+      await b.check(same && right, p, { key: `data-${key}`, title: `Data — "${label}" differs between screens${expected !== undefined ? ` or is not ${expected}` : ''}`, uc: 'UC-002 / UC-002.1 / UC-003 (same request, same data)', expected: expected ?? 'Same value on every screen', severity: key === 'remaining' || key === 'expiry' || key === 'exceeded' ? 'High' : 'Medium' },
+        Object.entries(shown).map(([k, v]) => `${k}: ${v ?? '—'}`).join(' · '), [p.getByText(det[label] ?? '#none#', { exact: true }).first()]);
+    }
+    const companyName = (company.match(/إسم السجل التجاري \(عربي\)\s*\n\s*([^\n]+)/) ?? [])[1]?.trim() ?? '';
+    await b.check(!R?.['اسم الشركة'] || R['اسم الشركة'] === companyName, p, { key: 'data-company-name', title: 'Data — company name in Request Management differs from "ملف الشركة"', uc: 'UC-002 field / UC-002.1 field 4', expected: companyName, severity: 'Medium' },
+      `list "${R?.['اسم الشركة']}" vs profile "${companyName}"`, []);
+    await b.check(created.slice(0, 10) <= today, p, { key: 'data-created-future', title: 'Data — request creation date is in the future', uc: 'UC-001', expected: `≤ ${today}`, severity: 'Medium' }, created, []);
+    await p.close();
   });
 
   test('UC-002.1 — request details (view-only)', async ({ employee }, testInfo) => {
@@ -120,8 +205,21 @@ test.describe(`Expired licence follow-up — view (licence ${RUN.licence})`, () 
     test.skip(!rows.length, `Task of ${rn} not visible to ${RUN.rcm} (assigned to another user).`);
     const menu = await tasks.menu(rn).actions();
     console.log('MENU', menu);
+    // TEST 2026-11-17+: "إسناد إلى" opens a dialog "مسند إلى: لي / آخرون" — read its choices, then "إلغاء" (nothing assigned).
+    let choices: string[] = [];
     if (menu.includes('إسناد إلى')) {
-      await b.check(menu.some((m) => /آخر|لي/.test(m)), page, { key: 'assign-choices', title: 'No "Assign to Me" / "Assign to Another" choice', uc: 'UC-003 main path 5; UC-003.1', expected: 'Assign to Me + Assign to Another', severity: 'High', defect: 'DEF-036' },
+      await page.keyboard.press('Escape');
+      await tasks.menu(rn).click('إسناد إلى');
+      const dlg = page.locator('[role="dialog"], .popup-dialog, .osui-popup, [class*="modal"]').filter({ visible: true }).filter({ hasText: 'مسند إلى' }).last();
+      if (await dlg.waitFor({ state: 'visible', timeout: 8_000 }).then(() => true, () => false)) {
+        choices = (await dlg.locator('label').allInnerTexts()).map((t) => t.trim()).filter(Boolean);
+        await dlg.getByRole('button', { name: 'إلغاء', exact: true }).click().catch(() => {});
+        await dlg.waitFor({ state: 'hidden', timeout: 15_000 }).catch(() => {});
+      }
+      console.log('ASSIGN CHOICES', choices);
+    }
+    if (menu.includes('إسناد إلى')) {
+      await b.check([...menu, ...choices].some((m) => /آخر/.test(m)) && [...menu, ...choices].some((m) => /^لي$/.test(m.trim())), page, { key: 'assign-choices', title: 'No "Assign to Me" / "Assign to Another" choice', uc: 'UC-003 main path 5; UC-003.1', expected: 'Assign to Me + Assign to Another', severity: 'High', defect: 'DEF-036' },
         menu.join(' / '), [page.locator('[id$="TooltipBallonWrapper"]').filter({ visible: true })]);
     }
     await b.check(!menu.includes('إلغاء الإسناد'), page, { key: 'unassign-offered', title: '"إلغاء الإسناد" offered', uc: 'UC-003.1 BR-001; Change #9', expected: 'No Unassign', severity: 'High', defect: 'DEF-035' },

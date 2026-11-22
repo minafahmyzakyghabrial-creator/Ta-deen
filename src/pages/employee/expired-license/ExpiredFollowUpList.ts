@@ -48,6 +48,16 @@ export abstract class ExpiredFollowUpList extends BasePage {
     return this.page.getByRole('button', { name: 'البحث', exact: true }).filter({ visible: true }).first();
   }
 
+  get resetButton(): Locator {
+    return this.page.getByRole('button', { name: 'إعادة تهيئة', exact: true }).filter({ visible: true }).first();
+  }
+
+  /** The table's empty-result text ("لا توجد نتائج لعرضها"), if shown. */
+  get noData(): Locator {
+    // Not inside `panel`: with no rows the table (and its headers) is replaced by the empty-state block.
+    return this.page.getByText(/لا توجد نتائج|لا توجد بيانات/).filter({ visible: true }).first();
+  }
+
   get exportButton(): Locator {
     return this.panel.getByRole('button', { name: /تصدير/ }).filter({ visible: true }).first();
   }
@@ -73,7 +83,8 @@ export abstract class ExpiredFollowUpList extends BasePage {
     for (const row of await this.rows.all()) {
       const cells = await row.locator('td[data-header]').evaluateAll((tds) =>
         tds.map((td) => [(td.getAttribute('data-header') ?? '').trim(), (td.textContent ?? '').replace(/\s+/g, ' ').trim()]));
-      out.push(Object.fromEntries(cells) as FollowUpRow);
+      const r = Object.fromEntries(cells) as FollowUpRow;
+      if (r['رقم الطلب']) out.push(r); // skips the "no results" row
     }
     return out;
   }
@@ -86,14 +97,19 @@ export abstract class ExpiredFollowUpList extends BasePage {
     return this.row(requestNumber).first().locator(`td[data-header^="${header}"]`).first();
   }
 
-  menu(requestNumber: string): RowActionMenu {
-    return new RowActionMenu(this.row(requestNumber).first().locator('td').last());
+  menu(requestNumber: string, task?: string): RowActionMenu {
+    return new RowActionMenu(this.taskRow(requestNumber, task).first().locator('td').last());
+  }
+
+  /** Row of the request, narrowed to a task — "نوع العملية" truncates long names ("التحقق من أهلية الموقع - توثيق..."). */
+  taskRow(requestNumber: string, task?: string): Locator {
+    return task ? this.row(requestNumber).filter({ hasText: task.slice(0, 24) }) : this.row(requestNumber);
   }
 
   /** Clicks a menu action that opens the details page in a new tab. */
-  protected async openInNewTab(requestNumber: string, action: string): Promise<ExpiredRequestDetailsPage> {
+  protected async openInNewTab(requestNumber: string, action: string, task?: string): Promise<ExpiredRequestDetailsPage> {
     const popup = this.page.context().waitForEvent('page', { timeout: 120_000 });
-    await this.menu(requestNumber).click(action);
+    await this.menu(requestNumber, task).click(action);
     const details = new ExpiredRequestDetailsPage(await popup);
     await details.waitLoaded();
     return details;

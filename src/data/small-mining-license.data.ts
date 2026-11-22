@@ -25,6 +25,11 @@ export interface SmallMiningLicenseData {
     /** Sub-areas tried (centre, then each corner of the licence) before giving up. */
     readonly maxAttempts: number;
     readonly mapTimeoutMs: number;
+    /**
+     * When the step opens on "استخدم نفس موقع رخصة الاستكشاف" (licence within the map's max area — mining licence,
+     * TEST 2026-11-16), try the whole exploration licence first; a part is requested only if the map refuses it.
+     */
+    readonly preferWholeLicence?: boolean;
   };
   /** Per step block (data-block name after "MiningRequestSteps.") — element-id suffix → value. */
   readonly values: Readonly<Record<string, Readonly<Record<string, string>>>>;

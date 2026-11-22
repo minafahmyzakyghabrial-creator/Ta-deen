@@ -29,8 +29,14 @@ export class AddRowDialog {
     return this.page.getByRole('dialog').last();
   }
 
+  /**
+   * Matched by text, not accessible name: since 2026-11 some line-based popups (e.g. geochemical survey)
+   * render the inner "add line" button as `btn-gray-cancel` with an `esnad-add-circle` icon-font glyph,
+   * which becomes part of the accessible name, so `getByRole(..., { name: 'إضافة', exact: true })` misses it
+   * and the popup was saved without its year line ("يرجى إضافة سجلات لمدة سنة واحدة على الأقل").
+   */
   private get addButtons(): Locator {
-    return this.root.getByRole('button', { name: 'إضافة', exact: true });
+    return this.root.locator('button').filter({ hasText: /^\s*إضافة\s*$/ });
   }
 
   async waitOpen(): Promise<void> {

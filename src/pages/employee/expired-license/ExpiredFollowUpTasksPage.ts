@@ -21,11 +21,26 @@ export class ExpiredFollowUpTasksPage extends ExpiredFollowUpList {
     await this.page.waitForTimeout(3_000);
   }
 
+  /**
+   * TEST 2026-11-17: "إسناد إلى" now opens a dialog "مسند إلى" with "لي" / "آخرون" + "حفظ" / "إلغاء" (UC-003.1).
+   * Picks "لي" and saves; does nothing when the old direct assignment is in place. Returns true when the dialog was shown.
+   */
+  async confirmAssignToMe(): Promise<boolean> {
+    const dialog = this.page.locator('[role="dialog"], .popup-dialog, .osui-popup, [class*="modal"]').filter({ visible: true }).filter({ hasText: 'مسند إلى' }).last();
+    if (!(await dialog.waitFor({ state: 'visible', timeout: 8_000 }).then(() => true, () => false))) return false;
+    await dialog.locator('label', { hasText: /^\s*لي\s*$/ }).first().click();
+    await this.page.waitForTimeout(800);
+    await dialog.getByRole('button', { name: 'حفظ', exact: true }).click();
+    await dialog.waitFor({ state: 'hidden', timeout: 30_000 }).catch(() => {});
+    return true;
+  }
+
   /** Assigns the task to the logged-in user when it is unassigned. Returns the menu before and after. */
   async assignToMe(requestNumber: string): Promise<{ before: string[]; after: string[] }> {
     const before = await this.menu(requestNumber).actions();
     if (before.includes('إسناد إلى')) {
       await this.menu(requestNumber).click('إسناد إلى');
+      await this.confirmAssignToMe();
       await this.page.waitForLoadState('networkidle').catch(() => {});
       await this.page.waitForTimeout(6_000);
       await this.search({ request: requestNumber });
@@ -36,10 +51,31 @@ export class ExpiredFollowUpTasksPage extends ExpiredFollowUpList {
     return { before, after };
   }
 
-  async respond(requestNumber: string): Promise<ExpiredRequestDetailsPage> {
-    const details = await this.openInNewTab(requestNumber, 'الرد على الطلب');
+  async respond(requestNumber: string, task?: string): Promise<ExpiredRequestDetailsPage> {
+    const details = await this.openInNewTab(requestNumber, 'الرد على الطلب', task);
     await details.openRespondTab();
     return details;
+  }
+
+  /**
+   * Makes the task of `requestNumber` (the row whose text contains `task`, when given) respondable by the logged-in
+   * user: assigns it when it is unassigned. Returns false when this user can neither respond nor assign.
+   */
+  async take(requestNumber: string, task?: string): Promise<boolean> {
+    await this.search({ request: requestNumber });
+    if (!(await this.taskRow(requestNumber, task).count())) return false;
+    let actions = await this.menu(requestNumber, task).actions();
+    await this.page.keyboard.press('Escape');
+    if (actions.includes('الرد على الطلب')) return true;
+    if (!actions.includes('إسناد إلى')) return false;
+    await this.menu(requestNumber, task).click('إسناد إلى');
+    await this.confirmAssignToMe();
+    await this.page.waitForLoadState('networkidle').catch(() => {});
+    await this.page.waitForTimeout(6_000);
+    await this.search({ request: requestNumber });
+    actions = await this.menu(requestNumber, task).actions();
+    await this.page.keyboard.press('Escape');
+    return actions.includes('الرد على الطلب');
   }
 
   async view(requestNumber: string): Promise<ExpiredRequestDetailsPage> {

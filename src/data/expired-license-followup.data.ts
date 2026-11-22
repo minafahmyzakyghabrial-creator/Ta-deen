@@ -25,7 +25,11 @@ export const expiredFollowUp = {
     certificateRequired: 'يرجى إرفاق شهادة الإغلاق لإنهاء الطلب.',
     requiredFields: 'يرجى تعبئة جميع الحقول الإلزامية.',
     noResults: 'لا توجد نتائج لعرضها',
+    /** UC-007 field 13 error. */
+    visitDateRule: 'يجب أن يكون تاريخ الزيارة في تاريخ اليوم أو قبله، وألا يسبق تاريخ إنشاء الطلب.',
   },
+  /** Non-existent R&C request number for the UC-005 close-request validation (Q27). */
+  unknownRcNumber: '99999999',
 
   /** UC-002 Status Table (search filter values). */
   statuses: ['قيد التنفيذ', 'مكتمل – لا يتطلب إجراء', 'مكتمل – تم تقديم طلب/ شهادة إعادة التأهيل والإغلاق',

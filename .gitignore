@@ -34,3 +34,6 @@ test-results-*/
 # Test-case workbook and bug screenshots (kept local only)
 test-cases/*.xlsx
 test-cases/**/*.png
+follow up bugs/**/*.png
+follow up bugs/**/*.xlsx
+follow up bugs/**/*.pdf

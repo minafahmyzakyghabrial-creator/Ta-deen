@@ -91,6 +91,8 @@ export function defaultExplorationLicenseData(): ExplorationLicenseData {
         heading: 'الحفر الماسي',
         fields: { 'عدد الحفر الماسي': '4', 'متوسط التكلفة/المتر': '400', 'متوسط الاعماق': '50' },
       },
+      // Initial value only: WorkPlanStep.balanceYearTotals() then sets each year's rehabilitation cost so the
+      // year's total passes the minimum-spending check (compared as text by the app), for any licence duration.
       rehabilitationCostPerYear: '5000',
       // Duration input (maxLength 3) unlocks after year + month; 1 + 3 months stays inside a 1-year licence.
       timeline: { startYear: 'السنه الاولي', startMonth: 'الشهر الأول', durationMonths: '3' },

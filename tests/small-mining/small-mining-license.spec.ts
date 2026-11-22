@@ -42,7 +42,7 @@ const RUN: {
 } = {
   env: 'test',
   licenses: 1,
-  explorationLicences: ['20260311385'],
+  explorationLicences: ['20260311434'],
   request: '',
   bill: '',
   investor: 'investor2',

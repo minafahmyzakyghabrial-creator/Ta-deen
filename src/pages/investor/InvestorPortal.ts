@@ -34,6 +34,10 @@ export class InvestorPortal {
   get smallMiningLicense() {
     return new SmallMiningLicensePage(this.page);
   }
+  /** "إصدار رخصة تعدين" — the same Licenses_MSM wizard as the small mine licence (In_LicenseType=8 instead of 13). */
+  get miningLicense() {
+    return new SmallMiningLicensePage(this.page);
+  }
   get publicProjectExtension() {
     return new PublicProjectExtensionPage(this.page);
   }

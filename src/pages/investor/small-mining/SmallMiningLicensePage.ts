@@ -190,7 +190,8 @@ export class SmallMiningLicensePage extends BasePage {
   }
 
   private mapFrame(): Frame | undefined {
-    return this.page.frames().find((f) => /MapComponent\/SmallMines/.test(f.url()));
+    // Small mine: MapComponent/SmallMines_Taadeen.html; the mining licence (same wizard) opens its own map page.
+    return this.page.frames().find((f) => /MapComponent\//.test(f.url()));
   }
 
   /**
@@ -210,6 +211,17 @@ export class SmallMiningLicensePage extends BasePage {
     log.info(`Exploration licence area ${full.toFixed(3)} km² → part ${(full * scale * scale).toFixed(3)} km² (scale ${scale.toFixed(3)})`);
 
     const part = step.locator('input[type=radio][id$="RadioButton2-input"]');
+    if (d.preferWholeLicence && !(await part.isChecked())) {
+      // "استخدم نفس موقع رخصة الاستكشاف" is selected: read-only corners and a map that loads by itself (no
+      // "انظر على الخريطة"). Licence 20260311392 was refused there with "الموقع خارج المنطقة المرخصة" (TEST 2026-11-16).
+      const result = await this.checkOnMap(d.mapTimeoutMs, false);
+      this.attempts.push({ attempt: 0, areaKm2: +full.toFixed(4), corners: 'whole exploration licence', result });
+      if (/نجاح/.test(result) && !/تقاطع|خارج|غير صالح|خطأ|تجاوز/.test(result)) {
+        log.info(`Whole exploration licence (${full.toFixed(3)} km²) confirmed — ${result}`);
+        return;
+      }
+      log.warn(`Map refused the whole exploration licence: ${result} — requesting a part`);
+    }
     if (!(await part.isChecked())) {
       const activity = trackServerActivity(this.page);
       await step.locator('label[for$="RadioButton2-input"]').click();
@@ -240,6 +252,14 @@ export class SmallMiningLicensePage extends BasePage {
   }
 
   private async writeCorners(target: readonly LatLon[]): Promise<void> {
+    // Switching to "حدد جزءًا من الموقع" from the whole-licence option leaves 3 empty rows (mining licence, TEST
+    // 2026-11-16): add rows with "إضافة إحداثيات" until every corner has one.
+    const addRow = this.stepBlock('LicenseLocation').getByRole('button', { name: /إضافة إحداثيات/ });
+    for (let have = (await this.corners()).length; have < target.length; ) {
+      await addRow.click();
+      await expect.poll(async () => (await this.corners()).length, { message: '"إضافة إحداثيات" added no row' }).toBeGreaterThan(have);
+      have = (await this.corners()).length;
+    }
     const rows = await this.corners();
     if (rows.length !== target.length) throw new Error(`Expected ${target.length} coordinate rows, found ${rows.length}`);
     for (let i = 0; i < rows.length; i++) {
@@ -254,23 +274,31 @@ export class SmallMiningLicensePage extends BasePage {
     await trackServerActivity(this.page).idle(1_000);
   }
 
-  /** "انظر على الخريطة" → waits for the map's verdict → "تأكيد". Returns the messages shown. */
-  private async checkOnMap(timeout: number): Promise<string> {
-    const previous = this.mapFrame()?.url();
-    const close = this.mapFrame()?.getByRole('button', { name: 'إغلاق' });
-    if (close && (await close.isVisible().catch(() => false))) await close.dispatchEvent('click');
-    const show = this.stepBlock('LicenseLocation').getByRole('button', { name: 'انظر على الخريطة' });
-    await show.scrollIntoViewIfNeeded();
-    const activity = trackServerActivity(this.page);
-    await show.click();
-    await activity.idle(1_000);
+  /**
+   * "انظر على الخريطة" → waits for the map's verdict → "تأكيد". Returns the messages shown. With `press` false the map
+   * already on the page is read as it is ("استخدم نفس موقع رخصة الاستكشاف" loads it by itself and has no button).
+   */
+  private async checkOnMap(timeout: number, press = true): Promise<string> {
     let map: Frame | undefined;
-    await expect
-      .poll(() => (map = this.mapFrame()) !== undefined && map.url() !== previous, { timeout, message: 'The map did not reload with the new coordinates' })
-      .toBe(true);
+    if (press) {
+      const previous = this.mapFrame()?.url();
+      const close = this.mapFrame()?.getByRole('button', { name: 'إغلاق' });
+      if (close && (await close.isVisible().catch(() => false))) await close.dispatchEvent('click');
+      const show = this.stepBlock('LicenseLocation').getByRole('button', { name: 'انظر على الخريطة' });
+      await show.scrollIntoViewIfNeeded();
+      const activity = trackServerActivity(this.page);
+      await show.click();
+      await activity.idle(1_000);
+      await expect
+        .poll(() => (map = this.mapFrame()) !== undefined && map.url() !== previous, { timeout, message: 'The map did not reload with the new coordinates' })
+        .toBe(true);
+    } else {
+      await expect.poll(() => (map = this.mapFrame()) !== undefined, { timeout, message: 'The licence map did not load' }).toBe(true);
+    }
     await this.page.locator('iframe[id$="-iframe"]').scrollIntoViewIfNeeded().catch(() => undefined);
     const confirm = map!.locator('#btnSubmit');
     await expect(confirm).toBeAttached({ timeout });
+    log.info(`Map: ${map!.url().split('?')[0]} · max area ${new URL(map!.url()).searchParams.get('dblMaxArea') ?? '?'} km²`);
     // "تأكيد" can start enabled and be disabled by the async validation: wait for an error or a stable enabled state.
     let verdict = '';
     let enabledSince = 0;
