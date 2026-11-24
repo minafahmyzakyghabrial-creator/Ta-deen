@@ -32,9 +32,9 @@ import { splitRules, WizardValidationError } from '@utils/validation';
  *   npx playwright test tests/exploration-license/new-exploration-license.spec.ts --project=chromium --workers=3
  */
 const RUN: { env: EnvName; licenses: number; investor: UserKey; employee: UserKey; stopAt?: RegExp } = {
-  env: 'uat',
+  env: 'test',
   licenses: 1,
-  investor: 'investor1',
+  investor: 'investor2',
   employee: 'employee1',
   //stopAt: /الامتثال الفني/,
 };

@@ -44,12 +44,12 @@ const RUN: {
   employee: UserKey;
   stopAt?: RegExp;
 } = {
-  env: 'uat',
+  env: 'test',
   licenses: 1,
-  explorationLicences: ['20260311487'],
+  explorationLicences: ['20260311492'],
   request: '',
   bill: '',
-  investor: 'investor1',
+  investor: 'investor2',
   employee: 'employee1',
   //stopAt: /الامتثال الفني/,
 };
