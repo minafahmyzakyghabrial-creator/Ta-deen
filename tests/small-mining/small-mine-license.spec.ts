@@ -56,7 +56,7 @@ const AUTHORISED_ENVS: readonly EnvName[] = ['test', 'uat'];
 /** Times to place the location again when Next still asks for the map confirmation. */
 const LOCATION_SAVE_RETRIES = 3;
 
-if (RUN.env === 'prod') throw new Error('small-mining-license.spec.ts must never run on PROD.');
+if (RUN.env === 'prod') throw new Error('small-mine-license.spec.ts must never run on PROD.');
 process.env.TEST_ENV = RUN.env;
 if (RUN.stopAt) process.env.WORKFLOW_IDLE_MS ??= String(10 * 60_000);
 test.use({ investorUser: RUN.investor, employeeUser: RUN.employee });
