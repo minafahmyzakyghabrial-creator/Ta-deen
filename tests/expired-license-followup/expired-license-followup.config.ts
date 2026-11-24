@@ -30,7 +30,7 @@ export const RUN: {
   bugsDir: string;
 } = {
   env: 'test',
-  licence: process.env.LICENCE ?? '20260411420',
+  licence: process.env.LICENCE ?? '20260610084',
   request: process.env.REQUEST ?? '',
   // User's call 2026-11-17: "use mim user" (MIM_SuperUser) for every non-specialist role — Internal1_Preprod (employee3)
   // could not take the RCM decision nor see the Request Management tab. RCM_USER overrides it (e.g. RCM_USER=employee3).

@@ -32,9 +32,9 @@ import { splitRules, WizardValidationError } from '@utils/validation';
  *   npx playwright test tests/exploration-license/new-exploration-license.spec.ts --project=chromium --workers=3
  */
 const RUN: { env: EnvName; licenses: number; investor: UserKey; employee: UserKey; stopAt?: RegExp } = {
-  env: 'test',
+  env: 'uat',
   licenses: 1,
-  investor: 'investor2',
+  investor: 'investor1',
   employee: 'employee1',
   //stopAt: /الامتثال الفني/,
 };
@@ -57,7 +57,7 @@ const LICENSE_DETAILS = {
   /** فئة الرخصة: 'أ' | 'ب' | 'ج'  ('ج' has no geology expert — the wizard does not show "القدرة الفنية") */
   category: 'أ',
   /** مدة الرخصة (سنوياً): '1' … '5' */
-  durationYears: '2',
+  durationYears: '1',
   /** المعادن: one or more, e.g. ['ذهب'] or ['ذهب', 'نحاس'] — the list depends on the category */
   minerals: ['كسر رخام'],
   /** المجمع التعديني: 'داخل المجمعات التعدينية' | 'خارج المجمعات التعدينية' */
@@ -68,7 +68,7 @@ const LICENSE_DETAILS = {
  * Step 2 — "موقع الطلب": area of the land in km², placed at a random point of the region being tried.
  * A larger area overlaps existing licences ("تقاطع المواقع") more often, so expect more map attempts.
  */
-const LAND_AREA_KM2 = 3;
+const LAND_AREA_KM2 = 1.5;
 
 /**
  * Step 2 — shape of the generated land. Both have exactly LAND_AREA_KM2:

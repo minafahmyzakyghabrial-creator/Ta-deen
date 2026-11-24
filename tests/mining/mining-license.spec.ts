@@ -6,6 +6,8 @@ import { EnvName, getEnvName, getRequestNumber, readVar, UserKey } from '@config
 import { FeedbackMessage } from '@components/FeedbackMessage';
 import { EmployeePortal } from '@pages/employee/EmployeePortal';
 import { InvestorPortal } from '@pages/investor/InvestorPortal';
+import { RequestNotFoundError } from '@pages/investor/RequestsPage';
+import { PaymentPage } from '@pages/investor/PaymentPage';
 import { SmallMiningSubmission } from '@pages/investor/small-mining/SmallMiningLicensePage';
 import { ApprovalWorkflow } from '@flows/approval-workflow.flow';
 import { miningLicenseData } from '@data/mining-license.data';
@@ -18,7 +20,10 @@ import { splitRules, WizardValidationError } from '@utils/validation';
  *                         Only AUTHORISED_ENVS may run it (it creates, pays and completes real requests); 'prod' is refused.
  *   licenses            → how many new mining licences to create, all in parallel (one test each, own browser contexts).
  *   explorationLicences → the investor's exploration licence(s) ("رخصة الكشف") each new request is built on; licence #n uses
- *                         entry n (the last one repeats). '' = the first one the wizard offers.
+ *                         entry n, so `licenses` > 1 needs that many DIFFERENT licences. '' = the first one the wizard offers.
+ *                         One licence carries ONE request: when an earlier run already opened a request on the licence
+ *                         (.workflow-state/mining-licence-<licence>.json) and it is still open, that request is continued
+ *                         instead of opening a second one (the map refuses a second part of it: "تقاطع المواقع").
  *   request             → '' : create NEW requests; '<number>' : continue that request (a draft is completed and submitted,
  *                         a submitted one is paid and approved). REQUEST_NUMBER overrides it per run.
  *   bill                → SADAD bill of a resumed request that is still "بإنتظار الدفع" (shown in the submit dialog);
@@ -39,12 +44,12 @@ const RUN: {
   employee: UserKey;
   stopAt?: RegExp;
 } = {
-  env: 'test',
+  env: 'uat',
   licenses: 1,
-  explorationLicences: ['20260311447'],
+  explorationLicences: ['20260311487'],
   request: '',
   bill: '',
-  investor: 'investor2',
+  investor: 'investor1',
   employee: 'employee1',
   //stopAt: /الامتثال الفني/,
 };
@@ -83,8 +88,16 @@ test.describe.configure({ mode: 'parallel' });
 
 const resumed = readVar('REQUEST_NUMBER') ?? RUN.request.trim();
 const count = resumed ? 1 : RUN.licenses;
+const licences = Array.from({ length: count }, (_, i) => RUN.explorationLicences[i]?.trim() ?? '');
+// Parallel requests on one exploration licence collide on the map ("تقاطع المواقع"): one licence per request.
+if (count > 1 && (licences.some((l) => !l) || new Set(licences).size < count)) {
+  throw new Error(
+    `RUN.licenses = ${count} needs ${count} different exploration licences in RUN.explorationLicences (one request per licence); ` +
+      `got: ${licences.map((l) => l || "''").join(', ')}.`,
+  );
+}
 for (let n = 1; n <= count; n++) {
-  const licence = RUN.explorationLicences[Math.min(n, RUN.explorationLicences.length) - 1] ?? '';
+  const licence = licences[n - 1];
   const title = count > 1 ? ` #${n}` : '';
   test(`Mining licence${title}: create, pay and complete @e2e`, async ({ investor, employee }, testInfo) => {
     await createAndCompleteLicence(investor, employee, testInfo, licence);
@@ -93,12 +106,61 @@ for (let n = 1; n <= count; n++) {
 
 const submissionFile = (requestNumber: string) => path.resolve('.workflow-state', `${requestNumber}.submission.json`);
 
+/** The mining licence request a run opened on an exploration licence — written as soon as step 1 is saved. */
+const licenceRecordFile = (licence: string) => path.resolve('.workflow-state', `mining-licence-${licence}.json`);
+
+function recordedRequest(licence: string): string | undefined {
+  const file = licenceRecordFile(licence);
+  return fs.existsSync(file) ? (JSON.parse(fs.readFileSync(file, 'utf8')) as { requestNumber?: string }).requestNumber : undefined;
+}
+
+function recordRequest(licence: string, requestNumber: string): void {
+  fs.mkdirSync(path.dirname(licenceRecordFile(licence)), { recursive: true });
+  fs.writeFileSync(licenceRecordFile(licence), JSON.stringify({ licence, requestNumber, at: new Date().toISOString() }, null, 2));
+}
+
+/** Statuses after which the licence is free again for a new request. */
+const CLOSED_STATUS = /مرفوض|رفض|ملغ[يى]|إلغاء|الغاء|محذوف/;
+
+/**
+ * The request an earlier run opened on `licence` while it is still open (draft, awaiting payment, under review), or
+ * undefined when there is none or it was rejected / cancelled / deleted. A completed one means the licence is used up.
+ */
+async function openRequestOn(investor: InvestorPortal, employee: EmployeePortal, licence: string): Promise<{ requestNumber: string; status: string } | undefined> {
+  const requestNumber = recordedRequest(licence);
+  if (!requestNumber) return undefined;
+  let status: string;
+  try {
+    status = await new ApprovalWorkflow(investor, employee, requestNumber).requestStatus();
+  } catch (e) {
+    if (e instanceof RequestNotFoundError) return undefined;
+    throw e;
+  }
+  if (CLOSED_STATUS.test(status)) return undefined;
+  if (/مكتمل/.test(status)) {
+    throw new Error(
+      `Exploration licence ${licence} already produced mining licence request ${requestNumber} ("${status}"). A second request ` +
+        `on it is refused by the map ("تقاطع المواقع") — put another exploration licence in RUN.explorationLicences.`,
+    );
+  }
+  return { requestNumber, status };
+}
+
 async function createAndCompleteLicence(investor: InvestorPortal, employee: EmployeePortal, testInfo: TestInfo, explorationLicence: string): Promise<void> {
   test.setTimeout(150 * 60_000);
   test.skip(!AUTHORISED_ENVS.includes(getEnvName()), `Creates, pays and completes requests — authorised on ${AUTHORISED_ENVS.join(', ')} only.`);
   const data = miningLicenseData();
   const wizard = investor.miningLicense;
   let requestNumber = resumed ? getRequestNumber(resumed) : '';
+  if (!requestNumber && explorationLicence) {
+    const open = await test.step(`Exploration licence ${explorationLicence}: request already open on it?`, () => openRequestOn(investor, employee, explorationLicence));
+    if (open) {
+      requestNumber = open.requestNumber;
+      testInfo.annotations.push({ type: 'continued open request', description: `${requestNumber} (${open.status}) on exploration licence ${explorationLicence}` });
+    }
+  }
+  /** An existing request is continued (REQUEST_NUMBER / RUN.request, or the one already open on the licence). */
+  const continuing = !!requestNumber;
   let workflow = requestNumber ? new ApprovalWorkflow(investor, employee, requestNumber) : undefined;
   let submission: SmallMiningSubmission | undefined;
 
@@ -129,9 +191,19 @@ async function createAndCompleteLicence(investor: InvestorPortal, employee: Empl
       await test.step('Step 1 — معلومات الرخصة', async () => {
         const used = await wizard.fillLicenceInformation(explorationLicence, data.licenceInformation);
         testInfo.annotations.push({ type: 'exploration licence', description: `${used.licence} · ${data.licenceInformation.durationYears} yr · ${used.minerals.join(', ')}` });
+        // '' took the first offered licence, unchecked so far: never open a second request on it (nothing saved yet).
+        const earlier = !continuing && !explorationLicence ? recordedRequest(used.licence) : undefined;
+        if (earlier) {
+          throw new Error(
+            `Exploration licence ${used.licence} (the first one offered) already has request ${earlier} from an earlier run. Put ` +
+              `${used.licence} in RUN.explorationLicences to continue that request (a new one is opened if it was rejected or ` +
+              `cancelled), or choose another licence.`,
+          );
+        }
         const saved = await wizard.saveLicenceInformation();
         if (requestNumber) expect(saved, 'Request number of the opened draft').toBe(requestNumber);
         requestNumber = saved;
+        recordRequest(used.licence, requestNumber);
         testInfo.annotations.push({ type: 'request', description: requestNumber });
         workflow = new ApprovalWorkflow(investor, employee, requestNumber);
         expect(await wizard.activeStep()).toBe('موقع الرخصة');
@@ -140,7 +212,7 @@ async function createAndCompleteLicence(investor: InvestorPortal, employee: Empl
       await test.step(`Step 2 — موقع الرخصة: part of the exploration licence under ${data.location.maxAreaKm2} km², map confirmation`, async () => {
         try {
           // A resumed draft may already have a confirmed location: try Next first.
-          if (resumed) {
+          if (continuing) {
             const change = await wizard.wizard.next();
             if (change.moved) return;
             await new FeedbackMessage(investor.page).closeAll();
@@ -190,7 +262,20 @@ async function createAndCompleteLicence(investor: InvestorPortal, employee: Empl
     const feeHandled = bills.some((b) => b.verified) || handledTasks.length > 0;
     const status = await workflow!.requestStatus();
     if (!feeHandled && /بإنتظار الدفع|بانتظار الدفع/.test(status)) {
-      if (!submission) throw new Error(`Request ${requestNumber} is "${status}" but its SADAD bill is unknown — set RUN.bill or BILL_NUMBER.`);
+      if (!submission) {
+        // The success dialog was missed (e.g. "إرسال" answered "The connection has timed out" but the server submitted):
+        // the Requests row "⋯" → "ادفع" opens the payment page with the bill (VERIFIED on UAT 2026-11-22, request 9645).
+        submission = await test.step(`Read the SADAD bill: Requests → ⋯ → ادفع (request ${requestNumber})`, async () => {
+          await investor.requests.rowAction(requestNumber, 'ادفع'); // requestStatus() left the row listed
+          const payment = new PaymentPage(investor.page);
+          await payment.expectLoaded();
+          const bill = await payment.bill();
+          return { requestNumber, ...bill };
+        });
+        fs.mkdirSync(path.dirname(submissionFile(requestNumber)), { recursive: true });
+        fs.writeFileSync(submissionFile(requestNumber), JSON.stringify(submission, null, 2));
+        testInfo.annotations.push({ type: 'submission bill (from ادفع)', description: `${submission.billId} (${submission.amount})` });
+      }
       await test.step(`Pay the licence fee — bill ${submission.billId} (${submission.amount})`, async () => {
         await workflow!.paySubmissionBill({ billId: submission!.billId, amount: submission!.amount, description: submission!.description });
       });

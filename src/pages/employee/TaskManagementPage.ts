@@ -94,7 +94,10 @@ export class TaskManagementPage extends BasePage {
     await menu.click('إسناد إلى');
     const dialog = this.page.getByRole('dialog').last();
     await expect(dialog).toBeVisible();
-    await dialog.locator('label').filter({ hasText: /^\s*لي\s*$/ }).first().click();
+    const self = dialog.locator('label').filter({ hasText: /^\s*لي\s*$/ }).first();
+    // The row's "⋯" balloon can stay open over the dialog and cover "لي" (UAT 2026-11-22, request 9645, two tasks
+    // listed): a pointer click then lands on the balloon's "إسناد إلى". Fall back to a click event on the label itself.
+    await self.click({ timeout: 5_000 }).catch(() => self.dispatchEvent('click'));
     await expect(dialog.getByRole('radio', { name: 'لي' })).toBeChecked();
     await this.clickAndWaitForServer(dialog.getByRole('button', { name: 'حفظ', exact: true }), { action: 'ActionAssign_Self' });
     await expect(this.row(task).first().locator('td[data-header="الحالة"]')).toHaveText(/قيد التنفيذ/);
